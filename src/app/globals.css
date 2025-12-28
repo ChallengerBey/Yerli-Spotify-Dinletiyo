@@ -92,4 +92,12 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
   }
+
+  .safe-area-pb {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
 }
