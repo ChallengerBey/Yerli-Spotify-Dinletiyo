@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "rewrites": [
+    {
+      "source": "/googled8e589b36b836b62.html",
+      "destination": "/googled8e589b36b836b62.html"
+    }
+  ]
+}
