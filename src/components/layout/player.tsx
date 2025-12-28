@@ -654,7 +654,7 @@ export function Player() {
       </footer>
 
       {/* Mobile Player & Nav */}
-      <footer className="lg:hidden fixed bottom-0 left-0 right-0 glass-card border-t border-white/10 flex flex-col z-[9999] bg-black/80 backdrop-blur-xl">
+      <footer className="lg:hidden fixed bottom-0 left-0 right-0 glass-card border-t border-white/10 flex flex-col z-[9999] bg-black/80 backdrop-blur-xl safe-area-pb">
         <div className="flex items-center w-full px-4 py-3">
           <Image
             src={currentSong.imageUrl}
