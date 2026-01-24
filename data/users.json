@@ -1,0 +1,803 @@
+[
+  {
+    "id": "1754170421322",
+    "username": "semihergili",
+    "email": "ergilisemih7@gmail.com",
+    "password": "ergilisemih7@gmail.com",
+    "registeredAt": "2025-08-02T21:33:41.322Z",
+    "recentlyPlayed": [
+      {
+        "id": "LZnXSIQdvhs",
+        "title": "Ara Beni Lütfen",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "4:40",
+        "imageUrl": "https://i.ytimg.com/vi/LZnXSIQdvhs/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAmj9sU2cGN5-m_9z9mwQap-3FBRA",
+        "audioUrl": "LZnXSIQdvhs",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "oYDY7msKIdY",
+        "title": "Kenan Doğulu - Şans Meleğim (Official Video) #ŞansMeleğim",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "4:15",
+        "imageUrl": "https://i.ytimg.com/vi/oYDY7msKIdY/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBJQ39wgzVWXOUM_fyDAvQtoJjhFA",
+        "audioUrl": "oYDY7msKIdY",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "cpp69ghR1IM",
+        "title": "TARKAN - Şımarık (Official Music Video)",
+        "artist": "Tarkan",
+        "album": "",
+        "duration": "3:12",
+        "imageUrl": "https://i.ytimg.com/vi/cpp69ghR1IM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDdJuAD-Ujgp1tbjzArgKY1VoNY0w",
+        "audioUrl": "cpp69ghR1IM",
+        "playlist": [
+          {
+            "id": "cpp69ghR1IM",
+            "title": "TARKAN - Şımarık (Official Music Video)",
+            "artist": "Tarkan",
+            "album": "",
+            "duration": "3:12",
+            "imageUrl": "https://i.ytimg.com/vi/cpp69ghR1IM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDdJuAD-Ujgp1tbjzArgKY1VoNY0w",
+            "audioUrl": "cpp69ghR1IM"
+          },
+          {
+            "id": "SCZgGVqVsbY",
+            "title": "TARKAN - Dudu (Official Music Video)",
+            "artist": "Tarkan",
+            "album": "",
+            "duration": "4:24",
+            "imageUrl": "https://i.ytimg.com/vi/SCZgGVqVsbY/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBJD9_B2SPtegGSB0XwjQ9PLQONMw",
+            "audioUrl": "SCZgGVqVsbY"
+          },
+          {
+            "id": "qlib3dFzaZk",
+            "title": "TARKAN - Şerbetli (Official Music Video)",
+            "artist": "Tarkan",
+            "album": "",
+            "duration": "3:15",
+            "imageUrl": "https://i.ytimg.com/vi/qlib3dFzaZk/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCpeP-ufWryMZl8rixRTGFeAcTnZg",
+            "audioUrl": "qlib3dFzaZk"
+          },
+          {
+            "id": "e5qW72U7UyQ",
+            "title": "Kenan Doğulu - İlk Adımı Sen At",
+            "artist": "Kenan Doğulu",
+            "album": "",
+            "duration": "3:30",
+            "imageUrl": "https://i.ytimg.com/vi/e5qW72U7UyQ/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD9nktXuvUV1sgKg3cZYaSnYMtvoA",
+            "audioUrl": "e5qW72U7UyQ"
+          },
+          {
+            "id": "LZnXSIQdvhs",
+            "title": "Ara Beni Lütfen",
+            "artist": "Kenan Doğulu",
+            "album": "",
+            "duration": "4:40",
+            "imageUrl": "https://i.ytimg.com/vi/LZnXSIQdvhs/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAmj9sU2cGN5-m_9z9mwQap-3FBRA",
+            "audioUrl": "LZnXSIQdvhs"
+          },
+          {
+            "id": "oYDY7msKIdY",
+            "title": "Kenan Doğulu - Şans Meleğim (Official Video) #ŞansMeleğim",
+            "artist": "Kenan Doğulu",
+            "album": "",
+            "duration": "4:15",
+            "imageUrl": "https://i.ytimg.com/vi/oYDY7msKIdY/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBJQ39wgzVWXOUM_fyDAvQtoJjhFA",
+            "audioUrl": "oYDY7msKIdY"
+          },
+          {
+            "id": "J3zaRg3Y2l0",
+            "title": "Mustafa Sandal, Zeynep Bastık - Mod (Official Video)",
+            "artist": "Mustafa Sandal",
+            "album": "",
+            "duration": "2:57",
+            "imageUrl": "https://i.ytimg.com/vi/J3zaRg3Y2l0/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAZpHGYLbqVVgNytPtXQoaUynbPMg",
+            "audioUrl": "J3zaRg3Y2l0"
+          },
+          {
+            "id": "7TDs7KFoh1E",
+            "title": "Mustafa Sandal - Isyankar ft. Gentleman [HD + Clip]",
+            "artist": "Mustafa Sandal",
+            "album": "",
+            "duration": "3:52",
+            "imageUrl": "https://i.ytimg.com/vi/7TDs7KFoh1E/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4AdQGgALgA4oCDAgAEAEYciBlKCwwDw==&rs=AOn4CLB1HyoMtqfazPhJRAR_B9DPO3pMXg",
+            "audioUrl": "7TDs7KFoh1E"
+          },
+          {
+            "id": "IMZnwQARsE4",
+            "title": "Adı İntikamdı",
+            "artist": "Mustafa Sandal",
+            "album": "",
+            "duration": "3:52",
+            "imageUrl": "https://i.ytimg.com/vi/IMZnwQARsE4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCyae98GAQCitrOskiS7dO_AMFtXA",
+            "audioUrl": "IMZnwQARsE4"
+          },
+          {
+            "id": "vgqHhAwlYmg",
+            "title": "Burak Kut - Benimle Oynama (Official Video)",
+            "artist": "Burak Kut",
+            "album": "",
+            "duration": "4:18",
+            "imageUrl": "https://i.ytimg.com/vi/vgqHhAwlYmg/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD6ehGwlgFO_ILWTL7lwcN74hXN7Q",
+            "audioUrl": "vgqHhAwlYmg"
+          },
+          {
+            "id": "7d5966ESTX0",
+            "title": "Burak Kut - Tahtalara Vur | HD Remastered (1080p)",
+            "artist": "Burak Kut",
+            "album": "",
+            "duration": "3:57",
+            "imageUrl": "https://i.ytimg.com/vi/7d5966ESTX0/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD9o13wYRKu1_KAtRWaZUjJALcKGQ",
+            "audioUrl": "7d5966ESTX0"
+          },
+          {
+            "id": "t88lohZOHiQ",
+            "title": "Burak Kut - Derdim Var (Radio Edit)",
+            "artist": "Burak Kut",
+            "album": "",
+            "duration": "3:14",
+            "imageUrl": "https://i.ytimg.com/vi/t88lohZOHiQ/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDnZn-2rHR-VFw5PgNz02KfdFhLaA",
+            "audioUrl": "t88lohZOHiQ"
+          },
+          {
+            "id": "DiajA8Vb2EQ",
+            "title": "Adam Port x Serdar Ortaç-Bensiz Olsun & Move (Mashup by Mozisc)",
+            "artist": "Serdar Ortaç",
+            "album": "",
+            "duration": "3:41",
+            "imageUrl": "https://i.ytimg.com/vi/DiajA8Vb2EQ/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYfyBXKCkwDw==&rs=AOn4CLAIcfzN0lcP3_Z1XajbbEqAxJ1Y3w",
+            "audioUrl": "DiajA8Vb2EQ"
+          },
+          {
+            "id": "J0i27Xz3BN4",
+            "title": "Serdar Ortaç - Gitme",
+            "artist": "Serdar Ortaç",
+            "album": "",
+            "duration": "4:22",
+            "imageUrl": "https://i.ytimg.com/vi/J0i27Xz3BN4/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYciBIKDEwDw==&rs=AOn4CLCo_BoLq87nTNuL8ZRjIWTP9uZZqw",
+            "audioUrl": "J0i27Xz3BN4"
+          },
+          {
+            "id": "7YmUuZqsyUM",
+            "title": "Serdar Ortaç - Cımbız",
+            "artist": "Serdar Ortaç",
+            "album": "",
+            "duration": "3:36",
+            "imageUrl": "https://i.ytimg.com/vi/7YmUuZqsyUM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDT2Q5pHGMt8YzlQhFELsgCKWBoCA",
+            "audioUrl": "7YmUuZqsyUM"
+          },
+          {
+            "id": "nZgEamGX7u0",
+            "title": "Sertab Erener -Music",
+            "artist": "Sertab Erener",
+            "album": "",
+            "duration": "4:09",
+            "imageUrl": "https://i.ytimg.com/vi/nZgEamGX7u0/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYZSBMKEAwDw==&rs=AOn4CLB6wfB0lFEKxOvmlXlgrElxVpliTg",
+            "audioUrl": "nZgEamGX7u0"
+          },
+          {
+            "id": "sXXPgal-BM0",
+            "title": "Sertab Erener - Olsun",
+            "artist": "Sertab Erener",
+            "album": "",
+            "duration": "4:46",
+            "imageUrl": "https://i.ytimg.com/vi/sXXPgal-BM0/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA-8YeEgCUoK-I6kEXjVpa_VXZfIA",
+            "audioUrl": "sXXPgal-BM0"
+          },
+          {
+            "id": "Vq42PkKCHCs",
+            "title": "Sertab Erener Eurovision 2024 - Everyway That I Can",
+            "artist": "Sertab Erener",
+            "album": "",
+            "duration": "2:09",
+            "imageUrl": "https://i.ytimg.com/vi/Vq42PkKCHCs/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDFfNqJcUzCtd43t3B_iKArG4foJg",
+            "audioUrl": "Vq42PkKCHCs"
+          },
+          {
+            "id": "6RXbmnXYbeQ",
+            "title": "Levent Yüksel - Beni Bırakın (1993)",
+            "artist": "Levent Yüksel",
+            "album": "",
+            "duration": "4:13",
+            "imageUrl": "https://i.ytimg.com/vi/6RXbmnXYbeQ/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYZSBPKGUwDw==&rs=AOn4CLAGRi1vkbOczaFO75zOU-Ked2BxtA",
+            "audioUrl": "6RXbmnXYbeQ"
+          },
+          {
+            "id": "GlyFr5-ACXo",
+            "title": "Beni Bırakın",
+            "artist": "Levent Yüksel",
+            "album": "",
+            "duration": "4:13",
+            "imageUrl": "https://i.ytimg.com/vi/GlyFr5-ACXo/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA4_32jgdQ45wsAaKvqGn7AGE9gWg",
+            "audioUrl": "GlyFr5-ACXo"
+          },
+          {
+            "id": "i61QdCjDTSc",
+            "title": "Levent Yüksel - Medcezir (30. Yıl Senfonik) - Live [Official Video]",
+            "artist": "Levent Yüksel",
+            "album": "",
+            "duration": "4:28",
+            "imageUrl": "https://i.ytimg.com/vi/i61QdCjDTSc/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCI8LhMHuiFHdYWTFcfmonV8NqCoQ",
+            "audioUrl": "i61QdCjDTSc"
+          },
+          {
+            "id": "znF1VGtD63A",
+            "title": "Çelik - Öyle Bir Geçer Zaman ki (Turkish Music)",
+            "artist": "Çelik",
+            "album": "",
+            "duration": "4:44",
+            "imageUrl": "https://i.ytimg.com/vi/znF1VGtD63A/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYciBgKBQwDw==&rs=AOn4CLB1oKCgGXXXaNhZrACmynzLJakZeA",
+            "audioUrl": "znF1VGtD63A"
+          },
+          {
+            "id": "9LiWERWPgD0",
+            "title": "Dark Music - Erdal Çelik Gittin Gideli (Metal Cover)",
+            "artist": "Çelik",
+            "album": "",
+            "duration": "4:12",
+            "imageUrl": "https://i.ytimg.com/vi/9LiWERWPgD0/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDW78VwkrYWWabWGXyv44NP5qLHCA",
+            "audioUrl": "9LiWERWPgD0"
+          },
+          {
+            "id": "Rjh4Nn-nLHw",
+            "title": "En Sevdiğim Olur Musun?",
+            "artist": "Çelik",
+            "album": "",
+            "duration": "4:21",
+            "imageUrl": "https://i.ytimg.com/vi/Rjh4Nn-nLHw/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLALPYjoSBZKy3b3xduVMd0K50K5Fw",
+            "audioUrl": "Rjh4Nn-nLHw"
+          }
+        ]
+      },
+      {
+        "id": "7fYi_tYZhnY",
+        "title": "Patron & Sagopa Kajmer - Siyah (Official Video)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:51",
+        "imageUrl": "https://i.ytimg.com/vi/7fYi_tYZhnY/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDXCIwc9B2ibiHPwpX9sK-8ajEpLw",
+        "audioUrl": "7fYi_tYZhnY",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "p6rPm7cJFB0",
+        "title": "sagopa  & ceza  merhametine dön (mix remix)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "2:21",
+        "imageUrl": "https://i.ytimg.com/vi/p6rPm7cJFB0/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALoAooCDAgAEAEYZiBmKGYwDw==&rs=AOn4CLDSRLtjXlyplUAvwiiykmiUKvK3Ig",
+        "audioUrl": "p6rPm7cJFB0",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "ekZTW2r4vb4",
+        "title": "Metallica - I Disappear (Official Music Video)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "4:29",
+        "imageUrl": "https://i.ytimg.com/vi/ekZTW2r4vb4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBjAf9F6Z6WWzPkoJmJViojewY5AQ",
+        "audioUrl": "ekZTW2r4vb4",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "gB9P0kpc1O4",
+        "title": "In the End",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:37",
+        "imageUrl": "https://i.ytimg.com/vi/gB9P0kpc1O4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDnzRVHUxLFPn8X0EaS-MXekgGKsw",
+        "audioUrl": "gB9P0kpc1O4",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "JM7ZTBURMaI",
+        "title": "Linkin Park - In The End (Mellen Gi & Profitt Remix) BMW",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:40",
+        "imageUrl": "https://i.ytimg.com/vi/JM7ZTBURMaI/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBt3_chjmVmn-cTIDJM1iirZ5YRBw",
+        "audioUrl": "JM7ZTBURMaI",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "d_toKURCt10",
+        "title": "Linkin Park - In the End (Lyrics)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:36",
+        "imageUrl": "https://i.ytimg.com/vi/d_toKURCt10/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB_4t22rBR6-RC058hOeTJuJEsFQg",
+        "audioUrl": "d_toKURCt10",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "fdr49DW6Ars",
+        "title": "Sagopa Kajmer - Eski Bıçaklar Yeni Kesikler",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:34",
+        "imageUrl": "https://i.ytimg.com/vi/fdr49DW6Ars/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDcHvQE9BSX9nSWdT9-HllFHLq5vw",
+        "audioUrl": "fdr49DW6Ars",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "FUXGCOmgAZM",
+        "title": "Sertab Erener - Leave (Live) - Eurovision 2004",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:00",
+        "imageUrl": "https://i.ytimg.com/vi/FUXGCOmgAZM/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYXCBCKH8wDw==&rs=AOn4CLB6xk6dAqQICltee0pgFybEtDlVhw",
+        "audioUrl": "FUXGCOmgAZM",
+        "playlist": [
+          {
+            "id": "1TtalpYn0A4",
+            "title": "TARKAN - Kuzu Kuzu  (Acoustic ) (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:43",
+            "imageUrl": "https://i.ytimg.com/vi/1TtalpYn0A4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBww9Pq9XMvZ0aIW7HUAFsK85ryMA",
+            "audioUrl": "1TtalpYn0A4"
+          },
+          {
+            "id": "93wsynxLMLk",
+            "title": "Ajda Pekkan - Yaz Yaz Yaz",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:11",
+            "imageUrl": "https://i.ytimg.com/vi/93wsynxLMLk/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYciA8KGQwDw==&rs=AOn4CLDY_IjSqxHKe3ukZb_AVT8WslWqWw",
+            "audioUrl": "93wsynxLMLk"
+          },
+          {
+            "id": "FUXGCOmgAZM",
+            "title": "Sertab Erener - Leave (Live) - Eurovision 2004",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:00",
+            "imageUrl": "https://i.ytimg.com/vi/FUXGCOmgAZM/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYXCBCKH8wDw==&rs=AOn4CLB6xk6dAqQICltee0pgFybEtDlVhw",
+            "audioUrl": "FUXGCOmgAZM"
+          },
+          {
+            "id": "KEQWKx6Ymms",
+            "title": "Mert Demir & Mabel Matiz - Antidepresan (English subtitles lyrics)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:01",
+            "imageUrl": "https://i.ytimg.com/vi/KEQWKx6Ymms/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAd82PIL6QzcSs9i2Nl8vEXyz6LrA",
+            "audioUrl": "KEQWKx6Ymms"
+          },
+          {
+            "id": "YVN0xgfcJiM",
+            "title": "Gunes - NKBI (English Version)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:05",
+            "imageUrl": "https://i.ytimg.com/vi/YVN0xgfcJiM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA5OkOTKCkj8HB_UWcbyohiaYkBhQ",
+            "audioUrl": "YVN0xgfcJiM"
+          },
+          {
+            "id": "XokJGO8ALVs",
+            "title": "Ezhel - Geceler",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:44",
+            "imageUrl": "https://i.ytimg.com/vi/XokJGO8ALVs/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4OgAK4CIoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBbPOa-NPC2q8Ww6lxvpO5uw1XwhQ",
+            "audioUrl": "XokJGO8ALVs"
+          },
+          {
+            "id": "cpp69ghR1IM",
+            "title": "TARKAN - Şımarık (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:12",
+            "imageUrl": "https://i.ytimg.com/vi/cpp69ghR1IM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDdJuAD-Ujgp1tbjzArgKY1VoNY0w",
+            "audioUrl": "cpp69ghR1IM"
+          },
+          {
+            "id": "KSlOGG5Ohgg",
+            "title": "Sezen Aksu - Hadi Bakalım (Official Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:47",
+            "imageUrl": "https://i.ytimg.com/vi/KSlOGG5Ohgg/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAJO3lS850ocLylbEeHXQfj9ZntaA",
+            "audioUrl": "KSlOGG5Ohgg"
+          },
+          {
+            "id": "pSs1XHuFfuQ",
+            "title": "Kenan Dogulu - Shake It Up Shekerim (Turkey) Live 2007 Eurovision Song Contest",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:07",
+            "imageUrl": "https://i.ytimg.com/vi/pSs1XHuFfuQ/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCZozPp4YCjpNAUtIPWT8xKsndrlQ",
+            "audioUrl": "pSs1XHuFfuQ"
+          },
+          {
+            "id": "TzKgojZqO5Y",
+            "title": "Hadise - Düm Tek Tek - Türkiye 🇹🇷 - Grand Final - Eurovision 2009",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:12",
+            "imageUrl": "https://i.ytimg.com/vi/TzKgojZqO5Y/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCqLa4dW6mundFZLhEu1EkDUxrZoQ",
+            "audioUrl": "TzKgojZqO5Y"
+          },
+          {
+            "id": "kITfp5ekGzY",
+            "title": "Demet Akaln  -  Afedersin",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:56",
+            "imageUrl": "https://i.ytimg.com/vi/kITfp5ekGzY/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBDKwbw2Si0SK4CkxpkiBkiyQKoaQ",
+            "audioUrl": "kITfp5ekGzY"
+          },
+          {
+            "id": "qBcslmhEeos",
+            "title": "Seni Seviyorum GÜLBEN - İsme Özel Aşk Şarkısı",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "1:40",
+            "imageUrl": "https://i.ytimg.com/vi/qBcslmhEeos/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCM3IbY4o19bXJ48BLhVgIvKtfVPg",
+            "audioUrl": "qBcslmhEeos"
+          }
+        ]
+      },
+      {
+        "id": "qBcslmhEeos",
+        "title": "Seni Seviyorum GÜLBEN - İsme Özel Aşk Şarkısı",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "1:40",
+        "imageUrl": "https://i.ytimg.com/vi/qBcslmhEeos/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCM3IbY4o19bXJ48BLhVgIvKtfVPg",
+        "audioUrl": "qBcslmhEeos",
+        "playlist": [
+          {
+            "id": "1TtalpYn0A4",
+            "title": "TARKAN - Kuzu Kuzu  (Acoustic ) (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:43",
+            "imageUrl": "https://i.ytimg.com/vi/1TtalpYn0A4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBww9Pq9XMvZ0aIW7HUAFsK85ryMA",
+            "audioUrl": "1TtalpYn0A4"
+          },
+          {
+            "id": "93wsynxLMLk",
+            "title": "Ajda Pekkan - Yaz Yaz Yaz",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:11",
+            "imageUrl": "https://i.ytimg.com/vi/93wsynxLMLk/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4EgALgA4oCDAgAEAEYciA8KGQwDw==&rs=AOn4CLDY_IjSqxHKe3ukZb_AVT8WslWqWw",
+            "audioUrl": "93wsynxLMLk"
+          },
+          {
+            "id": "FUXGCOmgAZM",
+            "title": "Sertab Erener - Leave (Live) - Eurovision 2004",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:00",
+            "imageUrl": "https://i.ytimg.com/vi/FUXGCOmgAZM/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYXCBCKH8wDw==&rs=AOn4CLB6xk6dAqQICltee0pgFybEtDlVhw",
+            "audioUrl": "FUXGCOmgAZM"
+          },
+          {
+            "id": "KEQWKx6Ymms",
+            "title": "Mert Demir & Mabel Matiz - Antidepresan (English subtitles lyrics)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:01",
+            "imageUrl": "https://i.ytimg.com/vi/KEQWKx6Ymms/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAd82PIL6QzcSs9i2Nl8vEXyz6LrA",
+            "audioUrl": "KEQWKx6Ymms"
+          },
+          {
+            "id": "YVN0xgfcJiM",
+            "title": "Gunes - NKBI (English Version)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:05",
+            "imageUrl": "https://i.ytimg.com/vi/YVN0xgfcJiM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA5OkOTKCkj8HB_UWcbyohiaYkBhQ",
+            "audioUrl": "YVN0xgfcJiM"
+          },
+          {
+            "id": "XokJGO8ALVs",
+            "title": "Ezhel - Geceler",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:44",
+            "imageUrl": "https://i.ytimg.com/vi/XokJGO8ALVs/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4OgAK4CIoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBbPOa-NPC2q8Ww6lxvpO5uw1XwhQ",
+            "audioUrl": "XokJGO8ALVs"
+          },
+          {
+            "id": "cpp69ghR1IM",
+            "title": "TARKAN - Şımarık (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:12",
+            "imageUrl": "https://i.ytimg.com/vi/cpp69ghR1IM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDdJuAD-Ujgp1tbjzArgKY1VoNY0w",
+            "audioUrl": "cpp69ghR1IM"
+          },
+          {
+            "id": "KSlOGG5Ohgg",
+            "title": "Sezen Aksu - Hadi Bakalım (Official Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:47",
+            "imageUrl": "https://i.ytimg.com/vi/KSlOGG5Ohgg/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAJO3lS850ocLylbEeHXQfj9ZntaA",
+            "audioUrl": "KSlOGG5Ohgg"
+          },
+          {
+            "id": "pSs1XHuFfuQ",
+            "title": "Kenan Dogulu - Shake It Up Shekerim (Turkey) Live 2007 Eurovision Song Contest",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:07",
+            "imageUrl": "https://i.ytimg.com/vi/pSs1XHuFfuQ/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCZozPp4YCjpNAUtIPWT8xKsndrlQ",
+            "audioUrl": "pSs1XHuFfuQ"
+          },
+          {
+            "id": "TzKgojZqO5Y",
+            "title": "Hadise - Düm Tek Tek - Türkiye 🇹🇷 - Grand Final - Eurovision 2009",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:12",
+            "imageUrl": "https://i.ytimg.com/vi/TzKgojZqO5Y/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCqLa4dW6mundFZLhEu1EkDUxrZoQ",
+            "audioUrl": "TzKgojZqO5Y"
+          },
+          {
+            "id": "kITfp5ekGzY",
+            "title": "Demet Akaln  -  Afedersin",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:56",
+            "imageUrl": "https://i.ytimg.com/vi/kITfp5ekGzY/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBDKwbw2Si0SK4CkxpkiBkiyQKoaQ",
+            "audioUrl": "kITfp5ekGzY"
+          },
+          {
+            "id": "qBcslmhEeos",
+            "title": "Seni Seviyorum GÜLBEN - İsme Özel Aşk Şarkısı",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "1:40",
+            "imageUrl": "https://i.ytimg.com/vi/qBcslmhEeos/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCM3IbY4o19bXJ48BLhVgIvKtfVPg",
+            "audioUrl": "qBcslmhEeos"
+          }
+        ]
+      },
+      {
+        "id": "KSlOGG5Ohgg",
+        "title": "Sezen Aksu - Hadi Bakalım (Official Video)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "4:47",
+        "imageUrl": "https://i.ytimg.com/vi/KSlOGG5Ohgg/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAJO3lS850ocLylbEeHXQfj9ZntaA",
+        "audioUrl": "KSlOGG5Ohgg",
+        "playlist": [
+          {
+            "id": "1TtalpYn0A4",
+            "title": "TARKAN - Kuzu Kuzu  (Acoustic ) (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:43",
+            "imageUrl": "https://i.ytimg.com/vi/1TtalpYn0A4/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBww9Pq9XMvZ0aIW7HUAFsK85ryMA",
+            "audioUrl": "1TtalpYn0A4"
+          },
+          {
+            "id": "KSlOGG5Ohgg",
+            "title": "Sezen Aksu - Hadi Bakalım (Official Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:47",
+            "imageUrl": "https://i.ytimg.com/vi/KSlOGG5Ohgg/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAJO3lS850ocLylbEeHXQfj9ZntaA",
+            "audioUrl": "KSlOGG5Ohgg"
+          },
+          {
+            "id": "3bfkyXtuIXk",
+            "title": "Duman - Senden Daha Guzel",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:59",
+            "imageUrl": "https://i.ytimg.com/vi/3bfkyXtuIXk/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAwjHr_9pT5d2bbwDiyEUH41K85Ng",
+            "audioUrl": "3bfkyXtuIXk"
+          },
+          {
+            "id": "XokJGO8ALVs",
+            "title": "Ezhel - Geceler",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:44",
+            "imageUrl": "https://i.ytimg.com/vi/XokJGO8ALVs/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4OgAK4CIoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLBbPOa-NPC2q8Ww6lxvpO5uw1XwhQ",
+            "audioUrl": "XokJGO8ALVs"
+          },
+          {
+            "id": "KEQWKx6Ymms",
+            "title": "Mert Demir & Mabel Matiz - Antidepresan (English subtitles lyrics)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:01",
+            "imageUrl": "https://i.ytimg.com/vi/KEQWKx6Ymms/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAd82PIL6QzcSs9i2Nl8vEXyz6LrA",
+            "audioUrl": "KEQWKx6Ymms"
+          },
+          {
+            "id": "eBQDhlN3jRI",
+            "title": "Ceza - Holocaust MTV Lansman Party",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "2:50",
+            "imageUrl": "https://i.ytimg.com/vi/eBQDhlN3jRI/hqdefault.jpg?sqp=-oaymwE9COADEI4CSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4DgAKAA4oCDAgAEAEYXiBlKE0wDw==&rs=AOn4CLA9iQGEbDo6pexw6op5IGqWgH2c6g",
+            "audioUrl": "eBQDhlN3jRI"
+          },
+          {
+            "id": "9NL_b9e4UFE",
+            "title": "Bir Pesimistin Gözyaşları",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:24",
+            "imageUrl": "https://i.ytimg.com/vi/9NL_b9e4UFE/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCDzowd7x1uOmfzMKs-mxus9D48pg",
+            "audioUrl": "9NL_b9e4UFE"
+          },
+          {
+            "id": "5wCWDWdIhhw",
+            "title": "Ender ~ Enderground",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "2:11",
+            "imageUrl": "https://i.ytimg.com/vi/5wCWDWdIhhw/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLApOCRSCzD9yJtQcD1OIvAUEdu5DQ",
+            "audioUrl": "5wCWDWdIhhw"
+          },
+          {
+            "id": "gK7RpWVr09Y",
+            "title": "Heyecanı Yok",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "4:10",
+            "imageUrl": "https://i.ytimg.com/vi/gK7RpWVr09Y/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB9IpKO4Q8NMpkOnB3cKOvAD8KAJg",
+            "audioUrl": "gK7RpWVr09Y"
+          },
+          {
+            "id": "ZdMuc21JCMY",
+            "title": "Khontkar - Kime Ne  | Prod. @mecaresmii",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:58",
+            "imageUrl": "https://i.ytimg.com/vi/ZdMuc21JCMY/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAjKOp5yHs2iKhcYLRYIk7Z4vpDdw",
+            "audioUrl": "ZdMuc21JCMY"
+          }
+        ]
+      },
+      {
+        "id": "WXnRGJZBsIc",
+        "title": "BLOK3 - ESC*BAR (OFFICIAL VIDEO)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:00",
+        "imageUrl": "https://i.ytimg.com/vi/WXnRGJZBsIc/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCfFlFPkEVCywPT9KgwGZ_9ZEw1HA",
+        "audioUrl": "WXnRGJZBsIc",
+        "playlist": [
+          {
+            "id": "yfhv4QdCvGw",
+            "title": "En Çok Dinlenmiş 10 Ben Fero Şarkısı #rap #benfero #hiphop #trap #türkçerap #rapper #fy #fyp #fypage",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "1:02",
+            "imageUrl": "https://i.ytimg.com/vi/yfhv4QdCvGw/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAAlAADIQj0AgKJDeAHwAQH4AbYIgAKAD4oCDAgAEAEYciBAKDIwDw==&rs=AOn4CLDSpg0FRrQ6EJyAIxpMGPJ2psoFNg",
+            "audioUrl": "yfhv4QdCvGw"
+          },
+          {
+            "id": "aWV5xQ-vPHg",
+            "title": "DEEP TURKISH SAZ RAP BEAT INSTRUMENTAL  ► kar ◄ | Turkish Trap",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "2:49",
+            "imageUrl": "https://i.ytimg.com/vi/aWV5xQ-vPHg/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYUCBdKGUwDw==&rs=AOn4CLC6f3PArPWn5eaFxY3AqXklzAXcbg",
+            "audioUrl": "aWV5xQ-vPHg"
+          },
+          {
+            "id": "9bkI9KK_EU0",
+            "title": "Tuhan - Esenyurt Trap II Merso (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:18",
+            "imageUrl": "https://i.ytimg.com/vi/9bkI9KK_EU0/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBZt7SsTKzE3ayL7ECjhzdpsi-KTA",
+            "audioUrl": "9bkI9KK_EU0"
+          },
+          {
+            "id": "WXnRGJZBsIc",
+            "title": "BLOK3 - ESC*BAR (OFFICIAL VIDEO)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:00",
+            "imageUrl": "https://i.ytimg.com/vi/WXnRGJZBsIc/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCfFlFPkEVCywPT9KgwGZ_9ZEw1HA",
+            "audioUrl": "WXnRGJZBsIc"
+          },
+          {
+            "id": "xBJHMzFcAsI",
+            "title": "Russ Millions x Uzi - International (Official Music Video)",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "2:45",
+            "imageUrl": "https://i.ytimg.com/vi/xBJHMzFcAsI/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Af4JgALQBYoCDAgAEAEYUSBDKGUwDw==&rs=AOn4CLBhwo1kTXrXdwhuFornJW4MWlDfVQ",
+            "audioUrl": "xBJHMzFcAsI"
+          },
+          {
+            "id": "GgNSg6qIyvE",
+            "title": "Ben Fero - Biladerim İçin [Official Video]",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:03",
+            "imageUrl": "https://i.ytimg.com/vi/GgNSg6qIyvE/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWN-ELOb2uzmsfWgQSXjGMc8w9IA",
+            "audioUrl": "GgNSg6qIyvE"
+          }
+        ]
+      },
+      {
+        "id": "yLoX8eJN3WA",
+        "title": "Sefik Ozdemir Lo-Fi Anadolu – 90’lar İstanbul’un Retro Tınılarıyla Chill",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:32",
+        "imageUrl": "https://i.ytimg.com/vi/yLoX8eJN3WA/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Ac4FgALQBYoCDAgAEAEYZSBfKEAwDw==&rs=AOn4CLBDBEFbel5qJoQMDpENM0rnMYTj3Q",
+        "audioUrl": "yLoX8eJN3WA",
+        "playlist": [
+          {
+            "id": "yLoX8eJN3WA",
+            "title": "Sefik Ozdemir Lo-Fi Anadolu – 90’lar İstanbul’un Retro Tınılarıyla Chill",
+            "artist": "YouTube",
+            "album": "",
+            "duration": "3:32",
+            "imageUrl": "https://i.ytimg.com/vi/yLoX8eJN3WA/hq720.jpg?sqp=-oaymwE9COgCEMoBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4Ac4FgALQBYoCDAgAEAEYZSBfKEAwDw==&rs=AOn4CLBDBEFbel5qJoQMDpENM0rnMYTj3Q",
+            "audioUrl": "yLoX8eJN3WA"
+          }
+        ]
+      },
+      {
+        "id": "ScZFzmN-8XY",
+        "title": "Rafet El Roman & Derya - Unuturum Elbet",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:35",
+        "imageUrl": "https://i.ytimg.com/vi/ScZFzmN-8XY/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDOICo1-0-kxII56-tR6r29AkdjxA",
+        "audioUrl": "ScZFzmN-8XY"
+      },
+      {
+        "id": "1",
+        "title": "Kuzu Kuzu",
+        "artist": "Tarkan",
+        "album": "Karma",
+        "duration": "3:54",
+        "imageUrl": "https://lastfm.freetls.fastly.net/i/u/300x300/e33652c892b543539356264936319851.png",
+        "audioUrl": "https://storage.googleapis.com/stolo-public-assets/gemini-studio/royalty-free-music/scott-buckley-jul.mp3",
+        "aiHint": "pop music"
+      },
+      {
+        "id": "RldUoaojxLg",
+        "title": "Neyim Var ki 2 || Ceza & Sagopa Kajmer 2024 (AI)",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:12",
+        "imageUrl": "https://i.ytimg.com/vi/RldUoaojxLg/hqdefault.jpg?sqp=-oaymwEjCOADEI4CSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBBz7xBijncG-BEdGXGdEaXjwLkug",
+        "audioUrl": "RldUoaojxLg",
+        "aiHint": "youtube"
+      },
+      {
+        "id": "bM7KzEotaAk",
+        "title": "CEZA - ABAKÜS [Official Music Video]",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:11",
+        "imageUrl": "https://i.ytimg.com/vi/bM7KzEotaAk/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCgn3cjQE6A5poDQUN2SoMiqEJbWQ",
+        "audioUrl": "bM7KzEotaAk",
+        "aiHint": "youtube"
+      }
+    ],
+    "favorites": [
+      {
+        "id": "bM7KzEotaAk",
+        "title": "CEZA - ABAKÜS [Official Music Video]",
+        "artist": "YouTube",
+        "album": "",
+        "duration": "3:11",
+        "imageUrl": "https://i.ytimg.com/vi/bM7KzEotaAk/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCgn3cjQE6A5poDQUN2SoMiqEJbWQ",
+        "audioUrl": "bM7KzEotaAk",
+        "aiHint": "youtube"
+      }
+    ]
+  }
+]
