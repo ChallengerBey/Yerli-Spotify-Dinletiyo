@@ -51,6 +51,7 @@ type RepeatMode = 'off' | 'one' | 'all';
 
 export function Player() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song>(placeholderSong);
   const [progress, setProgress] = useState(0);
@@ -77,6 +78,12 @@ export function Player() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<any>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Component mount kontrolü
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   // Fade in/out fonksiyonları
   const fadeOut = (callback?: () => void) => {
@@ -319,11 +326,17 @@ export function Player() {
       }
     };
 
+    const handleTogglePlay = () => {
+      togglePlay();
+    };
+
     window.addEventListener('playSong', handlePlaySong);
     window.addEventListener('joinSession', handleJoinSession);
+    window.addEventListener('togglePlay', handleTogglePlay);
     return () => {
       window.removeEventListener('playSong', handlePlaySong);
       window.removeEventListener('joinSession', handleJoinSession);
+      window.removeEventListener('togglePlay', handleTogglePlay);
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
       }
@@ -334,6 +347,8 @@ export function Player() {
   }, [currentSong, queue, currentIndex]);
 
   useEffect(() => {
+    if (!mounted) return;
+    
     if (isYouTube && playerRef.current) {
       const playerState = playerRef.current.getPlayerState();
       if (isPlaying && playerState !== 1) {
@@ -345,26 +360,39 @@ export function Player() {
       } else if (!isPlaying && playerState === 1) {
         playerRef.current.pauseVideo();
       }
-    } else if (audioRef.current && currentSong.audioUrl) {
+    } else if (audioRef.current && currentSong.audioUrl && currentSong.audioUrl.startsWith('http')) {
       if (isPlaying) {
-        audioRef.current.src = currentSong.audioUrl;
-        // Ses seviyesini başlangıçta 0'a ayarla
-        audioRef.current.volume = 0;
-        audioRef.current.play().then(() => {
-          // Çalmaya başladıktan sonra fade in başlat
-          if (fadeVolume === 0) {
-            setTimeout(() => fadeIn(), 200);
+        try {
+          if (audioRef.current.src !== currentSong.audioUrl) {
+            audioRef.current.src = currentSong.audioUrl;
           }
-        }).catch(e => {
-          console.warn("Audio play failed:", e.message);
-          // Kullanıcı etkileşimi gerekiyor, pause yap
+          // Ses seviyesini başlangıçta 0'a ayarla
+          audioRef.current.volume = 0;
+          audioRef.current.play().then(() => {
+            // Çalmaya başladıktan sonra fade in başlat
+            if (fadeVolume === 0) {
+              setTimeout(() => fadeIn(), 200);
+            }
+          }).catch(e => {
+            console.warn("Audio play failed:", e.message);
+            // Kullanıcı etkileşimi gerekiyor, pause yap
+            setIsPlaying(false);
+          });
+        } catch (error) {
+          console.warn("Audio src assignment failed:", error);
           setIsPlaying(false);
-        });
+        }
       } else {
-        audioRef.current.pause();
+        try {
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
+        } catch (error) {
+          console.warn("Audio pause failed:", error);
+        }
       }
     }
-  }, [isPlaying, currentSong, isYouTube]);
+  }, [isPlaying, currentSong, isYouTube, mounted]);
 
   // Real-time Session Logic
   useEffect(() => {
@@ -593,9 +621,13 @@ export function Player() {
   };
 
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setProgress(audioRef.current.currentTime);
-      setDuration(audioRef.current.duration);
+    try {
+      if (audioRef.current && !isNaN(audioRef.current.currentTime) && !isNaN(audioRef.current.duration)) {
+        setProgress(audioRef.current.currentTime);
+        setDuration(audioRef.current.duration);
+      }
+    } catch (error) {
+      console.warn("Time update error:", error);
     }
   };
 
@@ -811,18 +843,22 @@ export function Player() {
   };
 
   const togglePlay = () => {
-    if (!currentSong.audioUrl) return;
+    if (!mounted || !currentSong.audioUrl) return;
 
     const newIsPlaying = !isPlaying;
     setIsPlaying(newIsPlaying);
     localStorage.setItem('is-playing', newIsPlaying.toString());
 
-    if (isYouTube && playerRef.current) {
-      if (newIsPlaying) {
-        playerRef.current.playVideo();
-      } else {
-        playerRef.current.pauseVideo();
+    try {
+      if (isYouTube && playerRef.current) {
+        if (newIsPlaying) {
+          playerRef.current.playVideo();
+        } else {
+          playerRef.current.pauseVideo();
+        }
       }
+    } catch (error) {
+      console.warn("Toggle play error:", error);
     }
   };
 
@@ -925,12 +961,6 @@ export function Player() {
       playerRef.current.setPlaybackQuality(newVal ? 'small' : 'default');
     }
   };
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Sayfa yüklenince player state'ini geri yükle
   useEffect(() => {
