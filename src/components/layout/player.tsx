@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { Song } from "@/lib/data";
-import { Signal, SignalLow, Users, Share2, Radio, Sparkles } from "lucide-react";
+import { Signal, SignalLow, Radio, Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 const safeJsonParse = (key: string, fallback: any) => {
@@ -72,7 +72,6 @@ export function Player() {
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
-  const [activeRoomHostId, setActiveRoomHostId] = useState<string | null>(null);
   const [isRoomHost, setIsRoomHost] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -87,6 +86,11 @@ export function Player() {
 
   // Fade in/out fonksiyonları
   const fadeOut = (callback?: () => void) => {
+    if (!mounted) {
+      if (callback) callback();
+      return;
+    }
+    
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
     
     let currentVol = fadeVolume;
@@ -101,26 +105,36 @@ export function Player() {
         setFadeVolume(currentVol);
       }
       
-      // Ses seviyesini uygula
-      if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
-        playerRef.current.setVolume((currentVol * volume) / 100);
-      } else if (audioRef.current) {
-        audioRef.current.volume = (currentVol * volume) / 10000;
+      // Ses seviyesini güvenli şekilde uygula
+      try {
+        if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
+          playerRef.current.setVolume((currentVol * volume) / 100);
+        } else if (audioRef.current && !audioRef.current.paused) {
+          audioRef.current.volume = (currentVol * volume) / 10000;
+        }
+      } catch (error) {
+        console.warn('Fade out volume error:', error);
       }
     }, 50);
   };
 
   const fadeIn = () => {
+    if (!mounted) return;
+    
     if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
     
     let currentVol = 0;
     setFadeVolume(0);
     
-    // İlk başta ses seviyesini 0'a ayarla
-    if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
-      playerRef.current.setVolume(0);
-    } else if (audioRef.current) {
-      audioRef.current.volume = 0;
+    // İlk başta ses seviyesini güvenli şekilde 0'a ayarla
+    try {
+      if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
+        playerRef.current.setVolume(0);
+      } else if (audioRef.current) {
+        audioRef.current.volume = 0;
+      }
+    } catch (error) {
+      console.warn('Fade in initial volume error:', error);
     }
     
     fadeIntervalRef.current = setInterval(() => {
@@ -133,11 +147,15 @@ export function Player() {
         setFadeVolume(currentVol);
       }
       
-      // Ses seviyesini kademeli artır
-      if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
-        playerRef.current.setVolume((currentVol * volume) / 100);
-      } else if (audioRef.current) {
-        audioRef.current.volume = (currentVol * volume) / 10000;
+      // Ses seviyesini güvenli şekilde kademeli artır
+      try {
+        if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
+          playerRef.current.setVolume((currentVol * volume) / 100);
+        } else if (audioRef.current && !audioRef.current.paused) {
+          audioRef.current.volume = (currentVol * volume) / 10000;
+        }
+      } catch (error) {
+        console.warn('Fade in volume error:', error);
       }
     }, 50);
   };
@@ -155,11 +173,9 @@ export function Player() {
   useEffect(() => {
     const syncRoomStateFromStorage = () => {
       const roomId = typeof window !== 'undefined' ? localStorage.getItem('active-room-id') : null;
-      const hostId = typeof window !== 'undefined' ? localStorage.getItem('active-room-host-id') : null;
       const isHost = typeof window !== 'undefined' ? localStorage.getItem('active-room-is-host') : null;
 
       setActiveRoomId(roomId || null);
-      setActiveRoomHostId(hostId || null);
       setIsRoomHost(isHost === 'true');
     };
 
@@ -277,10 +293,8 @@ export function Player() {
           localStorage.setItem('current-queue', JSON.stringify(playlistSongs));
           localStorage.setItem('current-index', (songIndex >= 0 ? songIndex : 0).toString());
         } else {
-          setQueue(filtered.slice(0, 10));
-          setCurrentIndex(0);
-          localStorage.setItem('current-queue', JSON.stringify(filtered.slice(0, 10)));
-          localStorage.setItem('current-index', '0');
+          // Otomatik playlist oluştur
+          createAutoPlaylist(song);
         }
 
         try {
@@ -684,6 +698,167 @@ export function Player() {
     }
   };
 
+  // Otomatik playlist oluşturma fonksiyonu
+  const createAutoPlaylist = async (song: Song) => {
+    try {
+      console.log('🎵 Otomatik playlist oluşturuluyor:', song.title, '-', song.artist);
+      
+      const cleanArtist = song.artist.replace(/[(\[].*?[)\]]/g, '').trim();
+      
+      // SADECE SANATÇI ADI İLE ARAMA YAP
+      const searchQuery = cleanArtist;
+      console.log('🔍 Arama yapılıyor:', searchQuery);
+      
+      let allSongs: Song[] = [song]; // İlk şarkıyı ekle
+      
+      try {
+        const response = await fetch(`/api/youtube-scrape?q=${encodeURIComponent(searchQuery)}`);
+        const data = await response.json();
+        
+        if (data.videos && data.videos.length > 0) {
+          console.log(`📺 ${data.videos.length} video bulundu, filtreleniyor...`);
+          
+          const newSongs = data.videos
+            .filter((v: any) => {
+              const title = v.title.toLowerCase();
+              const channel = v.channelTitle?.toLowerCase() || '';
+              
+              // ÇOCUK İÇERİKLERİNİ KESMEN ÇIKAR - ÇOK GÜÇLÜ FİLTRE
+              const childKeywords = [
+                'kids', 'children', 'baby', 'nursery', 'çocuk', 'bebek', 'çocuklar',
+                'kiboomers', 'super simple', 'freeze dance', 'floor is lava',
+                'preschool', 'kindergarten', 'toddler', 'cartoon', 'animation',
+                'lullaby', 'ninni', 'songs for kids', 'kids songs', 'children songs',
+                'bye bye goodbye', 'goodbye song', 'hello song', 'abc song',
+                'wheels on the bus', 'twinkle twinkle', 'old macdonald',
+                'if you\'re happy', 'head shoulders', 'itsy bitsy spider',
+                'bingo song', 'mary had a little lamb', 'london bridge',
+                'row row row your boat', 'hickory dickory dock', 'humpty dumpty',
+                'jack and jill', 'little bo peep', 'rock a bye baby',
+                'educational', 'eğitici', 'öğretici', 'learning', 'öğrenme',
+                'cocomelon', 'little baby bum', 'dave and ava', 'bounce patrol',
+                'simple songs', 'nursery rhymes', 'tekerlemeler', 'masal',
+                'fairy tale', 'story', 'hikaye', 'masallar', 'çizgi film'
+              ];
+              
+              const hasChildContent = childKeywords.some(keyword => 
+                title.includes(keyword) || channel.includes(keyword)
+              );
+              
+              // EĞİTİM İÇERİKLERİNİ ÇIKAR
+              const educationKeywords = [
+                'learn', 'tutorial', 'lesson', 'alphabet', 'numbers', 'colors',
+                'öğren', 'ders', 'eğitim', 'öğretim', 'kurs', 'nasıl yapılır',
+                'how to', 'guide', 'rehber', 'anlatım'
+              ];
+              
+              const hasEducationContent = educationKeywords.some(keyword => 
+                title.includes(keyword) || channel.includes(keyword)
+              );
+              
+              // SANATÇI ADI KONTROLÜ - MUTLAKA OLMALI
+              const artistInTitle = title.includes(cleanArtist.toLowerCase());
+              const artistInChannel = channel.includes(cleanArtist.toLowerCase());
+              
+              // SÜRE KONTROLÜ - Çok kısa videolar çıkar
+              const duration = v.duration || '';
+              const tooShort = duration.startsWith('0:0') || duration.startsWith('0:1');
+              
+              // DUPLICATE KONTROLÜ
+              const alreadyExists = allSongs.some(existing => existing.id === v.id);
+              
+              // KANAL ADI KONTROLÜ - Çocuk kanallarını çıkar
+              const childChannels = [
+                'kiboomers', 'super simple', 'cocomelon', 'little baby bum',
+                'dave and ava', 'bounce patrol', 'kids tv', 'nursery rhymes',
+                'children', 'kids', 'baby', 'toddler', 'preschool'
+              ];
+              
+              const isChildChannel = childChannels.some(childCh => 
+                channel.includes(childCh)
+              );
+              
+              const isValid = !hasChildContent && 
+                             !hasEducationContent && 
+                             !isChildChannel &&
+                             (artistInTitle || artistInChannel) && 
+                             !tooShort && 
+                             !alreadyExists;
+              
+              if (isValid) {
+                console.log('✅ Geçerli:', v.title);
+              } else {
+                console.log('❌ Filtrelendi:', v.title, 
+                  hasChildContent ? '[ÇOCUK]' : '',
+                  hasEducationContent ? '[EĞİTİM]' : '',
+                  isChildChannel ? '[ÇOCUK KANAL]' : '',
+                  !artistInTitle && !artistInChannel ? '[SANATÇI YOK]' : '',
+                  tooShort ? '[KISA]' : '',
+                  alreadyExists ? '[DUPLICATE]' : ''
+                );
+              }
+              
+              return isValid;
+            })
+            .slice(0, 15) // İlk 15 geçerli şarkı
+            .map((video: any) => ({
+              id: video.id,
+              title: video.title,
+              artist: cleanArtist,
+              album: '',
+              duration: video.duration || '0:00',
+              imageUrl: video.thumbnail,
+              audioUrl: video.id,
+              aiHint: 'song'
+            }));
+          
+          allSongs = [...allSongs, ...newSongs];
+          console.log(`✅ ${newSongs.length} şarkı eklendi`);
+        }
+      } catch (error) {
+        console.error('❌ Arama hatası:', error);
+      }
+      
+      // Eğer yeterli şarkı yoksa recently played ekle
+      if (allSongs.length < 5) {
+        console.log('📝 Yeterli şarkı yok, recently played ekleniyor...');
+        const recentlyPlayed = safeJsonParse('recently-played', []);
+        const recentSongs = recentlyPlayed
+          .filter((recent: any) => recent.id !== song.id)
+          .slice(0, 10);
+        allSongs = [...allSongs, ...recentSongs];
+      }
+      
+      // İlk şarkı sabit, diğerleri karışık
+      const firstSong = allSongs[0];
+      const restSongs = allSongs.slice(1);
+      const shuffledRest = restSongs.sort(() => Math.random() - 0.5);
+      const finalPlaylist = [firstSong, ...shuffledRest].slice(0, 20);
+      
+      console.log(`🎵 PLAYLIST OLUŞTURULDU: ${finalPlaylist.length} şarkı`);
+      finalPlaylist.forEach((s, i) => {
+        console.log(`${i + 1}. ${s.title} - ${s.artist}`);
+      });
+      
+      // Queue'yu güncelle
+      setQueue(finalPlaylist);
+      setCurrentIndex(0);
+      localStorage.setItem('current-queue', JSON.stringify(finalPlaylist));
+      localStorage.setItem('current-index', '0');
+      
+    } catch (error) {
+      console.error('❌ Playlist oluşturma hatası:', error);
+      
+      // Hata durumunda basit fallback
+      const recentlyPlayed = safeJsonParse('recently-played', []);
+      const fallbackQueue = [song, ...recentlyPlayed.slice(0, 9)];
+      setQueue(fallbackQueue);
+      setCurrentIndex(0);
+      localStorage.setItem('current-queue', JSON.stringify(fallbackQueue));
+      localStorage.setItem('current-index', '0');
+    }
+  };
+
   const loadMoreSongs = async (currentSongTitle: string, currentArtist: string) => {
     try {
       setIsTransitioning(true);
@@ -729,6 +904,39 @@ export function Player() {
           const title = v.title.toLowerCase();
           const channel = v.channelTitle?.toLowerCase() || '';
           
+          // ÇOCUK İÇERİKLERİNİ KESMEN ÇIKAR - ÇOK GÜÇLÜ FİLTRE
+          const childKeywords = [
+            'kids', 'children', 'baby', 'nursery', 'çocuk', 'bebek', 'çocuklar',
+            'kiboomers', 'super simple', 'freeze dance', 'floor is lava',
+            'preschool', 'kindergarten', 'toddler', 'cartoon', 'animation',
+            'lullaby', 'ninni', 'songs for kids', 'kids songs', 'children songs',
+            'bye bye goodbye', 'goodbye song', 'hello song', 'abc song',
+            'wheels on the bus', 'twinkle twinkle', 'old macdonald',
+            'if you\'re happy', 'head shoulders', 'itsy bitsy spider',
+            'bingo song', 'mary had a little lamb', 'london bridge',
+            'row row row your boat', 'hickory dickory dock', 'humpty dumpty',
+            'jack and jill', 'little bo peep', 'rock a bye baby',
+            'educational', 'eğitici', 'öğretici', 'learning', 'öğrenme',
+            'cocomelon', 'little baby bum', 'dave and ava', 'bounce patrol',
+            'simple songs', 'nursery rhymes', 'tekerlemeler', 'masal',
+            'fairy tale', 'story', 'hikaye', 'masallar', 'çizgi film'
+          ];
+          
+          const hasChildContent = childKeywords.some(keyword => 
+            title.includes(keyword) || channel.includes(keyword)
+          );
+          
+          // KANAL ADI KONTROLÜ - Çocuk kanallarını çıkar
+          const childChannels = [
+            'kiboomers', 'super simple', 'cocomelon', 'little baby bum',
+            'dave and ava', 'bounce patrol', 'kids tv', 'nursery rhymes',
+            'children', 'kids', 'baby', 'toddler', 'preschool'
+          ];
+          
+          const isChildChannel = childChannels.some(childCh => 
+            channel.includes(childCh)
+          );
+          
           const badKeywords = [
             'youtube music', 'descubre', 'discover', 'playlist', 'mix',
             'live with orchestra', 'orchestra', 'classical', 'klasik',
@@ -741,7 +949,7 @@ export function Player() {
             title.includes(keyword) || channel.includes(keyword)
           );
           
-          return !hasBadKeyword && v.id !== currentSong.id;
+          return !hasChildContent && !isChildChannel && !hasBadKeyword && v.id !== currentSong.id;
         });
 
         const newSongs = filteredVideos.slice(0, 10)
@@ -773,73 +981,130 @@ export function Player() {
   };
 
   const playNext = async () => {
-    if (isTransitioning) return;
+    if (isTransitioning || !mounted) return;
 
-    // Fade out mevcut şarkı
-    fadeOut(async () => {
-      // Önce queue'dan sonraki şarkıyı çal
-      if (currentIndex < queue.length - 1) {
-        const nextSong = queue[currentIndex + 1];
-        setCurrentSong(nextSong);
-        setCurrentIndex(currentIndex + 1);
-        setIsPlaying(true);
-        setIsYouTube(Boolean(nextSong.audioUrl && !nextSong.audioUrl.startsWith('http') && nextSong.aiHint !== 'podcast episode'));
-        localStorage.setItem('current-song', JSON.stringify(nextSong));
-        localStorage.setItem('current-index', (currentIndex + 1).toString());
-        setTimeout(() => fadeIn(), 300);
-        return;
-      }
+    console.log('⏭️ Sonraki şarkıya geçiliyor...');
+    
+    try {
+      // Fade out mevcut şarkı
+      fadeOut(async () => {
+        try {
+          // Önce queue'dan sonraki şarkıyı çal
+          if (currentIndex < queue.length - 1) {
+            const nextSong = queue[currentIndex + 1];
+            console.log('🎵 Queue\'dan sonraki şarkı:', nextSong.title);
+            
+            // Güvenli şarkı değişimi
+            await changeSongSafely(nextSong, currentIndex + 1);
+            return;
+          }
 
-      // Queue bittiyse başa dön veya yeni şarkı yükle
-      if (repeatMode === 'all' && queue.length > 0) {
-        const firstSong = queue[0];
-        setCurrentSong(firstSong);
-        setCurrentIndex(0);
-        setIsPlaying(true);
-        setIsYouTube(Boolean(firstSong.audioUrl && !firstSong.audioUrl.startsWith('http') && firstSong.aiHint !== 'podcast episode'));
-        localStorage.setItem('current-song', JSON.stringify(firstSong));
-        localStorage.setItem('current-index', '0');
-        setTimeout(() => fadeIn(), 300);
-        return;
-      }
+          // Queue bittiyse başa dön
+          if (repeatMode === 'all' && queue.length > 0) {
+            const firstSong = queue[0];
+            console.log('🔄 Queue başa döndü:', firstSong.title);
+            
+            await changeSongSafely(firstSong, 0);
+            return;
+          }
 
-      // Son çare: benzer şarkı ara
-      const newSongs = await loadMoreSongs(currentSong.title, currentSong.artist);
-      if (newSongs.length > 0) {
-        const nextSong = newSongs[0];
-        setCurrentSong(nextSong);
-        setCurrentIndex(0);
-        setIsPlaying(true);
-        setIsYouTube(Boolean(nextSong.audioUrl && !nextSong.audioUrl.startsWith('http') && nextSong.aiHint !== 'podcast episode'));
-        localStorage.setItem('current-song', JSON.stringify(nextSong));
-        localStorage.setItem('current-index', '0');
-        setTimeout(() => fadeIn(), 300);
-      } else {
-        setIsPlaying(false);
-        localStorage.setItem('is-playing', 'false');
+          // Son çare: yeni şarkılar yükle
+          console.log('🔍 Yeni şarkılar aranıyor...');
+          const newSongs = await loadMoreSongs(currentSong.title, currentSong.artist);
+          if (newSongs.length > 0) {
+            const nextSong = newSongs[0];
+            console.log('✅ Yeni şarkı bulundu:', nextSong.title);
+            
+            // Queue'yu güncelle
+            const updatedQueue = [...queue, ...newSongs];
+            setQueue(updatedQueue);
+            localStorage.setItem('current-queue', JSON.stringify(updatedQueue));
+            
+            await changeSongSafely(nextSong, queue.length);
+          } else {
+            console.log('❌ Yeni şarkı bulunamadı, çalma durduruluyor');
+            setIsPlaying(false);
+            localStorage.setItem('is-playing', 'false');
+          }
+        } catch (error) {
+          console.error('❌ playNext içi hata:', error);
+          setIsPlaying(false);
+        }
+      });
+    } catch (error) {
+      console.error('❌ playNext ana hata:', error);
+      setIsPlaying(false);
+    }
+  };
+
+  // Güvenli şarkı değiştirme fonksiyonu
+  const changeSongSafely = async (song: Song, index: number) => {
+    try {
+      // Audio elementini güvenli şekilde durdur
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current.src = '';
       }
-    });
+      
+      // YouTube player'ı durdur
+      if (playerRef.current && typeof playerRef.current.stopVideo === 'function') {
+        playerRef.current.stopVideo();
+      }
+      
+      // State'leri güncelle
+      setProgress(0);
+      setDuration(0);
+      setCurrentSong(song);
+      setCurrentIndex(index);
+      setIsPlaying(true);
+      setIsYouTube(Boolean(song.audioUrl && !song.audioUrl.startsWith('http') && song.aiHint !== 'podcast episode'));
+      
+      // LocalStorage'ı güncelle
+      localStorage.setItem('current-song', JSON.stringify(song));
+      localStorage.setItem('current-index', index.toString());
+      localStorage.setItem('is-playing', 'true');
+      
+      // Fade in başlat
+      setTimeout(() => {
+        if (mounted) {
+          fadeIn();
+        }
+      }, 300);
+      
+    } catch (error) {
+      console.error('❌ changeSongSafely hatası:', error);
+      setIsPlaying(false);
+    }
   };
 
   const playPrevious = () => {
-    fadeOut(() => {
-      if (currentIndex > 0) {
-        const prevSong = queue[currentIndex - 1];
-        setCurrentSong(prevSong);
-        setCurrentIndex(currentIndex - 1);
-        setIsPlaying(true);
-        setIsYouTube(Boolean(prevSong.audioUrl && !prevSong.audioUrl.startsWith('http') && prevSong.aiHint !== 'podcast episode'));
-        setTimeout(() => fadeIn(), 300);
-      } else if (repeatMode === 'all' && queue.length > 0) {
-        // Go to last song
-        const lastSong = queue[queue.length - 1];
-        setCurrentSong(lastSong);
-        setCurrentIndex(queue.length - 1);
-        setIsPlaying(true);
-        setIsYouTube(Boolean(lastSong.audioUrl && !lastSong.audioUrl.startsWith('http') && lastSong.aiHint !== 'podcast episode'));
-        setTimeout(() => fadeIn(), 300);
-      }
-    });
+    if (!mounted) return;
+    
+    console.log('⏮️ Önceki şarkıya geçiliyor...');
+    
+    try {
+      fadeOut(() => {
+        try {
+          if (currentIndex > 0) {
+            const prevSong = queue[currentIndex - 1];
+            console.log('🎵 Önceki şarkı:', prevSong.title);
+            changeSongSafely(prevSong, currentIndex - 1);
+          } else if (repeatMode === 'all' && queue.length > 0) {
+            // Son şarkıya git
+            const lastSong = queue[queue.length - 1];
+            console.log('🔄 Son şarkıya geçiliyor:', lastSong.title);
+            changeSongSafely(lastSong, queue.length - 1);
+          }
+        } catch (error) {
+          console.error('❌ playPrevious içi hata:', error);
+          setIsPlaying(false);
+        }
+      });
+    } catch (error) {
+      console.error('❌ playPrevious ana hata:', error);
+      setIsPlaying(false);
+    }
   };
 
   const togglePlay = () => {
@@ -1152,48 +1417,72 @@ export function Player() {
 
       {/* Mobile Player & Nav */}
       <footer className="lg:hidden fixed bottom-0 left-0 right-0 glass-card border-t border-white/10 flex flex-col z-[9999] bg-black/80 backdrop-blur-xl safe-area-pb">
-        <div className="flex items-center w-full px-4 py-3">
+        <div className="flex items-center w-full px-3 py-3">
           {currentSong.imageUrl ? (
             <Image
               src={currentSong.imageUrl}
               alt={currentSong.title}
-              width={40}
-              height={40}
+              width={36}
+              height={36}
               className="rounded-lg"
             />
           ) : (
-            <div className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center">
-              <Music className="w-5 h-5 text-gray-600" />
+            <div className="w-9 h-9 rounded-lg bg-gray-800 flex items-center justify-center">
+              <Music className="w-4 h-4 text-gray-600" />
             </div>
           )}
-          <div className="flex-1 mx-3 min-w-0">
-            <p className="font-semibold text-sm truncate text-white">{currentSong.title}</p>
+          <div className="flex-1 mx-2 min-w-0">
+            <p className="font-semibold text-xs truncate text-white">{currentSong.title}</p>
             <p className="text-xs text-gray-400 truncate">{currentSong.artist}</p>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={togglePlay}
-            className="text-white hover:text-purple-400 transition-colors shrink-0"
-          >
-            {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleHosting}
-            className={cn("ml-1 text-white hover:text-red-400 transition-colors shrink-0", isHosting && "text-red-400")}
-          >
-            <Radio className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleDataSaver}
-            className={cn("ml-1 text-white hover:text-green-400 transition-colors shrink-0", isDataSaver && "text-green-400")}
-          >
-            {isDataSaver ? <SignalLow className="h-5 w-5" /> : <Signal className="h-5 w-5" />}
-          </Button>
+          
+          {/* Şarkı Kontrolleri - Büyük ve Görünür */}
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={playPrevious}
+              className="text-white hover:text-purple-400 transition-colors w-10 h-10 rounded-full bg-white/10 border border-white/20"
+            >
+              <SkipBack className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={togglePlay}
+              className="text-white hover:text-purple-400 transition-colors w-12 h-12 rounded-full bg-primary/30 border-2 border-primary/50 mx-1"
+            >
+              {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6 ml-0.5" />}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={playNext}
+              className="text-white hover:text-purple-400 transition-colors w-10 h-10 rounded-full bg-white/10 border border-white/20"
+            >
+              <SkipForward className="h-5 w-5" />
+            </Button>
+          </div>
+          
+          {/* Diğer Kontroller */}
+          <div className="flex items-center gap-1 ml-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleHosting}
+              className={cn("text-white hover:text-red-400 transition-colors w-8 h-8", isHosting && "text-red-400")}
+            >
+              <Radio className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleDataSaver}
+              className={cn("text-white hover:text-green-400 transition-colors w-8 h-8", isDataSaver && "text-green-400")}
+            >
+              {isDataSaver ? <SignalLow className="h-4 w-4" /> : <Signal className="h-4 w-4" />}
+            </Button>
+          </div>
         </div>
         <nav className="w-full grid grid-cols-4 items-center border-t border-white/10">
           {mobileNavLinks.map((link) => (
