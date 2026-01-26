@@ -344,13 +344,69 @@ export function Player() {
       togglePlay();
     };
 
+    const handlePlayerSetVolume = (event: any) => {
+      const newVolume = Math.round(event.detail * 100);
+      setVolume(newVolume);
+      localStorage.setItem('volume', newVolume.toString());
+      
+      try {
+        if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
+          playerRef.current.setVolume(newVolume);
+        } else if (audioRef.current) {
+          audioRef.current.volume = newVolume / 100;
+        }
+      } catch (error) {
+        console.warn('Set volume error:', error);
+      }
+    };
+
+    const handlePlayerToggleMute = () => {
+      const newVolume = volume > 0 ? 0 : 50; // Mute ise 50'ye, değilse 0'a ayarla
+      setVolume(newVolume);
+      localStorage.setItem('volume', newVolume.toString());
+      
+      try {
+        if (isYouTube && playerRef.current && typeof playerRef.current.setVolume === 'function') {
+          playerRef.current.setVolume(newVolume);
+        } else if (audioRef.current) {
+          audioRef.current.volume = newVolume / 100;
+        }
+      } catch (error) {
+        console.warn('Toggle mute error:', error);
+      }
+    };
+
+    const handleSeekTo = (event: any) => {
+      const seekTime = event.detail;
+      if (!isNaN(seekTime)) {
+        try {
+          if (isYouTube && playerRef.current && typeof playerRef.current.seekTo === 'function') {
+            playerRef.current.seekTo(seekTime, true);
+            setProgress(seekTime);
+          } else if (audioRef.current) {
+            audioRef.current.currentTime = seekTime;
+            setProgress(seekTime);
+          }
+        } catch (error) {
+          console.warn('Seek error:', error);
+        }
+      }
+    };
+
     window.addEventListener('playSong', handlePlaySong);
     window.addEventListener('joinSession', handleJoinSession);
     window.addEventListener('togglePlay', handleTogglePlay);
+    window.addEventListener('playerSetVolume', handlePlayerSetVolume);
+    window.addEventListener('playerToggleMute', handlePlayerToggleMute);
+    window.addEventListener('seekTo', handleSeekTo);
+    
     return () => {
       window.removeEventListener('playSong', handlePlaySong);
       window.removeEventListener('joinSession', handleJoinSession);
       window.removeEventListener('togglePlay', handleTogglePlay);
+      window.removeEventListener('playerSetVolume', handlePlayerSetVolume);
+      window.removeEventListener('playerToggleMute', handlePlayerToggleMute);
+      window.removeEventListener('seekTo', handleSeekTo);
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
       }
@@ -617,11 +673,23 @@ export function Player() {
       if (event.data === 1) { // Playing
         setIsPlaying(true);
         if (playerRef.current && typeof playerRef.current.getDuration === 'function') {
-          setDuration(playerRef.current.getDuration());
+          const newDuration = playerRef.current.getDuration();
+          setDuration(newDuration);
+          localStorage.setItem('current-duration', newDuration.toString());
         }
         progressIntervalRef.current = setInterval(() => {
           if (playerRef.current && typeof playerRef.current.getCurrentTime === 'function') {
-            setProgress(playerRef.current.getCurrentTime());
+            const newProgress = playerRef.current.getCurrentTime();
+            setProgress(newProgress);
+            
+            // Mini player için progress güncelle
+            localStorage.setItem('current-progress', newProgress.toString());
+            
+            // Progress event'ini gönder
+            const progressEvent = new CustomEvent('progressUpdate', { 
+              detail: { progress: newProgress, duration: duration } 
+            });
+            window.dispatchEvent(progressEvent);
           }
         }, 1000);
       } else if (event.data === 2) { // Paused
@@ -637,8 +705,21 @@ export function Player() {
   const handleTimeUpdate = () => {
     try {
       if (audioRef.current && !isNaN(audioRef.current.currentTime) && !isNaN(audioRef.current.duration)) {
-        setProgress(audioRef.current.currentTime);
-        setDuration(audioRef.current.duration);
+        const newProgress = audioRef.current.currentTime;
+        const newDuration = audioRef.current.duration;
+        
+        setProgress(newProgress);
+        setDuration(newDuration);
+        
+        // Mini player için progress güncelle
+        localStorage.setItem('current-progress', newProgress.toString());
+        localStorage.setItem('current-duration', newDuration.toString());
+        
+        // Progress event'ini gönder
+        const progressEvent = new CustomEvent('progressUpdate', { 
+          detail: { progress: newProgress, duration: newDuration } 
+        });
+        window.dispatchEvent(progressEvent);
       }
     } catch (error) {
       console.warn("Time update error:", error);

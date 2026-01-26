@@ -4,16 +4,35 @@ import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Music, RefreshCw } from 'lucide-react';
+import { Plus, Music, RefreshCw, Trash2, Loader2 } from 'lucide-react';
 import { SongCard } from "@/components/song-card";
 import { getPlaylists, Playlist, Song } from "@/lib/data";
+import { YouTubePlaylistImport } from "@/components/youtube-playlist-import";
+import { useToast } from "@/hooks/use-toast";
+import Link from 'next/link';
+
+interface UserPlaylist extends Playlist {
+  songs?: Song[];
+  createdAt?: string;
+  isImported?: boolean;
+  source?: string;
+  playlist_songs?: any[];
+  created_at?: string;
+  updated_at?: string;
+  is_public?: boolean;
+  user_id?: string;
+}
 
 
 export default function PlaylistsPage() {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
-  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
+  const [userPlaylists, setUserPlaylists] = useState<UserPlaylist[]>([]);
+  const [importedPlaylists, setImportedPlaylists] = useState<UserPlaylist[]>([]);
+  const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | UserPlaylist | null>(null);
   const [playlistSongs, setPlaylistSongs] = useState<Song[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingPlaylists, setLoadingPlaylists] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     const loadPlaylists = async () => {
@@ -21,7 +40,102 @@ export default function PlaylistsPage() {
       setPlaylists(data);
     };
     loadPlaylists();
+    loadUserPlaylists();
+    loadImportedPlaylists();
   }, []);
+
+  const loadUserPlaylists = async () => {
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        setLoadingPlaylists(false);
+        return;
+      }
+
+      const response = await fetch('/api/playlists', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserPlaylists(data.playlists || []);
+      }
+    } catch (error) {
+      console.error('Error loading user playlists:', error);
+    } finally {
+      setLoadingPlaylists(false);
+    }
+  };
+
+  const loadImportedPlaylists = () => {
+    const saved = localStorage.getItem('user-playlists');
+    if (saved) {
+      setImportedPlaylists(JSON.parse(saved));
+    }
+  };
+
+  // YouTube playlist import edildiğinde çağrılır
+  useEffect(() => {
+    const handlePlaylistImported = () => {
+      loadImportedPlaylists();
+    };
+
+    window.addEventListener('playlistImported', handlePlaylistImported);
+    return () => window.removeEventListener('playlistImported', handlePlaylistImported);
+  }, []);
+
+  const deleteUserPlaylist = async (playlistId: string, isImported: boolean = false) => {
+    if (isImported) {
+      // İçe aktarılan playlist'i localStorage'dan sil
+      const updated = importedPlaylists.filter(p => p.id !== playlistId);
+      setImportedPlaylists(updated);
+      localStorage.setItem('user-playlists', JSON.stringify(updated));
+    } else {
+      // Gerçek playlist'i API'den sil
+      try {
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+          toast({
+            title: "Hata",
+            description: "Giriş yapmanız gerekiyor",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        const response = await fetch(`/api/playlists?id=${playlistId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          setUserPlaylists(prev => prev.filter(p => p.id !== playlistId));
+          toast({
+            title: "Başarılı",
+            description: "Playlist silindi",
+          });
+        } else {
+          const data = await response.json();
+          throw new Error(data.error || 'Playlist silinemedi');
+        }
+      } catch (error: any) {
+        toast({
+          title: "Hata",
+          description: error.message || "Playlist silinirken bir hata oluştu",
+          variant: "destructive",
+        });
+      }
+    }
+    
+    // Eğer silinen playlist seçiliyse, seçimi kaldır
+    if (selectedPlaylist?.id === playlistId) {
+      setSelectedPlaylist(null);
+    }
+  };
 
 
 
@@ -57,12 +171,35 @@ export default function PlaylistsPage() {
     }
   };
 
-  const handlePlaylistClick = async (playlist: Playlist) => {
+  const handlePlaylistClick = async (playlist: Playlist | UserPlaylist) => {
     setSelectedPlaylist(playlist);
     setLoading(true);
     
     try {
-      const artists = getArtistsByPlaylist(playlist.title);
+      // Eğer gerçek playlist ise ve playlist_songs varsa
+      if ('playlist_songs' in playlist && playlist.playlist_songs && playlist.playlist_songs.length > 0) {
+        const songs = playlist.playlist_songs.map((ps: any) => ({
+          id: ps.song_id,
+          title: ps.song_data?.title || 'Bilinmeyen Şarkı',
+          artist: ps.song_data?.artist || 'Bilinmeyen Sanatçı',
+          album: ps.song_data?.album || '',
+          duration: ps.song_data?.duration || '0:00',
+          imageUrl: ps.song_data?.imageUrl || '/placeholder-song.jpg',
+          audioUrl: ps.song_data?.audioUrl || ps.song_id
+        }));
+        setPlaylistSongs(songs);
+        setLoading(false);
+        return;
+      }
+
+      // Eğer user playlist'i ise ve şarkıları varsa, direkt kullan
+      if ('songs' in playlist && playlist.songs && playlist.songs.length > 0) {
+        setPlaylistSongs(playlist.songs);
+        setLoading(false);
+        return;
+      }
+
+      const artists = getArtistsByPlaylist(playlist.title || playlist.name || '');
       
       // Paralel arama yap
       const searchPromises = artists.slice(0, 8).map(async (artist) => {
@@ -99,6 +236,58 @@ export default function PlaylistsPage() {
     }
   };
 
+  const addSongToPlaylist = async (song: Song, playlistId: string) => {
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        toast({
+          title: "Hata",
+          description: "Giriş yapmanız gerekiyor",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await fetch('/api/playlists/songs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          playlist_id: playlistId,
+          song_id: song.id,
+          song_data: {
+            title: song.title,
+            artist: song.artist,
+            album: song.album,
+            duration: song.duration,
+            imageUrl: song.imageUrl,
+            audioUrl: song.audioUrl,
+          },
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Başarılı",
+          description: "Şarkı playlist'e eklendi",
+        });
+        // Playlist'i yeniden yükle
+        await loadUserPlaylists();
+      } else {
+        const data = await response.json();
+        throw new Error(data.error || 'Şarkı eklenemedi');
+      }
+    } catch (error: any) {
+      toast({
+        title: "Hata",
+        description: error.message || "Şarkı eklenirken bir hata oluştu",
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleRefreshSongs = async () => {
     if (!selectedPlaylist) return;
     await handlePlaylistClick(selectedPlaylist);
@@ -108,21 +297,129 @@ export default function PlaylistsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold mb-6">Playlistler</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Playlistler</h1>
+        <div className="flex gap-2">
+          <Link href="/home/create-playlist">
+            <Button className="flex items-center gap-2">
+              <Plus className="h-4 w-4" />
+              Yeni Playlist
+            </Button>
+          </Link>
+          <YouTubePlaylistImport />
+        </div>
+      </div>
 
       {!selectedPlaylist ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-          {playlists.map((playlist) => (
-            <div 
-              key={playlist.id} 
-              onClick={() => handlePlaylistClick(playlist)} 
-              className="cursor-pointer group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg p-3"
-            >
-              <img src={playlist.imageUrl} alt={playlist.title} className="w-full aspect-square object-cover rounded-lg mb-3" />
-              <p className="text-base font-semibold truncate">{playlist.title}</p>
-              <p className="text-sm truncate text-muted-foreground">{playlist.description}</p>
+        <div className="space-y-8">
+          {loadingPlaylists ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin" />
+              <span className="ml-2">Playlistler yükleniyor...</span>
             </div>
-          ))}
+          ) : (
+            <>
+              {/* Kullanıcının Oluşturduğu Playlistler */}
+              {userPlaylists.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Music className="h-5 w-5" />
+                    Playlistlerim ({userPlaylists.length})
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    {userPlaylists.map((playlist) => (
+                      <div 
+                        key={playlist.id} 
+                        className="cursor-pointer group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg p-3"
+                      >
+                        <div onClick={() => handlePlaylistClick(playlist)}>
+                          <div className="w-full aspect-square bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg mb-3 flex items-center justify-center">
+                            <Music className="h-8 w-8 text-white" />
+                          </div>
+                          <p className="text-base font-semibold truncate">{playlist.title || playlist.name}</p>
+                          <p className="text-sm truncate text-muted-foreground">
+                            {playlist.playlist_songs ? `${playlist.playlist_songs.length} şarkı` : (playlist.description || 'Boş playlist')}
+                          </p>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteUserPlaylist(playlist.id, false);
+                          }}
+                          className="absolute top-2 right-2 h-8 w-8 p-0 bg-black/70 hover:bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* İçe Aktarılan Playlistler */}
+              {importedPlaylists.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Music className="h-5 w-5" />
+                    İçe Aktarılan Playlistler ({importedPlaylists.length})
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    {importedPlaylists.map((playlist) => (
+                      <div 
+                        key={playlist.id} 
+                        className="cursor-pointer group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg p-3"
+                      >
+                        <div onClick={() => handlePlaylistClick(playlist)}>
+                          <img src={playlist.imageUrl} alt={playlist.title} className="w-full aspect-square object-cover rounded-lg mb-3" />
+                          <p className="text-base font-semibold truncate">{playlist.title}</p>
+                          <p className="text-sm truncate text-muted-foreground">
+                            {playlist.songs ? `${playlist.songs.length} şarkı` : playlist.description}
+                          </p>
+                          {playlist.isImported && (
+                            <div className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+                              <Music className="h-3 w-3" />
+                              YouTube
+                            </div>
+                          )}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteUserPlaylist(playlist.id, true);
+                          }}
+                          className="absolute top-2 right-2 h-8 w-8 p-0 bg-black/70 hover:bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Varsayılan Playlistler */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4">Önerilen Playlistler</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                  {playlists.map((playlist) => (
+                    <div 
+                      key={playlist.id} 
+                      onClick={() => handlePlaylistClick(playlist)} 
+                      className="cursor-pointer group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg p-3"
+                    >
+                      <img src={playlist.imageUrl} alt={playlist.title} className="w-full aspect-square object-cover rounded-lg mb-3" />
+                      <p className="text-base font-semibold truncate">{playlist.title}</p>
+                      <p className="text-sm truncate text-muted-foreground">{playlist.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       ) : (
         <div className="space-y-4">
@@ -131,7 +428,12 @@ export default function PlaylistsPage() {
               <Button variant="outline" onClick={() => setSelectedPlaylist(null)}>
                 ← Geri
               </Button>
-              <h2 className="text-2xl font-bold">{selectedPlaylist.title}</h2>
+              <div>
+                <h2 className="text-2xl font-bold">{selectedPlaylist.title || selectedPlaylist.name}</h2>
+                <p className="text-muted-foreground">
+                  {selectedPlaylist.description || `${playlistSongs.length} şarkı`}
+                </p>
+              </div>
             </div>
             <Button 
               onClick={handleRefreshSongs}
@@ -144,24 +446,52 @@ export default function PlaylistsPage() {
           </div>
           
           {loading ? (
-            <div className="text-center py-8">Müzikler yükleniyor...</div>
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin" />
+              <span className="ml-2">Müzikler yükleniyor...</span>
+            </div>
+          ) : playlistSongs.length === 0 ? (
+            <div className="text-center py-8">
+              <Music className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">Bu playlist'te henüz şarkı yok</p>
+              {('user_id' in selectedPlaylist) && (
+                <p className="text-sm text-muted-foreground mt-2">
+                  Arama yaparak şarkı ekleyebilirsiniz
+                </p>
+              )}
+            </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
               {playlistSongs.map((song) => (
                 <div 
                   key={song.id}
-                  onClick={() => {
-                    const songWithPlaylist = { ...song, playlist: playlistSongs };
-                    window.dispatchEvent(new CustomEvent('playSong', { detail: songWithPlaylist }));
-                  }}
                   className="cursor-pointer group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg p-3"
                 >
-                  <img src={song.imageUrl} alt={song.title} className="w-full aspect-square object-cover rounded-lg mb-3" />
-                  <p className="text-base font-semibold truncate">{song.title}</p>
-                  <p className="text-sm truncate text-muted-foreground">{song.artist}</p>
-                  <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                    {song.duration}
+                  <div onClick={() => {
+                    const songWithPlaylist = { ...song, playlist: playlistSongs };
+                    window.dispatchEvent(new CustomEvent('playSong', { detail: songWithPlaylist }));
+                  }}>
+                    <img src={song.imageUrl} alt={song.title} className="w-full aspect-square object-cover rounded-lg mb-3" />
+                    <p className="text-base font-semibold truncate">{song.title}</p>
+                    <p className="text-sm truncate text-muted-foreground">{song.artist}</p>
+                    <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                      {song.duration}
+                    </div>
                   </div>
+                  {('user_id' in selectedPlaylist) && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addSongToPlaylist(song, selectedPlaylist.id);
+                      }}
+                      className="absolute bottom-2 right-2 h-8 w-8 p-0 bg-green-600 hover:bg-green-700 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Playlist'e ekle"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>

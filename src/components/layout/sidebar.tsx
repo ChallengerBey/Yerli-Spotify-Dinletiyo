@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { Logo } from "@/components/logo";
+import { SidebarBannerAd } from "@/components/sidebar-banner-ad";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -239,6 +240,15 @@ export function Sidebar() {
             </Button>
           </div>
         </ScrollArea>
+      </div>
+
+      {/* Sidebar Reklam */}
+      <div className="mb-4">
+        <SidebarBannerAd 
+          autoRotate={true}
+          rotateInterval={12000}
+          closeable={true}
+        />
       </div>
 
       <div className="mt-auto">
