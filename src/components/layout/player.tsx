@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { Song } from "@/lib/data";
 import { Signal, SignalLow, Radio, Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { analytics } from '@/lib/analytics';
 
 const safeJsonParse = (key: string, fallback: any) => {
   if (typeof window === 'undefined') return fallback;
@@ -255,8 +256,19 @@ export function Player() {
           }, 300);
         });
 
-        // Now playing'i veritabanına kaydet
+        // Analytics: Şarkı çalma
         const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+        let currentUserId = null;
+        if (currentUser) {
+          try {
+            const userData = JSON.parse(currentUser);
+            currentUserId = userData.id;
+          } catch (e) {
+            console.error('User parse error in analytics:', e);
+          }
+        }
+        
+        analytics.trackSongPlay(song.id, song.title, song.artist, currentUserId);
         if (currentUser) {
           try {
             const userData = JSON.parse(currentUser);

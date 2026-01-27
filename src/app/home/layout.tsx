@@ -6,12 +6,13 @@ import { BottomNav } from '@/components/layout/bottom-nav';
 import { Player } from '@/components/layout/player';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import AdBanner from '@/components/AdBanner';
+import { analytics } from '@/lib/analytics';
 
 import AuthGuard from '@/components/auth-guard';
 import { useEffect, useState } from 'react';
 import { NotificationListener } from '@/components/social/notification-listener';
 import { Toaster } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 interface LoggedInUser {
@@ -46,8 +47,9 @@ export default function HomeLayout({
   const [isYouTube, setIsYouTube] = useState(false);
   const [miniPlayerRef, setMiniPlayerRef] = useState<any>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
-  // User state'ini yükle
+  // User state'ini yükle ve analytics tracking başlat
   useEffect(() => {
     const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
     if (currentUser) {
@@ -60,11 +62,38 @@ export default function HomeLayout({
           email: userData.email || '',
           avatar: userData.avatar
         });
+        
+        // Analytics: Sayfa görüntüleme
+        analytics.trackPageView(pathname, userData.id);
+        
+        // Analytics: Kullanıcı aktifliği (her 5 dakikada bir)
+        const activityInterval = setInterval(() => {
+          analytics.track({
+            event: 'user_activity',
+            userId: userData.id,
+            data: { page: pathname }
+          });
+        }, 300000); // 5 dakika
+        
+        return () => clearInterval(activityInterval);
       } catch (e) {
         console.error('User parse error in Layout:', e);
       }
+    } else {
+      // Anonim kullanıcı için sayfa görüntüleme
+      analytics.trackPageView(pathname);
+      
+      // Anonim kullanıcı aktivitesi
+      const anonActivityInterval = setInterval(() => {
+        analytics.track({
+          event: 'anonymous_activity',
+          data: { page: pathname }
+        });
+      }, 300000);
+      
+      return () => clearInterval(anonActivityInterval);
     }
-  }, []);
+  }, [pathname]);
 
   // Volume state'ini localStorage'dan yükle
   useEffect(() => {
