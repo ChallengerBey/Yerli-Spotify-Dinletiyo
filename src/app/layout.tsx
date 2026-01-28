@@ -5,6 +5,8 @@ import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { PWARegister } from "@/components/pwa-register";
 import { GlobalContextMenu } from "@/components/global-context-menu";
+import GoogleAdsense from "@/components/GoogleAdsense";
+import AdsterraBanner from "@/components/AdsterraBanner";
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -99,6 +101,9 @@ export default function RootLayout({
         />
       </head>
       <body className={cn("font-body antialiased", "min-h-screen bg-background context-menu-area")} suppressHydrationWarning>
+        {/* Google AdSense - Auto Ads */}
+        <GoogleAdsense />
+        
         <PWARegister />
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -109,9 +114,17 @@ export default function RootLayout({
         }} />
         <MaintenanceBanner />
         <AnnouncementBanner />
+        
+        {/* Adsterra Banner - Top of content */}
+        <AdsterraBanner />
+        
         <div className="pt-0">
           {children}
         </div>
+        
+        {/* Adsterra Banner - Bottom of content */}
+        <AdsterraBanner />
+        
         <Toaster />
         <GlobalContextMenu />
       </body>
