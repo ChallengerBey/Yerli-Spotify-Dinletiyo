@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Play, SkipForward, Repeat, ListMusic } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Song, Playlist } from "@/lib/data";
+import SongContextMenu from "./song-context-menu";
 
 
 interface SongCardProps {
@@ -21,7 +22,24 @@ export function SongCard({ item, className }: SongCardProps) {
   const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
   const isPlaylist = 'songs' in item;
 
+  // Context menu'yu kapatmak için click listener
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (showContextMenu) {
+        setShowContextMenu(false);
+      }
+    };
 
+    if (showContextMenu) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('contextmenu', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('contextmenu', handleClickOutside);
+    };
+  }, [showContextMenu]);
 
   const title = item.title;
   const imageUrl = item.imageUrl;
@@ -31,14 +49,12 @@ export function SongCard({ item, className }: SongCardProps) {
   const href = isPlaylist ? `/home/playlist/${item.id}` : '#';
 
   const handlePlay = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click/navigation event
+    e.stopPropagation();
     e.preventDefault();
     if (songToPlay && songToPlay.audioUrl) {
       window.dispatchEvent(new CustomEvent('playSong', { detail: songToPlay }));
     }
   };
-
-
 
   const handleAddToQueue = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -74,14 +90,12 @@ export function SongCard({ item, className }: SongCardProps) {
   const handleAddToPlaylist = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    // Bu özellik için daha sonra bir modal veya başka bir arayüz eklenebilir
     alert('Çalma listesine ekle özelliği yakında eklenecek!');
   };
 
   const handleShare = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    // Şarkı paylaşımı için daha sonra sosyal medya entegrasyonu eklenebilir
     alert('Şarkı paylaşımı özelliği yakında eklenecek!');
   };
 
@@ -104,13 +118,15 @@ export function SongCard({ item, className }: SongCardProps) {
   return (
     <>
       <div
-        className={cn("group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg cursor-pointer", className)}
+        className={cn("song-card-container group w-full overflow-hidden border-0 bg-secondary/30 hover:bg-secondary/60 transition-colors relative rounded-lg cursor-pointer", className)}
+        data-song-card="true"
         onContextMenu={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          setContextMenuPos({ x: e.clientX, y: e.clientY });
-          setShowContextMenu(true);
-          console.log('Custom menu açıldı!');
+          if (songToPlay) {
+            setContextMenuPos({ x: e.clientX, y: e.clientY });
+            setShowContextMenu(true);
+          }
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -152,40 +168,14 @@ export function SongCard({ item, className }: SongCardProps) {
         </div>
       </div>
 
-      {showContextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setShowContextMenu(false)}
-          />
-          <div
-            className="fixed z-50 bg-background border rounded-md shadow-lg py-1 min-w-[150px]"
-            style={{ left: contextMenuPos.x, top: contextMenuPos.y }}
-          >
-            <button
-              className="w-full px-3 py-2 text-left hover:bg-accent flex items-center gap-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePlayNext(e);
-                setShowContextMenu(false);
-              }}
-            >
-              <SkipForward className="h-4 w-4" />
-              Sonraki Şarkı
-            </button>
-            <button
-              className="w-full px-3 py-2 text-left hover:bg-accent flex items-center gap-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleAddToPlaylist(e);
-                setShowContextMenu(false);
-              }}
-            >
-              <ListMusic className="h-4 w-4" />
-              Playliste Ekle
-            </button>
-          </div>
-        </>
+      {/* Yeni Gelişmiş Context Menu */}
+      {showContextMenu && songToPlay && (
+        <SongContextMenu
+          song={songToPlay}
+          x={contextMenuPos.x}
+          y={contextMenuPos.y}
+          onClose={() => setShowContextMenu(false)}
+        />
       )}
     </>
   );

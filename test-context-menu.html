@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Context Menu Test</title>
+</head>
+<body>
+    <h1>Song Context Menu Test</h1>
+    <div id="test-song" style="padding: 20px; background: #f0f0f0; margin: 20px; cursor: pointer;">
+        Right-click this area to test context menu
+    </div>
+    
+    <div id="log" style="margin: 20px; padding: 20px; background: #000; color: #0f0; font-family: monospace; height: 300px; overflow-y: scroll;">
+        <div>Test log:</div>
+    </div>
+
+    <script>
+        // Mock song data
+        const testSong = {
+            id: 'test-1',
+            title: 'Test Song',
+            artist: 'Test Artist',
+            audioUrl: 'test-audio-url'
+        };
+
+        // Mock user data
+        localStorage.setItem('currentUser', JSON.stringify({
+            id: 'test-user-123',
+            username: 'Test User',
+            email: 'test@example.com'
+        }));
+
+        // Log function
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const div = document.createElement('div');
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            logDiv.appendChild(div);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // Event listeners
+        window.addEventListener('playNext', (event) => {
+            log('✅ playNext event received: ' + event.detail.title);
+        });
+
+        window.addEventListener('addToQueue', (event) => {
+            log('✅ addToQueue event received: ' + event.detail.title);
+        });
+
+        window.addEventListener('startRadio', (event) => {
+            log('✅ startRadio event received: ' + event.detail.title);
+        });
+
+        window.addEventListener('showToast', (event) => {
+            log('🎉 Toast: ' + event.detail.message);
+        });
+
+        // Test buttons
+        document.body.innerHTML += `
+            <div style="margin: 20px;">
+                <button onclick="testPlayNext()">Test Play Next</button>
+                <button onclick="testAddToQueue()">Test Add to Queue</button>
+                <button onclick="testStartRadio()">Test Start Radio</button>
+            </div>
+        `;
+
+        function testPlayNext() {
+            log('📤 Dispatching playNext event...');
+            window.dispatchEvent(new CustomEvent('playNext', { detail: testSong }));
+        }
+
+        function testAddToQueue() {
+            log('📤 Dispatching addToQueue event...');
+            window.dispatchEvent(new CustomEvent('addToQueue', { detail: testSong }));
+        }
+
+        function testStartRadio() {
+            log('📤 Dispatching startRadio event...');
+            window.dispatchEvent(new CustomEvent('startRadio', { detail: testSong }));
+        }
+
+        log('🔧 Test page loaded, event listeners registered');
+    </script>
+</body>
+</html>

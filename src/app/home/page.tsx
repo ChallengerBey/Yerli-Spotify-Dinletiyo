@@ -70,17 +70,7 @@ export default function HomePage() {
 
 
   useEffect(() => {
-    // Sağ tıkı tamamen engelle
-    const disableRightClick = (e: MouseEvent) => {
-      e.preventDefault();
-      return false;
-    };
-
-    document.addEventListener('contextmenu', disableRightClick);
-
-    return () => {
-      document.removeEventListener('contextmenu', disableRightClick);
-    };
+    // Global context menu artık şarkıları algılıyor, burada engellemeye gerek yok
   }, []);
 
   useEffect(() => {
@@ -208,7 +198,7 @@ export default function HomePage() {
 
 
       <footer className="text-center text-sm text-muted-foreground py-8 border-t">
-        Topluyo Inc tarafından 2025 Semih Ergili
+        Dinletiyo Company Semih Ergili 2026
       </footer>
     </div>
   );

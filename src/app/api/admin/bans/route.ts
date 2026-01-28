@@ -16,27 +16,25 @@ export async function GET() {
       return NextResponse.json([
         {
           id: '1',
-          title: 'Demo Song 1',
-          artist: 'Demo Artist',
-          duration_ms: 180000,
-          uploaded_by: 'admin',
-          play_count: 1250,
-          created_at: new Date().toISOString(),
+          user_id: 'demo-user-1',
+          ban_reason: 'Spam behavior',
+          ban_type: 'temporary',
+          expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          is_active: true,
         },
         {
           id: '2',
-          title: 'Demo Song 2',
-          artist: 'Another Artist',
-          duration_ms: 210000,
-          uploaded_by: 'admin',
-          play_count: 890,
-          created_at: new Date().toISOString(),
+          user_id: 'demo-user-2',
+          ban_reason: 'Inappropriate content',
+          ban_type: 'permanent',
+          expires_at: null,
+          is_active: true,
         }
       ]);
     }
 
     const { data, error } = await supabase
-      .from('songs')
+      .from('user_bans')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -44,7 +42,7 @@ export async function GET() {
 
     return NextResponse.json(data || []);
   } catch (error) {
-    console.error('Error fetching songs:', error);
-    return NextResponse.json({ error: 'Failed to fetch songs' }, { status: 500 });
+    console.error('Error fetching bans:', error);
+    return NextResponse.json({ error: 'Failed to fetch bans' }, { status: 500 });
   }
 }

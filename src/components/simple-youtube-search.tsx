@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import SongContextMenu from './song-context-menu';
 
 
 interface Video {
@@ -31,6 +32,28 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showContextMenu, setShowContextMenu] = useState(false);
+  const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
+  const [selectedSong, setSelectedSong] = useState<any>(null);
+
+  // Context menu'yu kapatmak için click listener
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (showContextMenu) {
+        setShowContextMenu(false);
+      }
+    };
+
+    if (showContextMenu) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('contextmenu', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('contextmenu', handleClickOutside);
+    };
+  }, [showContextMenu]);
 
   // Client-side mounting
   useEffect(() => {
@@ -113,6 +136,20 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
     window.dispatchEvent(new CustomEvent('playSong', { detail: songData }));
   };
 
+  const createSongData = (video: Video) => {
+    return {
+      id: video.id,
+      title: video.title,
+      artist: 'YouTube',
+      album: '',
+      duration: video.duration,
+      imageUrl: video.thumbnail,
+      audioUrl: video.id,
+      youtube_url: `https://youtube.com/watch?v=${video.id}`,
+      aiHint: 'youtube'
+    };
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex gap-2">
@@ -134,8 +171,17 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
         {videos.map((video) => (
           <div
             key={video.id}
+            className="video-card-container cursor-pointer group relative rounded-lg overflow-hidden hover:scale-105 transition-transform shadow-md hover:shadow-lg"
+            data-video-card="true"
             onClick={() => playVideo(video)}
-            className="cursor-pointer group relative rounded-lg overflow-hidden hover:scale-105 transition-transform shadow-md hover:shadow-lg"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const songData = createSongData(video);
+              setSelectedSong(songData);
+              setContextMenuPos({ x: e.clientX, y: e.clientY });
+              setShowContextMenu(true);
+            }}
           >
             <img
               src={video.thumbnail}
@@ -167,6 +213,16 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
         <div className="text-center py-8 text-muted-foreground">
           Şarkı yüklenemedi.
         </div>
+      )}
+
+      {/* Context Menu */}
+      {showContextMenu && selectedSong && (
+        <SongContextMenu
+          song={selectedSong}
+          x={contextMenuPos.x}
+          y={contextMenuPos.y}
+          onClose={() => setShowContextMenu(false)}
+        />
       )}
     </div>
   );

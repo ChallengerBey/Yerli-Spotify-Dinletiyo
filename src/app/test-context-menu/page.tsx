@@ -1,138 +1,97 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-  ContextMenuSeparator,
-} from '@/components/ui/context-menu';
-import { Play, SkipForward, Repeat, Heart, ListMusic } from 'lucide-react';
 
 export default function TestContextMenuPage() {
-  const handlePlay = () => {
-    console.log('Play clicked');
-  };
-
-  const handlePlayNext = () => {
-    console.log('Play Next clicked');
-  };
-
-  const handleAddToQueue = () => {
-    console.log('Add to Queue clicked');
-  };
-
-  const handleAddToPlaylist = () => {
-    console.log('Add to Playlist clicked');
-  };
-
-  const handleShare = () => {
-    console.log('Share clicked');
-  };
-
-  const handleRepeatSong = () => {
-    console.log('Repeat Song clicked');
-  };
-
-  const handleAddToFavorites = () => {
-    console.log('Add to Favorites clicked');
-  };
-
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-6">Context Menu Test</h1>
+      <h1 className="text-3xl font-bold mb-6">Global Context Menu Test</h1>
       
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Test Context Menu on Button</h2>
-        <ContextMenu>
-          <ContextMenuTrigger>
-            <Button variant="default">Right-click me</Button>
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <ContextMenuItem onClick={handlePlay}>
-              <Play className="mr-2 h-4 w-4" />
-              <span>Çal</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handlePlayNext}>
-              <SkipForward className="mr-2 h-4 w-4" />
-              <span>Sonraki Çal</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleAddToQueue}>
-              <ListMusic className="mr-2 h-4 w-4" />
-              <span>Kuyruğa Ekle</span>
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem onClick={handleAddToPlaylist}>
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              <span>Çalma Listesine Ekle</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleShare}>
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 2.684a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-              <span>Paylaş</span>
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem onClick={handleRepeatSong}>
-              <Repeat className="mr-2 h-4 w-4" />
-              <span>Şarkıyı Tekrarla</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleAddToFavorites}>
-              <Heart className="mr-2 h-4 w-4" />
-              <span>Favorilere Ekle</span>
-            </ContextMenuItem>
-          </ContextMenuContent>
-        </ContextMenu>
-      </div>
-      
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Test Context Menu on Div</h2>
-        <ContextMenu>
-          <ContextMenuTrigger>
-            <div className="w-64 h-64 bg-secondary rounded-lg flex items-center justify-center cursor-pointer">
-              <span className="text-lg">Right-click anywhere in this box</span>
+      <div className="space-y-8">
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Test Global Context Menu</h2>
+          <p className="text-muted-foreground mb-4">
+            Sayfanın herhangi bir yerine sağ tıklayın ve global context menu'yu görün.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 bg-card rounded-lg border">
+              <h3 className="font-semibold mb-2">Normal Alan</h3>
+              <p>Bu alana sağ tıkladığınızda global context menu açılacak.</p>
             </div>
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <ContextMenuItem onClick={handlePlay}>
-              <Play className="mr-2 h-4 w-4" />
-              <span>Çal</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handlePlayNext}>
-              <SkipForward className="mr-2 h-4 w-4" />
-              <span>Sonraki Çal</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleAddToQueue}>
-              <ListMusic className="mr-2 h-4 w-4" />
-              <span>Kuyruğa Ekle</span>
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem onClick={handleAddToPlaylist}>
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              <span>Çalma Listesine Ekle</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleShare}>
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 2.684a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-              <span>Paylaş</span>
-            </ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem onClick={handleRepeatSong}>
-              <Repeat className="mr-2 h-4 w-4" />
-              <span>Şarkıyı Tekrarla</span>
-            </ContextMenuItem>
-            <ContextMenuItem onClick={handleAddToFavorites}>
-              <Heart className="mr-2 h-4 w-4" />
-              <span>Favorilere Ekle</span>
-            </ContextMenuItem>
-          </ContextMenuContent>
-        </ContextMenu>
+            
+            <div className="p-6 bg-secondary rounded-lg">
+              <h3 className="font-semibold mb-2">Farklı Arka Plan</h3>
+              <p>Bu alan da global context menu'yu destekler.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Input Alanları (Context Menu Yok)</h2>
+          <p className="text-muted-foreground mb-4">
+            Bu alanlarda varsayılan browser context menu'su çalışacak.
+          </p>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Text Input</label>
+              <input 
+                type="text" 
+                placeholder="Bu input'a sağ tıklayın - varsayılan menu görünecek"
+                className="w-full p-2 border rounded-md bg-background"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-2">Textarea</label>
+              <textarea 
+                placeholder="Bu textarea'ya sağ tıklayın - varsayılan menu görünecek"
+                className="w-full p-2 border rounded-md bg-background h-20"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Keyboard Shortcuts Test</h2>
+          <p className="text-muted-foreground mb-4">
+            Aşağıdaki klavye kısayollarını test edin:
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="p-4 bg-card rounded border">
+              <strong>Ctrl+H</strong> - Ana Sayfa
+            </div>
+            <div className="p-4 bg-card rounded border">
+              <strong>Ctrl+R</strong> - Analytics Raporu
+            </div>
+            <div className="p-4 bg-card rounded border">
+              <strong>Ctrl+Y</strong> - Yatırımcı Merkezi
+            </div>
+            <div className="p-4 bg-card rounded border">
+              <strong>Ctrl+P</strong> - Profil
+            </div>
+            <div className="p-4 bg-card rounded border">
+              <strong>Ctrl+,</strong> - Ayarlar
+            </div>
+            <div className="p-4 bg-card rounded border">
+              <strong>F5</strong> - Sayfayı Yenile
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Context Menu Özellikleri</h2>
+          <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+            <li>Sayfanın herhangi bir yerine sağ tıklayın</li>
+            <li>Input ve textarea alanlarında varsayılan menu çalışır</li>
+            <li>ESC tuşu ile menu'yu kapatabilirsiniz</li>
+            <li>Menu dışına tıklayarak kapatabilirsiniz</li>
+            <li>Klavye kısayolları her zaman çalışır</li>
+            <li>Menu ekran dışına taşmaz, otomatik konumlanır</li>
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -70,10 +70,8 @@ export function Player() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [fadeVolume, setFadeVolume] = useState(100);
-  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
-  const [isRoomHost, setIsRoomHost] = useState(false);
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<any>(null);
@@ -82,6 +80,16 @@ export function Player() {
   // Component mount kontrolü
   useEffect(() => {
     setMounted(true);
+    
+    // Kullanıcı kontrolü - eğer kullanıcı yoksa player çalışmaz
+    const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+    if (!currentUser) {
+      console.log('⚠️ Player: Kullanıcı bulunamadı, player devre dışı');
+      return () => setMounted(false);
+    } else {
+      console.log('✅ Player: Kullanıcı bulundu, player aktif');
+    }
+    
     return () => setMounted(false);
   }, []);
 
@@ -170,20 +178,6 @@ export function Player() {
       return null;
     }
   };
-
-  useEffect(() => {
-    const syncRoomStateFromStorage = () => {
-      const roomId = typeof window !== 'undefined' ? localStorage.getItem('active-room-id') : null;
-      const isHost = typeof window !== 'undefined' ? localStorage.getItem('active-room-is-host') : null;
-
-      setActiveRoomId(roomId || null);
-      setIsRoomHost(isHost === 'true');
-    };
-
-    syncRoomStateFromStorage();
-    window.addEventListener('activeRoomChanged', syncRoomStateFromStorage);
-    return () => window.removeEventListener('activeRoomChanged', syncRoomStateFromStorage);
-  }, []);
 
   useEffect(() => {
     if ('mediaSession' in navigator && currentSong.id !== '0' && currentSong.imageUrl) {
@@ -405,12 +399,170 @@ export function Player() {
       }
     };
 
+    // Context menu event'leri için handler'lar
+    const handlePlayNext = async (event: any) => {
+      const song = event.detail;
+      console.log('🎵 Player: playNext event alındı:', song.title);
+      try {
+        const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+        if (currentUser) {
+          const userData = JSON.parse(currentUser);
+          console.log('👤 Kullanıcı bulundu:', userData.id);
+          
+          const response = await fetch('/api/user-data/queue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: userData.id,
+              song: song,
+              playNext: true
+            }),
+          });
+          
+          console.log('📡 API Response:', response.status);
+          
+          if (response.ok) {
+            // Queue'yu güncelle
+            setQueue(prev => {
+              const newQueue = [song, ...prev];
+              localStorage.setItem('current-queue', JSON.stringify(newQueue));
+              console.log('✅ Queue güncellendi, yeni uzunluk:', newQueue.length);
+              return newQueue;
+            });
+            
+            // Toast notification
+            const toastEvent = new CustomEvent('showToast', { 
+              detail: { message: `"${song.title}" sonraki şarkı olarak eklendi!`, type: 'success' }
+            });
+            window.dispatchEvent(toastEvent);
+            console.log('🎉 Toast gönderildi');
+          } else {
+            console.error('❌ API hatası:', response.status);
+          }
+        } else {
+          console.error('❌ Kullanıcı bulunamadı');
+        }
+      } catch (error) {
+        console.error('❌ Sonraki şarkı ekleme hatası:', error);
+      }
+    };
+
+    const handleAddToQueue = async (event: any) => {
+      const song = event.detail;
+      console.log('🎵 Player: addToQueue event alındı:', song.title);
+      try {
+        const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+        if (currentUser) {
+          const userData = JSON.parse(currentUser);
+          console.log('👤 Kullanıcı bulundu:', userData.id);
+          
+          const response = await fetch('/api/user-data/queue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: userData.id,
+              song: song,
+              playNext: false
+            }),
+          });
+          
+          console.log('📡 API Response:', response.status);
+          
+          if (response.ok) {
+            // Queue'yu güncelle
+            setQueue(prev => {
+              const newQueue = [...prev, song];
+              localStorage.setItem('current-queue', JSON.stringify(newQueue));
+              console.log('✅ Queue güncellendi, yeni uzunluk:', newQueue.length);
+              return newQueue;
+            });
+            
+            // Toast notification
+            const toastEvent = new CustomEvent('showToast', { 
+              detail: { message: `"${song.title}" kuyruğa eklendi!`, type: 'success' }
+            });
+            window.dispatchEvent(toastEvent);
+            console.log('🎉 Toast gönderildi');
+          } else {
+            console.error('❌ API hatası:', response.status);
+          }
+        } else {
+          console.error('❌ Kullanıcı bulunamadı');
+        }
+      } catch (error) {
+        console.error('❌ Kuyruğa ekleme hatası:', error);
+      }
+    };
+
+    const handleStartRadio = async (event: any) => {
+      const song = event.detail;
+      console.log('🎵 Player: startRadio event alındı:', song.title);
+      try {
+        console.log('📻 Radyo başlatılıyor:', song.title, '-', song.artist);
+        
+        // Mevcut şarkıyı çal
+        window.dispatchEvent(new CustomEvent('playSong', { detail: song }));
+        console.log('▶️ Şarkı çalma eventi gönderildi');
+        
+        // Benzer şarkılar için otomatik playlist oluştur
+        await createAutoPlaylist(song);
+        console.log('📝 Otomatik playlist oluşturuldu');
+        
+        // Toast notification
+        const toastEvent = new CustomEvent('showToast', { 
+          detail: { message: `"${song.title}" temalı radyo başlatıldı! 📻`, type: 'success' }
+        });
+        window.dispatchEvent(toastEvent);
+        console.log('🎉 Toast gönderildi');
+      } catch (error) {
+        console.error('❌ Radyo başlatma hatası:', error);
+      }
+    };
+
+    const handleRepeatSong = (event: any) => {
+      const song = event.detail;
+      console.log('🎵 Player: repeatSong event alındı:', song.title);
+      setRepeatMode('one');
+      localStorage.setItem('repeat-mode', 'one');
+      
+      // Eğer farklı bir şarkıysa önce onu çal
+      if (currentSong.id !== song.id) {
+        window.dispatchEvent(new CustomEvent('playSong', { detail: song }));
+      }
+      
+      // Toast notification
+      const toastEvent = new CustomEvent('showToast', { 
+        detail: { message: `"${song.title}" tekrar modunda!`, type: 'info' }
+      });
+      window.dispatchEvent(toastEvent);
+      console.log('🎉 Repeat toast gönderildi');
+    };
+
+    // Test event handler
+    const handleTestEvent = (event: any) => {
+      console.log('🧪 Test event alındı:', event.detail);
+    };
+
+    // Event listener'ları kaydet
+    console.log('🔧 Player event listener\'ları kaydediliyor...');
     window.addEventListener('playSong', handlePlaySong);
     window.addEventListener('joinSession', handleJoinSession);
     window.addEventListener('togglePlay', handleTogglePlay);
     window.addEventListener('playerSetVolume', handlePlayerSetVolume);
     window.addEventListener('playerToggleMute', handlePlayerToggleMute);
     window.addEventListener('seekTo', handleSeekTo);
+    window.addEventListener('playNext', handlePlayNext);
+    window.addEventListener('addToQueue', handleAddToQueue);
+    window.addEventListener('startRadio', handleStartRadio);
+    window.addEventListener('repeatSong', handleRepeatSong);
+    window.addEventListener('testEvent', handleTestEvent);
+    console.log('✅ Tüm event listener\'lar kaydedildi');
+    
+    // Test event'i gönder
+    setTimeout(() => {
+      console.log('🧪 Test event gönderiliyor...');
+      window.dispatchEvent(new CustomEvent('testEvent', { detail: 'test' }));
+    }, 1000);
     
     return () => {
       window.removeEventListener('playSong', handlePlaySong);
@@ -419,6 +571,11 @@ export function Player() {
       window.removeEventListener('playerSetVolume', handlePlayerSetVolume);
       window.removeEventListener('playerToggleMute', handlePlayerToggleMute);
       window.removeEventListener('seekTo', handleSeekTo);
+      window.removeEventListener('playNext', handlePlayNext);
+      window.removeEventListener('addToQueue', handleAddToQueue);
+      window.removeEventListener('startRadio', handleStartRadio);
+      window.removeEventListener('repeatSong', handleRepeatSong);
+      window.removeEventListener('testEvent', handleTestEvent);
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
       }
@@ -536,107 +693,6 @@ export function Player() {
 
     return () => clearInterval(interval);
   }, [isHosting, currentUser, currentSong, isPlaying, progress]);
-
-  useEffect(() => {
-    if (!activeRoomId || !isRoomHost) return;
-    if (currentSong.id === '0') return;
-
-    let cancelled = false;
-    const interval = setInterval(async () => {
-      if (cancelled) return;
-      
-      try {
-        const token = await getAccessToken();
-        if (!token) return;
-
-        const response = await fetch('/api/rooms', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            room_id: activeRoomId,
-            current_song_id: currentSong.id,
-            current_song_data: currentSong,
-            is_playing: isPlaying,
-            progress_ms: Math.floor(progress * 1000),
-          }),
-        });
-
-        // If room update fails, clear room state
-        if (!response.ok) {
-          console.warn('Room update failed, clearing room state');
-          setActiveRoomId(null);
-          setIsRoomHost(false);
-          localStorage.removeItem('active-room-id');
-          localStorage.removeItem('active-room-is-host');
-        }
-      } catch (error) {
-        console.error('Room update error:', error);
-        // Clear room state on persistent errors
-        setActiveRoomId(null);
-        setIsRoomHost(false);
-        localStorage.removeItem('active-room-id');
-        localStorage.removeItem('active-room-is-host');
-      }
-    }, 2000);
-
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, [activeRoomId, isRoomHost, currentSong, isPlaying, progress]);
-
-  useEffect(() => {
-    if (!activeRoomId || isRoomHost) return;
-
-    let cancelled = false;
-    const interval = setInterval(async () => {
-      if (cancelled) return;
-
-      const token = await getAccessToken();
-      const headers: any = token ? { Authorization: `Bearer ${token}` } : undefined;
-      const res = await fetch(`/api/rooms?id=${encodeURIComponent(activeRoomId)}`, {
-        headers,
-      });
-
-      if (!res.ok) return;
-
-      const data = await res.json();
-      const room = data?.room;
-      if (!room) return;
-
-      const song = room.current_song_data;
-      if (!song || !song.id) return;
-
-      if (song.id !== currentSong.id) {
-        window.dispatchEvent(new CustomEvent('playSong', { detail: song }));
-      }
-
-      if (typeof room.is_playing === 'boolean') {
-        setIsPlaying(room.is_playing);
-      }
-
-      const remoteProgress = typeof room.progress_ms === 'number' ? room.progress_ms / 1000 : null;
-      if (remoteProgress !== null) {
-        const diff = Math.abs(remoteProgress - progress);
-        if (diff > 2) {
-          setProgress(remoteProgress);
-          if (isYouTube && playerRef.current) {
-            playerRef.current.seekTo(remoteProgress, true);
-          } else if (audioRef.current) {
-            audioRef.current.currentTime = remoteProgress;
-          }
-        }
-      }
-    }, 2000);
-
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, [activeRoomId, isRoomHost, currentSong.id, progress, isYouTube]);
 
   const toggleHosting = () => {
     if (!isHosting && currentUser) {
@@ -809,89 +865,20 @@ export function Player() {
         const data = await response.json();
         
         if (data.videos && data.videos.length > 0) {
-          console.log(`📺 ${data.videos.length} video bulundu, filtreleniyor...`);
+          console.log(`📺 ${data.videos.length} video bulundu (filtrelenmiş)`);
           
           const newSongs = data.videos
             .filter((v: any) => {
-              const title = v.title.toLowerCase();
-              const channel = v.channelTitle?.toLowerCase() || '';
-              
-              // ÇOCUK İÇERİKLERİNİ KESMEN ÇIKAR - ÇOK GÜÇLÜ FİLTRE
-              const childKeywords = [
-                'kids', 'children', 'baby', 'nursery', 'çocuk', 'bebek', 'çocuklar',
-                'kiboomers', 'super simple', 'freeze dance', 'floor is lava',
-                'preschool', 'kindergarten', 'toddler', 'cartoon', 'animation',
-                'lullaby', 'ninni', 'songs for kids', 'kids songs', 'children songs',
-                'bye bye goodbye', 'goodbye song', 'hello song', 'abc song',
-                'wheels on the bus', 'twinkle twinkle', 'old macdonald',
-                'if you\'re happy', 'head shoulders', 'itsy bitsy spider',
-                'bingo song', 'mary had a little lamb', 'london bridge',
-                'row row row your boat', 'hickory dickory dock', 'humpty dumpty',
-                'jack and jill', 'little bo peep', 'rock a bye baby',
-                'educational', 'eğitici', 'öğretici', 'learning', 'öğrenme',
-                'cocomelon', 'little baby bum', 'dave and ava', 'bounce patrol',
-                'simple songs', 'nursery rhymes', 'tekerlemeler', 'masal',
-                'fairy tale', 'story', 'hikaye', 'masallar', 'çizgi film'
-              ];
-              
-              const hasChildContent = childKeywords.some(keyword => 
-                title.includes(keyword) || channel.includes(keyword)
-              );
-              
-              // EĞİTİM İÇERİKLERİNİ ÇIKAR
-              const educationKeywords = [
-                'learn', 'tutorial', 'lesson', 'alphabet', 'numbers', 'colors',
-                'öğren', 'ders', 'eğitim', 'öğretim', 'kurs', 'nasıl yapılır',
-                'how to', 'guide', 'rehber', 'anlatım'
-              ];
-              
-              const hasEducationContent = educationKeywords.some(keyword => 
-                title.includes(keyword) || channel.includes(keyword)
-              );
-              
-              // SANATÇI ADI KONTROLÜ - MUTLAKA OLMALI
-              const artistInTitle = title.includes(cleanArtist.toLowerCase());
-              const artistInChannel = channel.includes(cleanArtist.toLowerCase());
-              
-              // SÜRE KONTROLÜ - Çok kısa videolar çıkar
-              const duration = v.duration || '';
-              const tooShort = duration.startsWith('0:0') || duration.startsWith('0:1');
-              
               // DUPLICATE KONTROLÜ
               const alreadyExists = allSongs.some(existing => existing.id === v.id);
               
-              // KANAL ADI KONTROLÜ - Çocuk kanallarını çıkar
-              const childChannels = [
-                'kiboomers', 'super simple', 'cocomelon', 'little baby bum',
-                'dave and ava', 'bounce patrol', 'kids tv', 'nursery rhymes',
-                'children', 'kids', 'baby', 'toddler', 'preschool'
-              ];
-              
-              const isChildChannel = childChannels.some(childCh => 
-                channel.includes(childCh)
-              );
-              
-              const isValid = !hasChildContent && 
-                             !hasEducationContent && 
-                             !isChildChannel &&
-                             (artistInTitle || artistInChannel) && 
-                             !tooShort && 
-                             !alreadyExists;
-              
-              if (isValid) {
-                console.log('✅ Geçerli:', v.title);
-              } else {
-                console.log('❌ Filtrelendi:', v.title, 
-                  hasChildContent ? '[ÇOCUK]' : '',
-                  hasEducationContent ? '[EĞİTİM]' : '',
-                  isChildChannel ? '[ÇOCUK KANAL]' : '',
-                  !artistInTitle && !artistInChannel ? '[SANATÇI YOK]' : '',
-                  tooShort ? '[KISA]' : '',
-                  alreadyExists ? '[DUPLICATE]' : ''
-                );
+              if (alreadyExists) {
+                console.log('❌ Duplicate:', v.title);
+                return false;
               }
               
-              return isValid;
+              console.log('✅ Ekleniyor:', v.title);
+              return true;
             })
             .slice(0, 15) // İlk 15 geçerli şarkı
             .map((video: any) => ({
@@ -977,6 +964,7 @@ export function Player() {
         searchQuery = cleanArtist;
       }
       
+      console.log('🔍 Yeni şarkılar aranıyor:', searchQuery);
       response = await fetch(`/api/youtube-scrape?q=${encodeURIComponent(searchQuery)}`);
       data = await response.json();
       
@@ -987,63 +975,16 @@ export function Player() {
         } else {
           searchQuery = `${cleanArtist} ${cleanTitle.split(' ').slice(0, 2).join(' ')}`;
         }
+        console.log('🔍 Alternatif arama:', searchQuery);
         response = await fetch(`/api/youtube-scrape?q=${encodeURIComponent(searchQuery)}`);
         data = await response.json();
       }
 
       if (data.videos && data.videos.length > 0) {
-        // Sonuçları filtrele - istenmeyen içerikleri çıkar
-        const filteredVideos = data.videos.filter((v: any) => {
-          const title = v.title.toLowerCase();
-          const channel = v.channelTitle?.toLowerCase() || '';
-          
-          // ÇOCUK İÇERİKLERİNİ KESMEN ÇIKAR - ÇOK GÜÇLÜ FİLTRE
-          const childKeywords = [
-            'kids', 'children', 'baby', 'nursery', 'çocuk', 'bebek', 'çocuklar',
-            'kiboomers', 'super simple', 'freeze dance', 'floor is lava',
-            'preschool', 'kindergarten', 'toddler', 'cartoon', 'animation',
-            'lullaby', 'ninni', 'songs for kids', 'kids songs', 'children songs',
-            'bye bye goodbye', 'goodbye song', 'hello song', 'abc song',
-            'wheels on the bus', 'twinkle twinkle', 'old macdonald',
-            'if you\'re happy', 'head shoulders', 'itsy bitsy spider',
-            'bingo song', 'mary had a little lamb', 'london bridge',
-            'row row row your boat', 'hickory dickory dock', 'humpty dumpty',
-            'jack and jill', 'little bo peep', 'rock a bye baby',
-            'educational', 'eğitici', 'öğretici', 'learning', 'öğrenme',
-            'cocomelon', 'little baby bum', 'dave and ava', 'bounce patrol',
-            'simple songs', 'nursery rhymes', 'tekerlemeler', 'masal',
-            'fairy tale', 'story', 'hikaye', 'masallar', 'çizgi film'
-          ];
-          
-          const hasChildContent = childKeywords.some(keyword => 
-            title.includes(keyword) || channel.includes(keyword)
-          );
-          
-          // KANAL ADI KONTROLÜ - Çocuk kanallarını çıkar
-          const childChannels = [
-            'kiboomers', 'super simple', 'cocomelon', 'little baby bum',
-            'dave and ava', 'bounce patrol', 'kids tv', 'nursery rhymes',
-            'children', 'kids', 'baby', 'toddler', 'preschool'
-          ];
-          
-          const isChildChannel = childChannels.some(childCh => 
-            channel.includes(childCh)
-          );
-          
-          const badKeywords = [
-            'youtube music', 'descubre', 'discover', 'playlist', 'mix',
-            'live with orchestra', 'orchestra', 'classical', 'klasik',
-            'piano', 'piyano', 'instrumental', 'enstrümantal',
-            'mariage d\'amour', 'wedding', 'düğün', 'romantic', 'romantik',
-            'ambient', 'meditation', 'meditasyon', 'relaxing', 'rahatlatıcı'
-          ];
-          
-          const hasBadKeyword = badKeywords.some(keyword => 
-            title.includes(keyword) || channel.includes(keyword)
-          );
-          
-          return !hasChildContent && !isChildChannel && !hasBadKeyword && v.id !== currentSong.id;
-        });
+        console.log(`📺 ${data.videos.length} filtrelenmiş video bulundu`);
+        
+        // Mevcut şarkıyı filtrele
+        const filteredVideos = data.videos.filter((v: any) => v.id !== currentSong.id);
 
         const newSongs = filteredVideos.slice(0, 10)
           .map((video: any) => ({
@@ -1057,6 +998,7 @@ export function Player() {
           }));
 
         if (newSongs.length > 0) {
+          console.log(`✅ ${newSongs.length} yeni şarkı eklendi`);
           setQueue(prev => {
             const updated = [...prev, ...newSongs];
             localStorage.setItem('current-queue', JSON.stringify(updated));

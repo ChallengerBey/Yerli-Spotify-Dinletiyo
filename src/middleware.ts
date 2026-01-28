@@ -81,7 +81,7 @@ export async function middleware(request: NextRequest) {
                 
                 <div class="pt-6 border-t border-red-500">
                   <p class="text-red-500 text-sm">
-                    Dinletiyo Güvenlik Sistemi © 2025 | Tüm hakları saklıdır.
+                    Dinletiyo Company Semih Ergili 2026
                   </p>
                 </div>
               </div>

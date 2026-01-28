@@ -28,7 +28,6 @@ const desktopNavLinks = [
   { href: "/home/friends", label: "Yeni Biriyle Tanış", icon: Sparkles },
   { href: "/home/library", label: "Kitaplığın", icon: Library },
   { href: "/home/playlists", label: "Playlistler", icon: ListMusic },
-  { href: "/home/rooms", label: "Dinleme Odaları", icon: Radio },
   { href: "/home/yayinci", label: "Yayıncı", icon: Tv },
   { href: "/home/overlay", label: "Yayın Overlay'i", icon: Monitor },
   { href: "/home/feed", label: "Aktivite", icon: Activity },
@@ -38,7 +37,6 @@ const desktopNavLinks = [
 ];
 
 const mobileFeatures = [
-  { href: "/home/rooms", label: "Dinleme Odaları", icon: Radio },
   { href: "/home/yayinci", label: "Yayıncı", icon: Tv },
   { href: "/home/feed", label: "Aktivite", icon: Activity },
   { href: "/home/leaderboard", label: "Liderler", icon: Trophy },

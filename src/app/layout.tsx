@@ -4,9 +4,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { PWARegister } from "@/components/pwa-register";
+import { GlobalContextMenu } from "@/components/global-context-menu";
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://dinletiyo.com' : 'http://localhost:3000'),
   title: 'Dinletiyo - Türkiye\'nin En Büyük Müzik Platformu | Ücretsiz Müzik Dinle',
   description: 'Dinletiyo ile milyonlarca Türkçe ve yabancı şarkıyı ücretsiz dinleyin. Pop, rock, rap, arabesk ve daha fazlası. Arkadaşlarınızla playlist paylaşın, yeni müzikler keşfedin.',
   keywords: 'müzik dinle, ücretsiz müzik, Türkçe müzik, playlist, şarkı dinle, müzik platformu, online müzik, Türkiye müzik, pop müzik, rock müzik',
@@ -14,6 +16,10 @@ export const metadata: Metadata = {
   creator: 'Semih Ergili',
   publisher: 'Topluyo Inc',
   robots: 'index, follow',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Dinletiyo - Türkiye\'nin En Büyük Müzik Platformu',
     description: 'Milyonlarca şarkıyı ücretsiz dinleyin, playlist oluşturun ve arkadaşlarınızla paylaşın.',
@@ -107,6 +113,7 @@ export default function RootLayout({
           {children}
         </div>
         <Toaster />
+        <GlobalContextMenu />
       </body>
     </html>
   );

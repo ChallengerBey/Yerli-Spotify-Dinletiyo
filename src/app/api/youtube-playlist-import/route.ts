@@ -161,17 +161,8 @@ export async function GET(request: NextRequest) {
         }
 
         // Video ID'lerini topla ve filtrele
-        const videoIds = new Set<string>();
+        // videoIds zaten yukarıda tanımlandı, tekrar kullan
         
-        for (const regex of videoRegexes) {
-          const matches = html.matchAll(regex);
-          for (const match of matches) {
-            if (match[1] && match[1].length === 11) {
-              videoIds.add(match[1]);
-            }
-          }
-        }
-
         // Sadece veri bulunan video ID'lerini kullan
         const validVideoIds = Array.from(videoIds).filter(id => videoData[id]).slice(0, 50);
         

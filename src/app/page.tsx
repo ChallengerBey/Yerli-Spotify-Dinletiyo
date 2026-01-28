@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Logo } from '@/components/logo';
-import AdBanner from '@/components/AdBanner';
-import { BannerAdCarousel } from '@/components/banner-ad-carousel';
 import Link from 'next/link';
 import { SongCard } from '@/components/song-card';
 import { Song, Playlist } from '@/lib/data';
 import { Search, Play } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import AdBanner from '@/components/AdBanner';
 
 const sections = [
   { title: "Popüler Listeler", items: 6 },
@@ -197,7 +196,7 @@ export default function LandingPage() {
 
               <div className="pt-6 border-t border-red-500">
                 <p className="text-red-500 text-sm">
-                  Dinletiyo Güvenlik Sistemi © 2025 | Tüm hakları saklıdır.
+                  Dinletiyo Company Semih Ergili 2026
                 </p>
               </div>
             </div>
@@ -228,11 +227,6 @@ export default function LandingPage() {
 
 
       <main className="container py-12">
-        {/* Gerçek Reklam Banner - Ana sayfa üst kısmı */}
-        <section className="mb-12">
-          <AdBanner />
-        </section>
-
         <section className="text-center py-20">
           <h1 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter">
             Müziğin Ritmini Yakala
@@ -240,17 +234,6 @@ export default function LandingPage() {
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Milyonlarca Türkçe ve yabancı şarkı, podcast ve sana özel çalma listeleri. Dinletiyo ile müziğin keyfini ücretsiz çıkar.
           </p>
-
-          {/* Internal Banner Reklam - Hemen Başla butonunun üstü */}
-          <div className="mt-8 mb-6">
-            <BannerAdCarousel 
-              className="w-full max-w-5xl mx-auto"
-              autoPlay={true}
-              autoPlayInterval={7000}
-              showControls={false}
-              showDots={true}
-            />
-          </div>
 
           {/* Arama Kısmı */}
           <div className="mt-8 max-w-2xl mx-auto">
@@ -279,11 +262,6 @@ export default function LandingPage() {
           <Button size="lg" className="mt-6" asChild>
             <Link href="/signup">Hemen Başla</Link>
           </Button>
-
-          {/* Gerçek Reklam Banner - Hemen Başla butonunun altı */}
-          <div className="mt-8">
-            <AdBanner />
-          </div>
         </section>
 
 
@@ -341,7 +319,7 @@ export default function LandingPage() {
 
       <footer className="container py-8 mt-16 border-t border-border/40">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Dinletiyo. Tüm hakları saklıdır.</p>
+          <p className="text-sm text-muted-foreground">Dinletiyo Company Semih Ergili 2026</p>
           <div className="flex gap-4">
             <Link href="/gizlilik" className="text-sm hover:underline">Gizlilik</Link>
             <Link href="/kosullar" className="text-sm hover:underline">Koşullar</Link>

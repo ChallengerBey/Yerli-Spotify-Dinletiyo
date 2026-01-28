@@ -17,21 +17,45 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Önce localStorage'dan kontrol et (Beni Hatırla için)
-    let currentUser = localStorage.getItem('currentUser');
+    console.log('🔐 AuthGuard: Kullanıcı kontrolü başlıyor...');
     
-    // Eğer localStorage'da yoksa sessionStorage'dan kontrol et
-    if (!currentUser) {
-      currentUser = sessionStorage.getItem('currentUser');
-    }
+    // Tüm localStorage ve sessionStorage'ı kontrol et
+    const localUser = localStorage.getItem('currentUser');
+    const sessionUser = sessionStorage.getItem('currentUser');
+    
+    console.log('👤 AuthGuard: localStorage currentUser:', localUser ? 'VAR' : 'YOK');
+    console.log('👤 AuthGuard: sessionStorage currentUser:', sessionUser ? 'VAR' : 'YOK');
+    
+    let currentUser = localUser || sessionUser;
     
     if (currentUser) {
-      setIsAuth(true);
-      // Eğer localStorage'da varsa, sessionStorage'a da kopyala (aktif oturum için)
-      if (localStorage.getItem('currentUser')) {
-        sessionStorage.setItem('currentUser', currentUser);
+      try {
+        const userData = JSON.parse(currentUser);
+        console.log('✅ AuthGuard: Kullanıcı doğrulandı:', userData);
+        
+        // Demo kullanıcı kontrolü - demo kullanıcıları reddet
+        if (userData.isDemo || userData.email === 'demo@dinletiyo.com' || userData.id?.includes('demo-user')) {
+          console.log('🚫 AuthGuard: Demo kullanıcı tespit edildi, temizleniyor...');
+          localStorage.removeItem('currentUser');
+          sessionStorage.removeItem('currentUser');
+          router.replace('/unauthorized');
+          setLoading(false);
+          return;
+        }
+        
+        setIsAuth(true);
+        // Eğer localStorage'da varsa, sessionStorage'a da kopyala (aktif oturum için)
+        if (localStorage.getItem('currentUser')) {
+          sessionStorage.setItem('currentUser', currentUser);
+        }
+      } catch (error) {
+        console.error('❌ AuthGuard: Kullanıcı parse hatası:', error);
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        router.replace('/unauthorized');
       }
     } else {
+      console.log('🚫 AuthGuard: Kullanıcı bulunamadı, unauthorized\'a yönlendiriliyor...');
       router.replace('/unauthorized');
     }
     setLoading(false);

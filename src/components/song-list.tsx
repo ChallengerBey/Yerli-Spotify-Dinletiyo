@@ -1,22 +1,20 @@
 
 'use client';
 
+import { useState } from "react";
 import { Song } from "@/lib/data";
 import { Clock, Play, SkipForward, Repeat } from "lucide-react";
 import { Button } from "./ui/button";
-import {
-    ContextMenu,
-    ContextMenuContent,
-    ContextMenuItem,
-    ContextMenuTrigger,
-    ContextMenuSeparator,
-} from "@/components/ui/context-menu";
+import SongContextMenu from "./song-context-menu";
 
 interface SongListProps {
     songs: Song[];
 }
 
 export function SongList({ songs }: SongListProps) {
+    const [showContextMenu, setShowContextMenu] = useState(false);
+    const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
+    const [selectedSong, setSelectedSong] = useState<Song | null>(null);
 
     const handlePlay = (songToPlay: Song) => {
         if (songToPlay && songToPlay.audioUrl) {
@@ -46,51 +44,56 @@ export function SongList({ songs }: SongListProps) {
             </div>
             <div className="space-y-1 mt-2">
                 {songs.map((song, index) => (
-                    <ContextMenu key={song.id}>
-                        <ContextMenuTrigger>
-                            <div className="group grid grid-cols-[auto,1fr,auto,auto] gap-x-4 items-center px-4 py-2 rounded-md hover:bg-secondary/50 transition-colors">
-                                <div className="relative w-6 text-right text-muted-foreground">
-                                    <span className="group-hover:hidden">{index + 1}</span>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 hidden group-hover:flex items-center justify-center"
-                                        onClick={() => handlePlay(song)}
-                                    >
-                                        <Play className="w-4 h-4 fill-foreground"/>
-                                    </Button>
-                                </div>
-                                <div className="flex items-center gap-4">
-                                    {/* Resim eklenebilir
-                                    <Image src={song.imageUrl} alt={song.title} width={40} height={40} className="rounded" />
-                                    */}
-                                    <div>
-                                        <p className="font-semibold text-foreground">{song.title}</p>
-                                        <p className="text-sm text-muted-foreground">{song.artist}</p>
-                                    </div>
-                                </div>
-                                <div className="text-muted-foreground truncate">{song.album}</div>
-                                <div className="text-right text-muted-foreground">{song.duration}</div>
+                    <div 
+                        key={song.id}
+                        className="group grid grid-cols-[auto,1fr,auto,auto] gap-x-4 items-center px-4 py-2 rounded-md hover:bg-secondary/50 transition-colors cursor-pointer"
+                        onContextMenu={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setSelectedSong(song);
+                            setContextMenuPos({ x: e.clientX, y: e.clientY });
+                            setShowContextMenu(true);
+                        }}
+                        onClick={() => handlePlay(song)}
+                    >
+                        <div className="relative w-6 text-right text-muted-foreground">
+                            <span className="group-hover:hidden">{index + 1}</span>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 hidden group-hover:flex items-center justify-center"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handlePlay(song);
+                                }}
+                            >
+                                <Play className="w-4 h-4 fill-foreground"/>
+                            </Button>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div>
+                                <p className="font-semibold text-foreground">{song.title}</p>
+                                <p className="text-sm text-muted-foreground">{song.artist}</p>
                             </div>
-                        </ContextMenuTrigger>
-                        <ContextMenuContent>
-                            <ContextMenuItem onClick={() => handlePlay(song)}>
-                                <Play className="mr-2 h-4 w-4" />
-                                <span>Çal</span>
-                            </ContextMenuItem>
-                            <ContextMenuItem onClick={() => handlePlayNext(song)}>
-                                <SkipForward className="mr-2 h-4 w-4" />
-                                <span>Sonraki Çal</span>
-                            </ContextMenuItem>
-                            <ContextMenuSeparator />
-                            <ContextMenuItem onClick={() => handleRepeatSong(song)}>
-                                <Repeat className="mr-2 h-4 w-4" />
-                                <span>Şarkıyı Tekrarla</span>
-                            </ContextMenuItem>
-                        </ContextMenuContent>
-                    </ContextMenu>
+                        </div>
+                        <div className="text-muted-foreground truncate">{song.album}</div>
+                        <div className="text-right text-muted-foreground">{song.duration}</div>
+                    </div>
                 ))}
             </div>
+
+            {/* Gelişmiş Context Menu */}
+            {showContextMenu && selectedSong && (
+                <SongContextMenu
+                    song={selectedSong}
+                    x={contextMenuPos.x}
+                    y={contextMenuPos.y}
+                    onClose={() => {
+                        setShowContextMenu(false);
+                        setSelectedSong(null);
+                    }}
+                />
+            )}
         </div>
     );
 }

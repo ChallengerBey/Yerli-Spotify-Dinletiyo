@@ -5,12 +5,16 @@ import { MobileNav } from '@/components/layout/mobile-nav';
 import { BottomNav } from '@/components/layout/bottom-nav';
 import { Player } from '@/components/layout/player';
 import { ThemeProvider } from '@/components/theme/theme-provider';
-import AdBanner from '@/components/AdBanner';
 import { analytics } from '@/lib/analytics';
+import { GlobalContextMenu } from '@/components/global-context-menu';
 
 import AuthGuard from '@/components/auth-guard';
 import { useEffect, useState } from 'react';
 import { NotificationListener } from '@/components/social/notification-listener';
+import { ToastListener } from '@/components/toast-listener';
+import { SongInfoListener } from '@/components/song-info-listener';
+import { MusicFeaturesListener } from '@/components/music-features-listener';
+import { FilterNotification } from '@/components/filter-notification';
 import { Toaster } from 'sonner';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -317,15 +321,6 @@ export default function HomeLayout({
           {!isFullscreen && <Sidebar />}
           {!isFullscreen && <MobileNav user={user} onLogout={handleLogout} />}
           <div className={`flex flex-col flex-1 min-h-0 ${isFullscreen ? '' : 'pt-16 lg:pt-0 pb-20 lg:pb-0'}`}>
-            {/* Gerçek Reklam Banner - Site içi üst kısım */}
-            {!isFullscreen && (
-              <div className="p-4 sm:p-6 lg:p-8 lg:px-10 pt-4">
-                <div className="w-full max-w-5xl mx-auto mb-6">
-                  <AdBanner />
-                </div>
-              </div>
-            )}
-            
             <main className={`flex-1 overflow-y-auto ${isFullscreen ? 'p-0' : 'p-4 sm:p-6 lg:p-8 lg:p-10 lg:pb-28'} ${!isFullscreen ? 'pt-0' : ''}`}>
               {children}
             </main>
@@ -492,7 +487,12 @@ export default function HomeLayout({
           </div>
           {!isFullscreen && <BottomNav />}
           <NotificationListener currentUserId={userId} />
+          <ToastListener />
+          <SongInfoListener />
+          <MusicFeaturesListener />
+          <FilterNotification />
           <Toaster position="top-right" richColors theme="dark" />
+          <GlobalContextMenu />
         </div>
       </ThemeProvider>
     </AuthGuard>
