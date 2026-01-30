@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Dinletiyo</string>
+    <string name="title_activity_main">Dinletiyo</string>
+    <string name="package_name">com.dinletiyo.app</string>
+    <string name="custom_url_scheme">com.dinletiyo.app</string>
+</resources>
