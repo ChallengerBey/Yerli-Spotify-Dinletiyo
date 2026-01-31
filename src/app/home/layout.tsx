@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import AuthGuard from '@/components/auth-guard';
 import { useEffect, useState } from 'react';
 import { NotificationListener } from '@/components/social/notification-listener';
+import { ChatNotificationListener } from '@/components/social/chat-notification-listener';
 import { Toaster } from 'sonner';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -184,6 +185,7 @@ export default function HomeLayout({
           </div>
           {!isFullscreen && <BottomNav />}
           <NotificationListener currentUserId={userId} />
+          <ChatNotificationListener currentUserId={userId} currentUserName={user?.username} />
           <Toaster position="top-right" richColors theme="dark" />
         </div>
       </ThemeProvider>

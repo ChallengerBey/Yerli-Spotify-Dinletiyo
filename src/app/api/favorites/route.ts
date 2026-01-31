@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     
     const supabase = createClient();
     const { data: favorites, error } = await supabase
-      .from('favorite_songs')
+      .from('favorites')
       .select('*')
       .eq('user_id', user.id)
       .order('added_at', { ascending: false })
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     
     const supabase = createClient();
     const { data, error } = await supabase
-      .from('favorite_songs')
+      .from('favorites')
       .insert({
         user_id: user.id,
         song_id,
@@ -121,7 +121,7 @@ export async function DELETE(request: Request) {
     
     const supabase = createClient();
     const { error } = await supabase
-      .from('favorite_songs')
+      .from('favorites')
       .delete()
       .eq('user_id', user.id)
       .eq('song_id', song_id);

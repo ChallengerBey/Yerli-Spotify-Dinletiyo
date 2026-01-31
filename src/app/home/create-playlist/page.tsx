@@ -69,21 +69,24 @@ export default function CreatePlaylistPage() {
     setLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock playlist creation
-      const newPlaylist = {
-        id: Date.now().toString(),
-        name: formData.name,
-        description: formData.description,
-        isPublic: formData.isPublic,
-        imageUrl: imagePreview || 'https://picsum.photos/300/300?random=' + Date.now(),
-        songCount: 0,
-        duration: '0dk',
-        createdBy: 'Sen',
-        createdAt: new Date().toISOString()
-      };
+      const response = await fetch('/api/playlists', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          description: formData.description,
+          isPublic: formData.isPublic,
+          imageUrl: imagePreview || null
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Playlist oluşturulamadı');
+      }
 
       toast({
         title: 'Başarılı!',
@@ -93,11 +96,11 @@ export default function CreatePlaylistPage() {
       // Redirect to playlists page
       router.push('/home/playlists');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating playlist:', error);
       toast({
         title: 'Hata',
-        description: 'Playlist oluşturulurken bir hata oluştu.',
+        description: error.message || 'Playlist oluşturulurken bir hata oluştu.',
         variant: 'destructive',
       });
     } finally {

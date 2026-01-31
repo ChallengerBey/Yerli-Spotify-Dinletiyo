@@ -11,29 +11,33 @@ import { Input } from "@/components/ui/input";
 import { Play, Pause } from 'lucide-react';
 
 
-function PlaylistSection({ title, fetchData, userPreferences }) {
+function PlaylistSection({ title, fetchData, userPreferences, refreshKey }) {
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
+
+  const loadPlaylists = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchData();
+      console.log(`${title} için yeni veri yüklendi:`, data);
+      // Kullanıcı tercihlerine göre filtrele
+      const filteredData = userPreferences ?
+        await filterPlaylistsByPreferences(data, userPreferences) : data;
+      // Ensure playlists is always an array
+      setPlaylists(Array.isArray(filteredData) ? filteredData : []);
+      setLastFetchTime(Date.now());
+    } catch (error) {
+      console.error('Playlist yüklenirken hata:', error);
+      setPlaylists([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadPlaylists = async () => {
-      try {
-        const data = await fetchData();
-        // Kullanıcı tercihlerine göre filtrele
-        const filteredData = userPreferences ?
-          await filterPlaylistsByPreferences(data, userPreferences) : data;
-        // Ensure playlists is always an array
-        setPlaylists(Array.isArray(filteredData) ? filteredData : []);
-      } catch (error) {
-        console.error('Playlist yüklenirken hata:', error);
-        setPlaylists([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadPlaylists();
-  }, [fetchData, userPreferences]);
+  }, [fetchData, userPreferences, refreshKey]);
 
   if (loading) {
     return <div>Yükleniyor...</div>;
@@ -47,9 +51,9 @@ function PlaylistSection({ title, fetchData, userPreferences }) {
     <section>
       <h2 className="text-2xl font-semibold tracking-tight mb-4">{title}</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-        {playlists.map((playlist) => (
+        {playlists.map((playlist, index) => (
           <SongCard
-            key={playlist.id}
+            key={`${playlist.id}-${lastFetchTime}-${index}`}
             item={playlist}
           />
         ))}
@@ -63,6 +67,18 @@ function PlaylistSection({ title, fetchData, userPreferences }) {
 export default function HomePage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [userPreferences, setUserPreferences] = useState(null);
+  const [playlistRefreshKey, setPlaylistRefreshKey] = useState(0);
+
+  // YouTube şarkıları yüklendiğinde playlist'leri yenile
+  useEffect(() => {
+    const handleYoutubeLoaded = () => {
+      console.log('🔄 YouTube şarkıları yüklendi, playlist\'ler yenileniyor...');
+      setPlaylistRefreshKey(prev => prev + 1);
+    };
+
+    window.addEventListener('youtubeLoaded', handleYoutubeLoaded);
+    return () => window.removeEventListener('youtubeLoaded', handleYoutubeLoaded);
+  }, []);
 
 
 
@@ -193,8 +209,18 @@ export default function HomePage() {
       {/* Kullanıcı tercihlerine göre şarkı önerileri */}
       {/* <RecommendedSongs /> component removed as per user request */}
 
-      <PlaylistSection title="Senin için Derlendi" fetchData={() => getMadeForYou(6)} userPreferences={userPreferences} />
-      <PlaylistSection title="Yeni Çıkanlar" fetchData={() => getNewReleases(6)} userPreferences={userPreferences} />
+      <PlaylistSection 
+        title="Senin için Derlendi" 
+        fetchData={() => getMadeForYou(6)} 
+        userPreferences={userPreferences}
+        refreshKey={playlistRefreshKey}
+      />
+      <PlaylistSection 
+        title="Yeni Çıkanlar" 
+        fetchData={() => getNewReleases(6)} 
+        userPreferences={userPreferences}
+        refreshKey={playlistRefreshKey}
+      />
 
 
       <footer className="text-center text-sm text-muted-foreground py-8 border-t">

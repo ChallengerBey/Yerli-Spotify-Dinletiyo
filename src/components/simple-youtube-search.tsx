@@ -20,7 +20,11 @@ const fallbackSongs: Video[] = [
   { id: 'gyCADiiKmPs', title: 'Şanışer - Susamam', thumbnail: 'https://i.ytimg.com/vi/gyCADiiKmPs/maxresdefault.jpg', duration: '14:55' },
   { id: 'HhZaHf8RP6g', title: 'Ezhel - Geceler', thumbnail: 'https://i.ytimg.com/vi/HhZaHf8RP6g/maxresdefault.jpg', duration: '3:42' },
   { id: 'YSHxt_-ntzw', title: 'Khontkar - Ölüme İnat', thumbnail: 'https://i.ytimg.com/vi/YSHxt_-ntzw/maxresdefault.jpg', duration: '3:18' },
-  { id: 'kKO_bBNbJss', title: 'Gazapizm - Heyecanı Yok', thumbnail: 'https://i.ytimg.com/vi/kKO_bBNbJss/maxresdefault.jpg', duration: '4:01' }
+  { id: 'kKO_bBNbJss', title: 'Gazapizm - Heyecanı Yok', thumbnail: 'https://i.ytimg.com/vi/kKO_bBNbJss/maxresdefault.jpg', duration: '4:01' },
+  { id: 'JFm7YDVlqnI', title: 'Ed Sheeran - Shape of You', thumbnail: 'https://i.ytimg.com/vi/JFm7YDVlqnI/maxresdefault.jpg', duration: '3:53' },
+  { id: '4NRXx6U8ABQ', title: 'The Weeknd - Blinding Lights', thumbnail: 'https://i.ytimg.com/vi/4NRXx6U8ABQ/maxresdefault.jpg', duration: '3:20' },
+  { id: 'DyDfgMOUjCI', title: 'Billie Eilish - bad guy', thumbnail: 'https://i.ytimg.com/vi/DyDfgMOUjCI/maxresdefault.jpg', duration: '3:14' },
+  { id: 'YQHsXMglC9A', title: 'Adele - Hello', thumbnail: 'https://i.ytimg.com/vi/YQHsXMglC9A/maxresdefault.jpg', duration: '6:07' }
 ];
 
 interface SimpleYoutubeSearchProps {
@@ -109,6 +113,16 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
 
       if (data.videos && data.videos.length > 0) {
         setVideos(data.videos);
+        
+        // YouTube şarkılarını global cache'e ekle
+        if (typeof window !== 'undefined') {
+          // data.ts'deki addYoutubeToCache fonksiyonunu çağır
+          const { addYoutubeToCache } = await import('@/lib/data');
+          addYoutubeToCache(data.videos);
+          
+          // Playlist'lerin yenilenmesi için event gönder
+          window.dispatchEvent(new CustomEvent('youtubeLoaded'));
+        }
       } else {
         setVideos(fallbackSongs);
       }
@@ -122,10 +136,15 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
   };
 
   const playVideo = (video: Video) => {
+    // Şarkı başlığından sanatçı ve şarkı adını ayır
+    const { artist, title } = extractArtistAndTitle(video.title);
+    
+    console.log(`🎵 Ana sayfadan şarkı çalınıyor: "${title}" - "${artist}" (orijinal: "${video.title}")`);
+    
     const songData = {
       id: video.id,
-      title: video.title,
-      artist: 'YouTube',
+      title: title,
+      artist: artist,
       album: '',
       duration: video.duration,
       imageUrl: video.thumbnail,
@@ -137,16 +156,112 @@ export function SimpleYoutubeSearch({ defaultQuery }: SimpleYoutubeSearchProps) 
   };
 
   const createSongData = (video: Video) => {
+    // Şarkı başlığından sanatçı ve şarkı adını ayır
+    const { artist, title } = extractArtistAndTitle(video.title);
+    
     return {
       id: video.id,
-      title: video.title,
-      artist: 'YouTube',
+      title: title,
+      artist: artist,
       album: '',
       duration: video.duration,
       imageUrl: video.thumbnail,
       audioUrl: video.id,
       youtube_url: `https://youtube.com/watch?v=${video.id}`,
       aiHint: 'youtube'
+    };
+  };
+
+  // Şarkı başlığından sanatçı ve şarkı adını ayıran fonksiyon
+  const extractArtistAndTitle = (fullTitle: string) => {
+    console.log(`🔍 Başlık ayrıştırılıyor: "${fullTitle}"`);
+    
+    // Yaygın ayırıcıları kontrol et
+    const separators = [' - ', ' – ', ' — ', ' | ', ': ', ' / '];
+    
+    for (const separator of separators) {
+      if (fullTitle.includes(separator)) {
+        const parts = fullTitle.split(separator);
+        if (parts.length >= 2) {
+          let artist = parts[0].trim();
+          let title = parts.slice(1).join(separator).trim();
+          
+          // feat, ft gibi kısımları temizle
+          title = title.replace(/\s*\(.*?(feat|ft|featuring).*?\)/gi, '');
+          title = title.replace(/\s*(feat|ft|featuring).*$/gi, '');
+          
+          // Parantez içindeki gereksiz bilgileri temizle
+          title = title.replace(/\s*\(official.*?\)/gi, '');
+          title = title.replace(/\s*\[official.*?\]/gi, '');
+          title = title.replace(/\s*\(.*?video.*?\)/gi, '');
+          title = title.replace(/\s*\[.*?video.*?\]/gi, '');
+          title = title.replace(/\s*\(.*?version.*?\)/gi, '');
+          
+          // Söz-Müzik gibi kısımları temizle
+          title = title.replace(/\s*Söz-Müzik\s*:.*$/gi, '');
+          
+          console.log(`✅ Ayrıştırıldı: Sanatçı="${artist}", Şarkı="${title}"`);
+          
+          return {
+            artist: artist,
+            title: title.trim() || fullTitle
+          };
+        }
+      }
+    }
+    
+    // Özel durumlar için regex kontrolleri
+    // "Sanatçı Adı - Şarkı Adı" formatı
+    const dashMatch = fullTitle.match(/^([^-]+)\s*-\s*(.+)$/);
+    if (dashMatch) {
+      const artist = dashMatch[1].trim();
+      const title = dashMatch[2].trim();
+      
+      // Sanatçı adı çok kısa değilse kabul et
+      if (artist.length > 2 && !artist.match(/^\d+$/)) {
+        console.log(`✅ Regex ile ayrıştırıldı: Sanatçı="${artist}", Şarkı="${title}"`);
+        return {
+          artist: artist,
+          title: title
+        };
+      }
+    }
+    
+    // Yaygın sanatçı isimlerini kontrol et
+    const knownArtists = [
+      'ceza', 'ezhel', 'sagopa kajmer', 'norm ender', 'khontkar', 'gazapizm', 'şanışer',
+      'ed sheeran', 'the weeknd', 'billie eilish', 'adele', 'harry styles',
+      'zeynep bastık', 'aleyna tilki', 'deha bilimlier', 'eypio', 'yener çevik',
+      'ismail yk', 'ufuk çalışkan', 'dr.fuchs'
+    ];
+    
+    const lowerTitle = fullTitle.toLowerCase();
+    
+    for (const artist of knownArtists) {
+      if (lowerTitle.includes(artist)) {
+        // Sanatçı adını başlıktan çıkar
+        const artistRegex = new RegExp(artist, 'gi');
+        const remaining = fullTitle.replace(artistRegex, '').trim();
+        const cleanTitle = remaining.replace(/^[-–—|:\s]+/, '').replace(/[-–—|:\s]+$/, '').trim();
+        
+        const properArtist = artist.split(' ').map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+        
+        console.log(`✅ Bilinen sanatçı bulundu: Sanatçı="${properArtist}", Şarkı="${cleanTitle || fullTitle}"`);
+        
+        return {
+          artist: properArtist,
+          title: cleanTitle || fullTitle
+        };
+      }
+    }
+    
+    console.log(`❌ Sanatçı ayrıştırılamadı: "${fullTitle}"`);
+    
+    return {
+      artist: 'Bilinmeyen Sanatçı',
+      title: fullTitle.trim()
     };
   };
 

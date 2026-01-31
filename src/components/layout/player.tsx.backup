@@ -362,9 +362,6 @@ export function Player() {
           if (currentUser) {
             const userData = JSON.parse(currentUser);
             analytics.trackSongPlay(song.id, song.title, song.artist, userData.id);
-            
-            // Now playing API'sine gönder (overlay için)
-            updateNowPlaying(userData.id, song, 0, 0, true);
           }
         } catch (error) {
           console.error('Analytics error:', error);
@@ -846,19 +843,6 @@ export function Player() {
                 window.dispatchEvent(new CustomEvent('progressUpdate', { 
                   detail: { progress: newProgress, duration: duration } 
                 }));
-                
-                // Now playing güncelle (her 5 saniyede bir)
-                if (Math.floor(newProgress) % 5 === 0) {
-                  try {
-                    const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-                    if (currentUser) {
-                      const userData = JSON.parse(currentUser);
-                      updateNowPlaying(userData.id, currentSong, newProgress, duration, true);
-                    }
-                  } catch (error) {
-                    console.error('Now playing update error:', error);
-                  }
-                }
               }
             }
           } catch (error) {
@@ -908,19 +892,6 @@ export function Player() {
           // Mini player için progress güncelle
           localStorage.setItem('current-progress', currentTime.toString());
           localStorage.setItem('current-duration', duration.toString());
-          
-          // Now playing güncelle (her 5 saniyede bir)
-          if (Math.floor(currentTime) % 5 === 0) {
-            try {
-              const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-              if (currentUser) {
-                const userData = JSON.parse(currentUser);
-                updateNowPlaying(userData.id, currentSong, currentTime, duration, true);
-              }
-            } catch (error) {
-              console.error('Now playing update error:', error);
-            }
-          }
           
           // Progress event'ini gönder
           const progressEvent = new CustomEvent('progressUpdate', { 
@@ -987,27 +958,6 @@ export function Player() {
       localStorage.setItem('volume', newVolume.toString());
     } catch (error) {
       console.warn('⚠️ Volume change error:', error);
-    }
-  };
-
-  // Now playing güncelleme fonksiyonu (overlay için)
-  const updateNowPlaying = async (userId: string, song: Song, progress: number, duration: number, isPlaying: boolean) => {
-    try {
-      await fetch('/api/now-playing', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId,
-          song,
-          progress,
-          duration,
-          isPlaying
-        }),
-      });
-    } catch (error) {
-      console.error('Now playing update error:', error);
     }
   };
 
@@ -1200,7 +1150,6 @@ export function Player() {
         
         // Kısa bekleme
         await new Promise(resolve => setTimeout(resolve, 100));
-      }
       
       // Eğer yeterli şarkı yoksa favoriler ekle
       if (allSongs.length < 5) {
@@ -1673,22 +1622,6 @@ export function Player() {
     window.dispatchEvent(new CustomEvent('playStateChanged', { 
       detail: { isPlaying: newIsPlaying } 
     }));
-    
-    // Now playing güncelle
-    try {
-      const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-      if (currentUser) {
-        const userData = JSON.parse(currentUser);
-        if (newIsPlaying) {
-          updateNowPlaying(userData.id, currentSong, progress, duration, true);
-        } else {
-          // Pause durumunda da güncelle ama isPlaying false
-          updateNowPlaying(userData.id, currentSong, progress, duration, false);
-        }
-      }
-    } catch (error) {
-      console.error('Now playing toggle error:', error);
-    }
   };
 
   const toggleShuffle = () => {

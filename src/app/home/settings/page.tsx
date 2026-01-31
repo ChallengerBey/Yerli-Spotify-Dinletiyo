@@ -1,4 +1,5 @@
 import { ThemeSettings } from "@/components/theme/theme-settings";
+import { LanguageSettings } from "@/components/language-settings";
 
 export default function SettingsPage() {
   return (
@@ -8,6 +9,7 @@ export default function SettingsPage() {
         <p className="text-muted-foreground">Uygulama tercihlerini yönet</p>
       </div>
 
+      <LanguageSettings />
       <ThemeSettings />
     </div>
   );

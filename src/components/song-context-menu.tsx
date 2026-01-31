@@ -20,6 +20,7 @@ import {
   Info
 } from 'lucide-react';
 import { Song } from '@/lib/data';
+import { libraryManager } from '@/lib/library-manager';
 
 interface SongContextMenuProps {
   song: Song;
@@ -117,39 +118,44 @@ const SongContextMenu: React.FC<SongContextMenuProps> = ({ song, x, y, onClose }
 
   const handleAddToFavorites = async () => {
     try {
-      const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-      if (currentUser) {
-        const userData = JSON.parse(currentUser);
-        await fetch('/api/favorites', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId: userData.id,
-            songId: song.id,
-            song: song
-          }),
-        });
-        
+      console.log('❤️ Context Menu: Adding to favorites via LibraryManager:', song.title);
+      
+      // Use LibraryManager for atomic operation with backup/rollback
+      const result = await libraryManager.addToFavorites(song.id);
+      
+      if (result.success) {
         // Toast notification
         const event = new CustomEvent('showToast', { 
           detail: { message: `"${song.title}" favorilere eklendi! ❤️`, type: 'success' }
         });
         window.dispatchEvent(event);
+        console.log('✅ Context Menu: Successfully added to favorites');
+      } else {
+        // Error notification
+        const event = new CustomEvent('showToast', { 
+          detail: { message: `Hata: ${result.message}`, type: 'error' }
+        });
+        window.dispatchEvent(event);
+        console.error('❌ Context Menu: Failed to add to favorites:', result.message);
       }
     } catch (error) {
-      console.error('Favorilere ekleme hatası:', error);
+      console.error('❌ Context Menu: Favorilere ekleme hatası:', error);
+      
+      // Error notification
+      const event = new CustomEvent('showToast', { 
+        detail: { message: 'Favorilere eklenirken bir hata oluştu', type: 'error' }
+      });
+      window.dispatchEvent(event);
     }
     onClose();
   };
 
   const handleAddToPlaylist = async (playlistId: string, playlistName: string) => {
     try {
-      const response = await fetch('/api/playlists/songs', {
+      const response = await fetch(`/api/playlists/${playlistId}/songs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          playlistId: playlistId,
-          songId: song.id,
           song: song
         }),
       });
@@ -160,9 +166,17 @@ const SongContextMenu: React.FC<SongContextMenuProps> = ({ song, x, y, onClose }
           detail: { message: `"${song.title}" "${playlistName}" listesine eklendi!`, type: 'success' }
         });
         window.dispatchEvent(event);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Playliste ekleme başarısız');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Playliste ekleme hatası:', error);
+      // Error toast
+      const event = new CustomEvent('showToast', { 
+        detail: { message: error.message || 'Playliste eklenirken bir hata oluştu', type: 'error' }
+      });
+      window.dispatchEvent(event);
     }
     setShowPlaylistSubmenu(false);
     onClose();

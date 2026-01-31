@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { UserSearch } from '@/components/social/user-search';
-import { FriendList } from '@/components/social/friend-list';
 import { UserDiscovery } from '@/components/social/user-discovery';
 import { Users, Info, HandMetal } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -35,7 +33,7 @@ export default function FriendsPage() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto space-y-10 pb-32 px-4">
+        <div className="max-w-6xl mx-auto space-y-10 pb-32 px-4">
             <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-4">
                     <div className="p-4 rounded-3xl bg-red-500/10 border border-red-500/20 shadow-lg shadow-red-500/5">
@@ -53,43 +51,14 @@ export default function FriendsPage() {
 
             <Alert className="bg-red-500/5 border-red-500/10 text-red-100 rounded-2xl p-4">
                 <Info className="h-5 w-5 text-red-500" />
-                <AlertTitle className="font-bold text-lg mb-1">Beraber Dinle Özelliği</AlertTitle>
+                <AlertTitle className="font-bold text-lg mb-1">Sosyal Özellikler</AlertTitle>
                 <AlertDescription className="text-gray-300">
-                    Arkadaşlarının yanındaki <span className="text-red-400 font-bold">"Beraber Dinle"</span> butonuna tıklayarak onlarla aynı anda müzik dinleyebilirsin.
+                    Yeni arkadaşlar keşfet, mesajlaş ve müzik zevkini paylaş. <span className="text-red-400 font-bold">Yeni Biriyle Tanış</span> özelliği ile rastgele kullanıcılarla tanışabilirsin!
                 </AlertDescription>
             </Alert>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Sol Kolon: Keşfet */}
-                <div className="lg:col-span-1 space-y-6">
-                    <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-2xl">
-                        <UserDiscovery currentUserId={user.id} />
-                    </div>
-
-                </div>
-
-                {/* Sağ Kolon: Ara ve Liste */}
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="space-y-4">
-                        <h2 className="text-2xl font-bold px-2 flex items-center gap-2">
-                            <span className="w-1.5 h-6 bg-red-500 rounded-full" />
-                            Kullanıcı Ara
-                        </h2>
-                        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-2xl">
-                            <UserSearch currentUserId={user.id} />
-                        </div>
-                    </div>
-
-                    <div className="space-y-4">
-                        <h2 className="text-2xl font-bold px-2 flex items-center gap-2">
-                            <span className="w-1.5 h-6 bg-red-500 rounded-full" />
-                            Arkadaş Listen
-                        </h2>
-                        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-2xl">
-                            <FriendList currentUserId={user.id} />
-                        </div>
-                    </div>
-                </div>
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl">
+                <UserDiscovery currentUserId={user.id} currentUserName={user.username} />
             </div>
         </div>
     );
