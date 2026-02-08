@@ -1,0 +1,8 @@
+{
+  "name": "Kick Chat Monitor Pro",
+  "description": "Kick yayıncılarını anlık olarak takip edebileceğiniz, yapay zeka destekli modern bir chat izleme ve analiz platformu.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

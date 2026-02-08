@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /dev/
+Disallow: /api/
+Disallow: /home/
+
+Allow: /
+
+Sitemap: https://dinletiyo.com/sitemap.xml
