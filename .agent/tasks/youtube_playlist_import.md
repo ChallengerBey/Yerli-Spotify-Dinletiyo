@@ -2,7 +2,7 @@
 type: task
 status: completed
 title: YouTube Playlist Import
-completed_at: 2026-02-07T19:40:00+03:00
+completed_at: 2026-02-08T00:00:00+03:00
 ---
 
 # YouTube Playlist Import Implementation
@@ -12,18 +12,21 @@ completed_at: 2026-02-07T19:40:00+03:00
 - **Frontend - Playlists Page:**
     - Added "Playlist Aktar" button with a dialog for inputting YouTube playlist URL.
     - Implemented API integration to fetch songs.
-    - Used `localStorage` (`my_imported_playlists`) to persist imported playlists.
+    - **Database Integration:** Imported playlists are now saved to `user_playlists` table in Supabase for cross-device sync.
     - Added "Benim Playlistlerim" section to display imported playlists.
 - **Frontend - Playlist Detail Page:**
-    - Updated `fetchPlaylist` to handle `imported_` IDs by looking up data in `localStorage`.
-    - Updated logic to populate songs for imported playlists directly, bypassing the mock data fetch logic.
+    - Updated to fetch all user playlists from database via `/api/playlists/[id]`.
+    - Removed `imported_` prefix logic - all user playlists are now treated equally.
+    - Edit and delete functionality works for all user-created playlists.
 
 ## Technical Details
-- **Persistence:** LocalStorage is used for storing imported playlists to ensure persistence across sessions on the same device.
+- **Persistence:** Supabase database (`user_playlists` table) is used for storing imported playlists to ensure persistence across devices and sessions.
+- **Migration:** Removed localStorage dependency (`my_imported_playlists`) - all playlists now sync via database.
 - **Iconography:** Used generic `Music` icon fallback if no playlist image is available (though API tries to fetch first song's thumbnail).
 - **Navigation:** Imported playlists open in the standard playlist detail view (`/home/playlist/[id]`).
 
 ## Verification
 - Verified API route logic (structure matches YouTube response).
-- Verified Frontend integration (dialog, state management, displaying local playlists).
-- Verified Detail page routing and data loading for `imported_` IDs.
+- Verified Frontend integration (dialog, state management, displaying playlists from database).
+- Verified Detail page routing and data loading from database.
+- Verified cross-device sync capability.

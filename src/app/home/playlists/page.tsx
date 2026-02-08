@@ -44,33 +44,34 @@ export default function PlaylistsPage() {
   const [importUrl, setImportUrl] = useState('');
   const [isImporting, setIsImporting] = useState(false);
   const [myPlaylists, setMyPlaylists] = useState<Playlist[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Load playlists from localStorage on mount
+  // Load playlists from Supabase API
   useEffect(() => {
-    const savedPlaylists = localStorage.getItem('my_imported_playlists');
-    if (savedPlaylists) {
-      try {
-        setMyPlaylists(JSON.parse(savedPlaylists));
-      } catch (e) {
-        console.error('Failed to parse playlists', e);
-      }
-    }
+    loadPlaylists();
   }, []);
 
-  // Save playlists to localStorage strictly when they change
-  useEffect(() => {
-    if (myPlaylists.length > 0) {
-      localStorage.setItem('my_imported_playlists', JSON.stringify(myPlaylists));
+  const loadPlaylists = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/playlists');
+      if (response.ok) {
+        const data = await response.json();
+        setMyPlaylists(data.playlists || []);
+      }
+    } catch (error) {
+      console.error('Failed to load playlists:', error);
+    } finally {
+      setLoading(false);
     }
-  }, [myPlaylists]);
+  };
 
   const handleImportPlaylist = async () => {
     if (!importUrl) return;
 
     setIsImporting(true);
     try {
-      // 1. YouTube playlist ID'sini veya URL'ini al
-      // 2. API'ye gönder
+      // 1. YouTube playlist'ten şarkıları çek
       const res = await fetch('/api/youtube/playlist', {
         method: 'POST',
         headers: {
@@ -89,26 +90,46 @@ export default function PlaylistsPage() {
         throw new Error(data.error);
       }
 
-      const newPlaylist: Playlist = {
-        id: `imported_${Date.now()}`,
-        name: data.title || 'İçe Aktarılan Playlist', // Use title from API if available
-        description: 'YouTube\'dan aktarıldı',
-        imageUrl: data.songs[0]?.imageUrl || '/default-playlist.png',
-        songCount: data.songs.length,
-        duration: 'Bilinmiyor', // API doesn't calculate total duration yet
-        isPublic: false,
-        createdBy: 'Sen',
-        createdAt: new Date().toISOString().split('T')[0],
-        isImported: true,
-        songs: data.songs
-      };
+      // 2. Playlist'i Supabase'e kaydet
+      const createResponse = await fetch('/api/playlists', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.title || 'İçe Aktarılan Playlist',
+          description: 'YouTube\'dan aktarıldı',
+          isPublic: false,
+          imageUrl: data.songs[0]?.imageUrl || '/default-playlist.png'
+        }),
+      });
 
-      setMyPlaylists(prev => [newPlaylist, ...prev]);
+      if (!createResponse.ok) {
+        throw new Error('Playlist kaydedilemedi');
+      }
+
+      const playlistData = await createResponse.json();
+      const playlistId = playlistData.playlist.id;
+
+      // 3. Şarkıları playlist'e ekle
+      for (const song of data.songs) {
+        await fetch(`/api/playlists/${playlistId}/songs`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ song }),
+        });
+      }
+
+      // 4. Playlist listesini yenile
+      await loadPlaylists();
+
       setIsImportDialogOpen(false);
       setImportUrl('');
       toast({
         title: "Başarılı",
-        description: "Playlist başarıyla içe aktarıldı.",
+        description: `${data.songs.length} şarkı ile playlist başarıyla içe aktarıldı.`,
       });
 
     } catch (error: any) {

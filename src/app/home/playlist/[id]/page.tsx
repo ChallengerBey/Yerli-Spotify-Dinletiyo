@@ -90,9 +90,7 @@ export default function PlaylistDetailPage() {
   const [isSaving, setIsSaving] = useState(false);
 
   const fetchPlaylistSongs = async (playlistId: string) => {
-    if (playlistId.startsWith('imported_')) {
-      return; // Imported playlists are handled in fetchPlaylist
-    }
+    // Tüm user playlist'leri artık veritabanından geliyor, imported_ kontrolüne gerek yok
     if (playlistId === '2') { // Türkçe Pop Hits
       setSongsLoading(true);
       try {
@@ -1021,28 +1019,25 @@ export default function PlaylistDetailPage() {
 
   const fetchPlaylist = async (playlistId: string) => {
     try {
-      // İçe aktarılan playlist kontrolü
-      if (playlistId.startsWith('imported_')) {
-        const savedPlaylists = localStorage.getItem('my_imported_playlists');
-        if (savedPlaylists) {
-          const playlists = JSON.parse(savedPlaylists);
-          const foundPlaylist = playlists.find((p: any) => p.id === playlistId);
-
-          if (foundPlaylist) {
-            setPlaylist({
-              ...foundPlaylist,
-              songs: foundPlaylist.songs || [] // Ensure songs array exists
-            });
-            // Eğer şarkılar playlist objesi içindeyse, şarkıları da yükle
-            if (foundPlaylist.songs && foundPlaylist.songs.length > 0) {
-              setPlaylistSongs(foundPlaylist.songs);
-            }
-            setLoading(false);
-            return;
-          }
+      // API'den playlist bilgilerini çek
+      const response = await fetch(`/api/playlists/${playlistId}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setPlaylist(data.playlist);
+        
+        // Şarkıları çek
+        const songsResponse = await fetch(`/api/playlists/${playlistId}/songs`);
+        if (songsResponse.ok) {
+          const songsData = await songsResponse.json();
+          setPlaylistSongs(songsData.songs || []);
         }
+        
+        setLoading(false);
+        return;
       }
 
+      // API'den bulunamazsa mock data kullan
       const playlistInfo = getPlaylistInfo(playlistId);
 
       // Mock data - sabit değerlerle
@@ -1068,9 +1063,7 @@ export default function PlaylistDetailPage() {
         variant: 'destructive',
       });
     } finally {
-      if (!playlistId.startsWith('imported_')) {
-        setLoading(false);
-      }
+      setLoading(false);
     }
   };
 
@@ -1085,25 +1078,19 @@ export default function PlaylistDetailPage() {
 
     setIsDeleting(true);
     try {
-      if (playlist.id.startsWith('imported_')) {
-        const savedPlaylists = localStorage.getItem('my_imported_playlists');
-        if (savedPlaylists) {
-          const playlists = JSON.parse(savedPlaylists);
-          const updatedPlaylists = playlists.filter((p: any) => p.id !== playlist.id);
-          localStorage.setItem('my_imported_playlists', JSON.stringify(updatedPlaylists));
+      // API'den playlist'i sil
+      const response = await fetch(`/api/playlists/${playlist.id}`, {
+        method: 'DELETE',
+      });
 
-          toast({
-            title: 'Başarılı',
-            description: 'Playlist silindi.',
-          });
-          router.push('/home/playlists');
-        }
-      } else {
-        // Mock data or other types - prevent deletion for now or implement DB logic
+      if (response.ok) {
         toast({
-          title: 'Bilgi',
-          description: 'Bu playlist silinemez (Sistem Playlisti).',
+          title: 'Başarılı',
+          description: 'Playlist silindi.',
         });
+        router.push('/home/playlists');
+      } else {
+        throw new Error('Playlist silinemedi');
       }
     } catch (error) {
       console.error('Error deleting playlist:', error);
@@ -1142,44 +1129,35 @@ export default function PlaylistDetailPage() {
 
     setIsSaving(true);
     try {
-      if (playlist.id.startsWith('imported_')) {
-        const savedPlaylists = localStorage.getItem('my_imported_playlists');
-        if (savedPlaylists) {
-          const playlists = JSON.parse(savedPlaylists);
-          const updatedPlaylists = playlists.map((p: any) => {
-            if (p.id === playlist.id) {
-              return {
-                ...p,
-                name: editName,
-                description: editDescription,
-                imageUrl: editImageUrl
-              };
-            }
-            return p;
-          });
+      // Playlist'i veritabanında güncelle
+      const response = await fetch(`/api/playlists/${playlist.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: editName,
+          description: editDescription,
+          image_url: editImageUrl
+        }),
+      });
 
-          localStorage.setItem('my_imported_playlists', JSON.stringify(updatedPlaylists));
-
-          setPlaylist({
-            ...playlist,
-            name: editName,
-            description: editDescription,
-            imageUrl: editImageUrl
-          });
-
-          toast({
-            title: 'Başarılı',
-            description: 'Playlist güncellendi.',
-          });
-          setIsEditing(false);
-        }
-      } else {
-        toast({
-          title: 'Hata',
-          description: 'Sadece içe aktarılan playlistler düzenlenebilir.',
-          variant: 'destructive',
-        });
+      if (!response.ok) {
+        throw new Error('Playlist güncellenemedi');
       }
+
+      setPlaylist({
+        ...playlist,
+        name: editName,
+        description: editDescription,
+        imageUrl: editImageUrl
+      });
+
+      toast({
+        title: 'Başarılı',
+        description: 'Playlist güncellendi.',
+      });
+      setIsEditing(false);
     } catch (error) {
       console.error('Error saving playlist:', error);
       toast({
@@ -1370,28 +1348,27 @@ export default function PlaylistDetailPage() {
               Karıştır
             </Button>
 
-            {playlist.id.startsWith('imported_') && (
-              <>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handleEditPlaylist}
-                >
-                  <Edit className="h-5 w-5 mr-2" />
-                  Düzenle
-                </Button>
+            {/* Kullanıcının kendi playlistleri düzenlenebilir */}
+            <>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleEditPlaylist}
+              >
+                <Edit className="h-5 w-5 mr-2" />
+                Düzenle
+              </Button>
 
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-red-500 hover:text-red-500 hover:bg-red-500/10"
-                  onClick={() => setIsDeleteConfirmOpen(true)}
-                >
-                  <Trash className="h-5 w-5 mr-2" />
-                  Sil
-                </Button>
-              </>
-            )}
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-red-500 hover:text-red-500 hover:bg-red-500/10"
+                onClick={() => setIsDeleteConfirmOpen(true)}
+              >
+                <Trash className="h-5 w-5 mr-2" />
+                Sil
+              </Button>
+            </>
 
             <Button variant="ghost" size="lg">
               <Heart className={`h-5 w-5 ${playlist.isLiked ? 'fill-red-500 text-red-500' : ''}`} />
