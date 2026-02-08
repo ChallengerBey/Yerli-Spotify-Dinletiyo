@@ -9,7 +9,6 @@ import { SongCard } from '@/components/song-card';
 import { Song, Playlist } from '@/lib/data';
 import { Search, Play } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import GoogleAd from '@/components/ads/GoogleAd';
 
 const sections = [
   { title: "Popüler Listeler", items: 6 },
@@ -307,18 +306,6 @@ export default function LandingPage() {
                 />
               ))}
             </div>
-            
-            {/* Reklam - Her section'dan sonra */}
-            {sectionIndex === 0 && (
-              <div className="mt-8">
-                <GoogleAd 
-                  slot="8788205715" 
-                  format="auto" 
-                  responsive={true}
-                  className="my-8"
-                />
-              </div>
-            )}
           </section>
         ))}
 

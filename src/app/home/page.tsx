@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Play, Pause } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import GoogleAd from '@/components/ads/GoogleAd';
 
 
 function PlaylistSection({ title, fetchData, userPreferences, refreshKey, startRadio = false }) {
@@ -226,16 +225,6 @@ export default function HomePage() {
         refreshKey={playlistRefreshKey}
         startRadio={true}
       />
-      
-      {/* Reklam - İlk section'dan sonra */}
-      <div className="my-8">
-        <GoogleAd 
-          slot="8788205715" 
-          format="auto" 
-          responsive={true}
-          className="rounded-lg overflow-hidden"
-        />
-      </div>
       
       <PlaylistSection
         title="Yeni Çıkanlar"

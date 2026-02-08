@@ -5,7 +5,6 @@ import { MaintenanceBanner } from "@/components/maintenance-banner";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { PWARegister } from "@/components/pwa-register";
 import { GlobalContextMenu } from "@/components/global-context-menu";
-import GoogleAdsense from "@/components/GoogleAdsense";
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -106,9 +105,6 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7820068773492751"
           crossOrigin="anonymous"
         />
-        
-        {/* Google AdSense - Auto Ads */}
-        <GoogleAdsense />
         
         <PWARegister />
         <script dangerouslySetInnerHTML={{
