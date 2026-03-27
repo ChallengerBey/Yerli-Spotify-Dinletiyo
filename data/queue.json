@@ -1,0 +1,198 @@
+[
+  {
+    "song": {
+      "id": "qDxfNmR95dM",
+      "title": "Bir Çi",
+      "artist": "Norm Ender X Ebru Gündeş",
+      "album": "",
+      "duration": "3:27",
+      "imageUrl": "https://i.ytimg.com/vi/qDxfNmR95dM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDELxJ8onsfKR609x2GIZpVXt0e8Q",
+      "audioUrl": "qDxfNmR95dM",
+      "youtube_url": "https://youtube.com/watch?v=qDxfNmR95dM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-31T13:09:05.156Z",
+    "playNext": true
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:17:01.838Z",
+    "playNext": true
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:16:40.767Z",
+    "playNext": true
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:12:16.225Z",
+    "playNext": true
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:11:57.460Z",
+    "playNext": true
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:11:41.401Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-3",
+      "title": "Benzer Şarkı 3",
+      "artist": "Benzer Sanatçı 3",
+      "audioUrl": "demo-audio-3",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "3:48",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:12:16.234Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-1",
+      "title": "Benzer Şarkı 1",
+      "artist": "Benzer Sanatçı 1",
+      "audioUrl": "demo-audio-1",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "3:22",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:12:16.246Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-2",
+      "title": "Benzer Şarkı 2",
+      "artist": "Benzer Sanatçı 2",
+      "audioUrl": "demo-audio-2",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "4:15",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:12:16.254Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "eDUajWr0xoM",
+      "title": "CISTAK",
+      "artist": "YouTube",
+      "album": "",
+      "duration": "2:17",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "audioUrl": "eDUajWr0xoM",
+      "youtube_url": "https://youtube.com/watch?v=eDUajWr0xoM",
+      "aiHint": "youtube"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:13:17.326Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-2",
+      "title": "Benzer Şarkı 2",
+      "artist": "Benzer Sanatçı 2",
+      "audioUrl": "demo-audio-2",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "4:15",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:17:01.849Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-3",
+      "title": "Benzer Şarkı 3",
+      "artist": "Benzer Sanatçı 3",
+      "audioUrl": "demo-audio-3",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "3:48",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:17:01.862Z",
+    "playNext": false
+  },
+  {
+    "song": {
+      "id": "radio-1",
+      "title": "Benzer Şarkı 1",
+      "artist": "Benzer Sanatçı 1",
+      "audioUrl": "demo-audio-1",
+      "imageUrl": "https://i.ytimg.com/vi/eDUajWr0xoM/hq720.jpg?sqp=-oaymwEjCOgCEMoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDWKCUBrV_zKRMTknE2EWSmBxN2XQ",
+      "duration": "3:22",
+      "album": "Radyo Albümü"
+    },
+    "userId": "1146c503-628e-4f84-b6f3-e63c58c2bed1",
+    "queuedAt": "2026-01-27T23:17:01.879Z",
+    "playNext": false
+  }
+]

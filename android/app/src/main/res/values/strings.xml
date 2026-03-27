@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Dinletiyo</string>
+    <string name="title_activity_main">Dinletiyo</string>
+    <string name="package_name">com.dinletiyo.app</string>
+    <string name="custom_url_scheme">com.dinletiyo.app</string>
+    <string name="notification_channel_media">Müzik çalma</string>
+    <string name="notification_channel_media_desc">Arka planda çalan şarkı bildirimi</string>
+    <string name="now_playing">Çalıyor</string>
+    <string name="paused">Duraklatıldı</string>
+    <string name="widget_title">Dinletiyo</string>
+    <string name="widget_open_app">Uygulamayı Aç</string>
+</resources>

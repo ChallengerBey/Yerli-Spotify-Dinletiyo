@@ -1,0 +1,819 @@
+[
+  {
+    "id": "117259882",
+    "name": "BLOK3",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/bcd7669bc107dd4b066deb45a31b1f9d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/117259882",
+    "followers": 49311,
+    "rank": 1
+  },
+  {
+    "id": "49096741",
+    "name": "Ati242",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/4cc148453373e887d1956b6344a7b04f/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/49096741",
+    "followers": 133650,
+    "rank": 2
+  },
+  {
+    "id": "142875392",
+    "name": "Semicenk",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/f213929354a3ce3aaf7e8657507f0e34/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/142875392",
+    "followers": 102266,
+    "rank": 3
+  },
+  {
+    "id": "159235292",
+    "name": "Era7capone",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/4cc148453373e887d1956b6344a7b04f/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/159235292",
+    "followers": 10455,
+    "rank": 4
+  },
+  {
+    "id": "72272502",
+    "name": "Lvbel C5",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c9b1601dd3549055fe4be362ddcb2e36/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/72272502",
+    "followers": 85455,
+    "rank": 5
+  },
+  {
+    "id": "98336572",
+    "name": "Uzi",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/65905c1901748c17c176bfd1889cc3ae/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/98336572",
+    "followers": 133502,
+    "rank": 6
+  },
+  {
+    "id": "9289",
+    "name": "Sezen Aksu",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/9c62f746db8e41bb49eb13a3c254f597/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/9289",
+    "followers": 1176314,
+    "rank": 7
+  },
+  {
+    "id": "171926967",
+    "name": "Poizi",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/f0d88c16f91e33edf520413ec101f954/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/171926967",
+    "followers": 8847,
+    "rank": 8
+  },
+  {
+    "id": "72196",
+    "name": "Motive",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/ebcf22e5c3a0eb3178b8a6f6bc1a5a6c/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/72196",
+    "followers": 40438,
+    "rank": 9
+  },
+  {
+    "id": "78079742",
+    "name": "AKDO",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/a18af887aac90c7e2033cd4e06b94e92/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/78079742",
+    "followers": 7915,
+    "rank": 10
+  },
+  {
+    "id": "124797",
+    "name": "Gülşen",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/b9794826785692d4d53b3a305733a0f0/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/124797",
+    "followers": 500273,
+    "rank": 11
+  },
+  {
+    "id": "101076",
+    "name": "Yalın",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/3fdbdf9cb8d430a2aadfdbce0a5d2787/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/101076",
+    "followers": 192575,
+    "rank": 12
+  },
+  {
+    "id": "13311475",
+    "name": "Dedublüman",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/770829c037424b371faca8e33ef5e084/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/13311475",
+    "followers": 36141,
+    "rank": 13
+  },
+  {
+    "id": "4313",
+    "name": "Hande Yener",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/541a70309fddeb75ba6c84d47ddff14d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4313",
+    "followers": 725381,
+    "rank": 14
+  },
+  {
+    "id": "4055",
+    "name": "SNoW",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/e979ab3dd888776447261943c428d413/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4055",
+    "followers": 3561,
+    "rank": 15
+  },
+  {
+    "id": "98036",
+    "name": "Ebru Gündes",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/f8b25e2db6bb1da6a82a41574e6c632e/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/98036",
+    "followers": 472746,
+    "rank": 16
+  },
+  {
+    "id": "8354140",
+    "name": "Ezhel",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/86897403b02175990e9d84322a94654a/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/8354140",
+    "followers": 874095,
+    "rank": 17
+  },
+  {
+    "id": "562839",
+    "name": "M.anifest",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/458e5be8913ae099f0c0069d65e2d95b/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/562839",
+    "followers": 19410,
+    "rank": 18
+  },
+  {
+    "id": "1385987",
+    "name": "Simge",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/908d0545255bdaa93da39e59631fa9aa/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1385987",
+    "followers": 260530,
+    "rank": 19
+  },
+  {
+    "id": "13855",
+    "name": "Sertab Erener",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/27bd9f43e71221d9ec1ad16cd0e0aa18/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/13855",
+    "followers": 356757,
+    "rank": 20
+  },
+  {
+    "id": "12408642",
+    "name": "Lil Teey",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/043fbb43c0e12bf37171eea4e0d036c5/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/12408642",
+    "followers": 20,
+    "rank": 21
+  },
+  {
+    "id": "14546",
+    "name": "Ceza",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/2af230afdd9e93989d7d7288e93fb536/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14546",
+    "followers": 778229,
+    "rank": 22
+  },
+  {
+    "id": "10003428",
+    "name": "Şehinşah",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/39b2e6d49de9a33fbc6ba6f2f87a59ff/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/10003428",
+    "followers": 238424,
+    "rank": 23
+  },
+  {
+    "id": "5680356",
+    "name": "Khontkar",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/9c79cec86b88498bad27c2937f4a5a16/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5680356",
+    "followers": 196322,
+    "rank": 24
+  },
+  {
+    "id": "469326",
+    "name": "Sansar Salvo",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/7b6fccdcd324c7eb6bb29cda5c241d43/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/469326",
+    "followers": 92383,
+    "rank": 25
+  },
+  {
+    "id": "481216",
+    "name": "Hidra",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/742b1b092644cdf3f94507cad391bbd8/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/481216",
+    "followers": 224365,
+    "rank": 26
+  },
+  {
+    "id": "84403222",
+    "name": "Joker",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/5d188155e8c01c8be9440164f6ece86f/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/84403222",
+    "followers": 163,
+    "rank": 27
+  },
+  {
+    "id": "5459668",
+    "name": "Ince",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/b9f6ba69ca190be64923ea84b607c666/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5459668",
+    "followers": 176,
+    "rank": 28
+  },
+  {
+    "id": "11818971",
+    "name": "Norm Ender",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/bb95df885ebe58d8988f239d406f345b/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/11818971",
+    "followers": 444564,
+    "rank": 29
+  },
+  {
+    "id": "1278",
+    "name": "The All-American Rejects",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/b981eb76c1fa84f70612deb2a5542d94/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1278",
+    "followers": 366070,
+    "rank": 30
+  },
+  {
+    "id": "282205301",
+    "name": "Server Uraz",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/3906ba7950178ebdaa73b49c11a76c22/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/282205301",
+    "followers": 1,
+    "rank": 31
+  },
+  {
+    "id": "12934",
+    "name": "Sagopa Kajmer",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/861348e7f8b6d93d3e2fff5ea6df2dcd/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/12934",
+    "followers": 849096,
+    "rank": 32
+  },
+  {
+    "id": "14414849",
+    "name": "Ben Fero",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/cd7de0ac70198ea395e8c43fac6200cd/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14414849",
+    "followers": 803056,
+    "rank": 33
+  },
+  {
+    "id": "1401178",
+    "name": "Massaka",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c924f787f5546cb4d304bc5ce751fd93/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1401178",
+    "followers": 80137,
+    "rank": 34
+  },
+  {
+    "id": "4538113",
+    "name": "Hayki",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/d23a862879ccfa108628f9f78c047d86/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4538113",
+    "followers": 18534,
+    "rank": 35
+  },
+  {
+    "id": "4118925",
+    "name": "Ados",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/0a3cbd7b76ec11ea75738f0b42144d65/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4118925",
+    "followers": 9738,
+    "rank": 36
+  },
+  {
+    "id": "5587673",
+    "name": "Velet",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/d5f4c24f6c33b525afc25c97a90daf69/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5587673",
+    "followers": 253203,
+    "rank": 37
+  },
+  {
+    "id": "1208950",
+    "name": "Monstar",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/ecd1ddd404c51d644c7eeb28a62775b5/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1208950",
+    "followers": 1012,
+    "rank": 38
+  },
+  {
+    "id": "10819570",
+    "name": "Aleyna Tilki",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/aa451cd32910ea3553ebaa714b7e8e9c/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/10819570",
+    "followers": 108904,
+    "rank": 39
+  },
+  {
+    "id": "6965801",
+    "name": "Melike Şahin",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/6350b09b9c2381cbf47a60e377cb7ad3/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/6965801",
+    "followers": 53129,
+    "rank": 40
+  },
+  {
+    "id": "6995669",
+    "name": "Zeynep Bastık",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/641b9164594081e14059fdf87404eb8d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/6995669",
+    "followers": 665054,
+    "rank": 41
+  },
+  {
+    "id": "97007",
+    "name": "Bengü",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/90707fb22ced496763a8b63dceb3950b/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/97007",
+    "followers": 315638,
+    "rank": 42
+  },
+  {
+    "id": "91598",
+    "name": "Kenan Dogulu",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c6676b89507b2f30a5ac8d67013beb7e/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/91598",
+    "followers": 129117,
+    "rank": 43
+  },
+  {
+    "id": "211393",
+    "name": "Hadise",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/01a9c3f2fe42c62083ad4268cef30d07/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/211393",
+    "followers": 560414,
+    "rank": 44
+  },
+  {
+    "id": "69680",
+    "name": "Sıla",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/11745dc9752b715fbeb3a9f87000d09d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/69680",
+    "followers": 896674,
+    "rank": 45
+  },
+  {
+    "id": "1511107",
+    "name": "Mabel Matiz",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/200a518f2a5b6e5c3f215111275bac10/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1511107",
+    "followers": 402920,
+    "rank": 46
+  },
+  {
+    "id": "14414317",
+    "name": "Tuğçe Kandemir",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/4eb24d6b85b431912b0bf70702f733c4/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14414317",
+    "followers": 532818,
+    "rank": 47
+  },
+  {
+    "id": "8409310",
+    "name": "Buray",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/7601b814af177071f16380fe73103faa/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/8409310",
+    "followers": 456555,
+    "rank": 48
+  },
+  {
+    "id": "5184050",
+    "name": "Oğuzhan Koç",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/baad1eea05f49ad8aac1da3661863d41/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5184050",
+    "followers": 496144,
+    "rank": 49
+  },
+  {
+    "id": "5331963",
+    "name": "Sefo",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/b0154dcf6895bb174cc2ba061f20481c/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5331963",
+    "followers": 130914,
+    "rank": 50
+  },
+  {
+    "id": "5036323",
+    "name": "Ozbi",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/05b2edd027293213a8a99ceb54615945/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5036323",
+    "followers": 8736,
+    "rank": 51
+  },
+  {
+    "id": "5176422",
+    "name": "Yener Çevik",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/8fa56646eb985d2b33a1693296d88333/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5176422",
+    "followers": 15298,
+    "rank": 52
+  },
+  {
+    "id": "14168745",
+    "name": "Canbay & Wolker",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/fd599497ba8ee11496df1cf5a1a9c2cc/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14168745",
+    "followers": 353015,
+    "rank": 53
+  },
+  {
+    "id": "304665",
+    "name": "Gökhan Türkmen",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/637222df104c0fa3b1bf4ae6f9797aea/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/304665",
+    "followers": 601548,
+    "rank": 54
+  },
+  {
+    "id": "3254",
+    "name": "Tarkan",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/71f42a0742089955587933a5e97c41e7/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/3254",
+    "followers": 533101,
+    "rank": 55
+  },
+  {
+    "id": "5618818",
+    "name": "Burak Bulut",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/115a553f984676dca5bed3978917fb0b/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5618818",
+    "followers": 77184,
+    "rank": 56
+  },
+  {
+    "id": "11052386",
+    "name": "Mert Demir",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/52632ca5008fc35f5e13b32151b35c63/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/11052386",
+    "followers": 22160,
+    "rank": 57
+  },
+  {
+    "id": "13136341",
+    "name": "Reynmen",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/be7874b95ced3aa39d7ba86936751807/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/13136341",
+    "followers": 784167,
+    "rank": 58
+  },
+  {
+    "id": "434722",
+    "name": "Soner Sarıkabadayı",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/0945ff0fc6f2fd93ff1f8e12092581ae/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/434722",
+    "followers": 177789,
+    "rank": 59
+  },
+  {
+    "id": "4842568",
+    "name": "Tan Taşçı",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/d2bbdbdc72ba6aeb7b44631585c63833/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4842568",
+    "followers": 34917,
+    "rank": 60
+  },
+  {
+    "id": "251709842",
+    "name": "Alisan",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/2b4d9f59448ebd0a8203dd05868bcf78/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/251709842",
+    "followers": 11,
+    "rank": 61
+  },
+  {
+    "id": "1204870",
+    "name": "Can Bonomo",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/3bbd316b3ea6c442b3168be1ef595ca4/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1204870",
+    "followers": 84015,
+    "rank": 62
+  },
+  {
+    "id": "4318",
+    "name": "Serdar Ortaç",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/7174fef98d267c96a5d38ff7615727a3/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4318",
+    "followers": 219155,
+    "rank": 63
+  },
+  {
+    "id": "49653902",
+    "name": "Madrigàl",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/db16816f402063f0df8bbd6af0062c4e/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/49653902",
+    "followers": 9937,
+    "rank": 64
+  },
+  {
+    "id": "72749562",
+    "name": "KÖFN",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/d2f667336c05b910e21f38d6981207e8/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/72749562",
+    "followers": 21862,
+    "rank": 65
+  },
+  {
+    "id": "5244855",
+    "name": "Yüzyüzeyken Konuşuruz",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/5aae600b68638b1c1b045ea15c7a7bcf/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5244855",
+    "followers": 239069,
+    "rank": 66
+  },
+  {
+    "id": "6696895",
+    "name": "Adamlar",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/80cc98a7616cdede86fb44304a106bde/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/6696895",
+    "followers": 194713,
+    "rank": 67
+  },
+  {
+    "id": "4392959",
+    "name": "BÜYÜK EV ABLUKADA",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/ee716c92e2233b8306a28832e9920239/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4392959",
+    "followers": 17784,
+    "rank": 68
+  },
+  {
+    "id": "14928241",
+    "name": "Perdenin Ardındakiler",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/7230a91da566c913d93333f721210f81/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14928241",
+    "followers": 81095,
+    "rank": 69
+  },
+  {
+    "id": "14230787",
+    "name": "İkiye On Kala",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/62c4918cf749c5d7dbedf5550be38db8/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/14230787",
+    "followers": 161778,
+    "rank": 70
+  },
+  {
+    "id": "5525623",
+    "name": "Son Feci Bisiklet",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/f29dca5fb0b6c1bddbb73e8cb2685072/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5525623",
+    "followers": 134424,
+    "rank": 71
+  },
+  {
+    "id": "5192842",
+    "name": "Fatma Turgut",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/6cd73b1a945efdc107480ca72fd30bc9/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5192842",
+    "followers": 4770,
+    "rank": 72
+  },
+  {
+    "id": "299117",
+    "name": "Şebnem Ferah",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c926bdf25de4c5051216bd8bf3d10758/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/299117",
+    "followers": 155540,
+    "rank": 73
+  },
+  {
+    "id": "295413",
+    "name": "Cem Adrian",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/eb3231ea3ca901fbd90cf6e4f17a18f3/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/295413",
+    "followers": 383992,
+    "rank": 74
+  },
+  {
+    "id": "304669",
+    "name": "Haluk Levent",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/b0099ad3b700f88525fae5a3770f13fb/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/304669",
+    "followers": 173544,
+    "rank": 75
+  },
+  {
+    "id": "13758",
+    "name": "Barış Manço",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/4198b876473e604e493f0c0573349ca8/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/13758",
+    "followers": 355233,
+    "rank": 76
+  },
+  {
+    "id": "6435",
+    "name": "Cem Karaca",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/1bf64731d68e40c798a0caf1a4e72e5d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/6435",
+    "followers": 243953,
+    "rank": 77
+  },
+  {
+    "id": "328791",
+    "name": "Erkin Koray",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/30ee19f057304ad91680f916c93e6ae0/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/328791",
+    "followers": 98998,
+    "rank": 78
+  },
+  {
+    "id": "325696",
+    "name": "Mirkelam",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/501a2c94e05d24fad1bb540d1a8683d0/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/325696",
+    "followers": 6016,
+    "rank": 79
+  },
+  {
+    "id": "299992",
+    "name": "Gökhan Özen",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/07cd69f7c2ee22c5379b05675427e1bb/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/299992",
+    "followers": 118639,
+    "rank": 80
+  },
+  {
+    "id": "1381155",
+    "name": "Murat Boz",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/0e7e78c2174d6fc9ec72626f87142383/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1381155",
+    "followers": 621720,
+    "rank": 81
+  },
+  {
+    "id": "1171997",
+    "name": "Edis",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/f506aa24a14dabc72c980f2c41bdce24/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/1171997",
+    "followers": 238610,
+    "rank": 82
+  },
+  {
+    "id": "4594851",
+    "name": "İrem Derici",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/6a16509fa57b571caebf338817563543/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4594851",
+    "followers": 455140,
+    "rank": 83
+  },
+  {
+    "id": "10453275",
+    "name": "Derya Uluğ",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/7c900d0401f655f0bfff2dc8ec07d737/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/10453275",
+    "followers": 53817,
+    "rank": 84
+  },
+  {
+    "id": "4138155",
+    "name": "Ece Seçkin",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/e264ba8e3f6ba96d3751eb78d14344cd/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4138155",
+    "followers": 43323,
+    "rank": 85
+  },
+  {
+    "id": "5182572",
+    "name": "Merve Özbey",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/91ab9687abb5342b72361c78ec0c6480/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/5182572",
+    "followers": 385809,
+    "rank": 86
+  },
+  {
+    "id": "331830321",
+    "name": "Demet Akalın",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/80d29dc7d0be9908d0f4631b3c7ed7fe/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/331830321",
+    "followers": 3638,
+    "rank": 87
+  },
+  {
+    "id": "100460",
+    "name": "Gülben Ergen",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/353ed1835c157d557db5bf5ed2c63685/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/100460",
+    "followers": 31532,
+    "rank": 88
+  },
+  {
+    "id": "4308",
+    "name": "Sibel Can",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c9f992586a6ff928c43ecb6546fe0dc8/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/4308",
+    "followers": 207380,
+    "rank": 89
+  },
+  {
+    "id": "96588",
+    "name": "Ebru Yasar",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/cd56aa712d6acbcd6cff8b9bd4fbf0d1/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/96588",
+    "followers": 201460,
+    "rank": 90
+  },
+  {
+    "id": "101748",
+    "name": "Cengiz Kurtoglu",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/c5b3dc951b0b5335b3380f9bb63d9c39/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/101748",
+    "followers": 132518,
+    "rank": 91
+  },
+  {
+    "id": "97047",
+    "name": "Hakan Altun",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/d40b2f314549729a2bf815e255356c5a/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/97047",
+    "followers": 72141,
+    "rank": 92
+  },
+  {
+    "id": "8739478",
+    "name": "Koray Avcı",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/910082ad7c58eb19675e2ad04a83c421/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/8739478",
+    "followers": 679450,
+    "rank": 93
+  },
+  {
+    "id": "13470123",
+    "name": "Melek Mosso",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/db39d7dd961550f0c4e46ad9869ac452/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/13470123",
+    "followers": 98510,
+    "rank": 94
+  },
+  {
+    "id": "9593190",
+    "name": "Sena Sener",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/4d78bd51a5296a1de15275675785a24e/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/9593190",
+    "followers": 16810,
+    "rank": 95
+  },
+  {
+    "id": "8831688",
+    "name": "Canozan",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/2ebf51cec9e59bc18f680e981696a41d/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/8831688",
+    "followers": 56292,
+    "rank": 96
+  },
+  {
+    "id": "222208965",
+    "name": "Dilan Polat",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/0fd4b6998b1fe56274f11a8cd2ca9b14/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/222208965",
+    "followers": 363,
+    "rank": 97
+  },
+  {
+    "id": "117223",
+    "name": "Kibariye",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/cbdc859a2c37f5a7aa8a2d3e546c63e7/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/117223",
+    "followers": 14048,
+    "rank": 98
+  },
+  {
+    "id": "396236",
+    "name": "CEYLAN ERTEM",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/3c50020935e9f517b084cb571f18d93f/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/396236",
+    "followers": 22008,
+    "rank": 99
+  },
+  {
+    "id": "96385",
+    "name": "Ceylan",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/a44a900503611399dde0fb050b77467e/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/96385",
+    "followers": 27976,
+    "rank": 100
+  },
+  {
+    "id": "323312",
+    "name": "Hakkı Bulut",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/bbcbe0e575e5ee988e135a0b8fb7be2c/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/323312",
+    "followers": 11764,
+    "rank": 101
+  },
+  {
+    "id": "86338",
+    "name": "Arif Sag",
+    "imageUrl": "https://cdn-images.dzcdn.net/images/artist/8eac8b27ed6396b7377e2b996a2b2c26/1000x1000-000000-80-0-0.jpg",
+    "deezerUrl": "https://www.deezer.com/artist/86338",
+    "followers": 18359,
+    "rank": 102
+  }
+]
+
