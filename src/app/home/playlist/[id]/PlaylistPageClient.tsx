@@ -628,6 +628,6 @@ export default function PlaylistPageClient({ playlistId }: { playlistId: string 
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </main>
   );
 }
