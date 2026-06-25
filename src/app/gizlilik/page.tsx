@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             <p>Bilgilerinizi korumak için sektör standardı güvenlik önlemleri (şifreleme, erişim kontrolü vb.) alıyoruz. Ancak %100 güvenliğin garanti edilemeyeceğini unutmayın.</p>
 
             <h2>6. Değişiklikler ve İletişim</h2>
-            <p>Bu politikayı zaman zaman güncelleyebiliriz. Tüm değişiklikler bu sayfada yayınlanacaktır. Sorularınız için <a href="mailto:ergilisemih7@gmail.com" className="text-primary hover:underline">ergilisemih7@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
+            <p>Bu politikayı zaman zaman güncelleyebiliriz. Tüm değişiklikler bu sayfada yayınlanacaktır. Sorularınız için <a href="mailto:ergili7@gmail.com" className="text-primary hover:underline">ergili7@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
             </div>
         </main>
     </div>

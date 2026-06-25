@@ -39,7 +39,7 @@ export default function TermsOfServicePage() {
                 <p>Bu koşulları zaman zaman değiştirebiliriz. Değişiklikler bu sayfada yayınlandığı andan itibaren geçerli olacaktır. Hizmeti kullanmaya devam ederek, güncellenmiş koşulları kabul etmiş sayılırsınız.</p>
 
                 <h2>8. İletişim</h2>
-                <p>Koşullarla ilgili sorularınız için <a href="mailto:ergilisemih7@gmail.com" className="text-primary hover:underline">ergilisemih7@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
+                <p>Koşullarla ilgili sorularınız için <a href="mailto:ergili7@gmail.com" className="text-primary hover:underline">ergili7@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
             </div>
         </main>
     </div>

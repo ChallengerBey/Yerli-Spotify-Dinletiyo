@@ -236,7 +236,7 @@ export default function HomePage() {
 
 
       <footer className="text-center text-sm text-muted-foreground py-8 border-t">
-        Dinletiyo Company Semih Ergili 2026
+        Dinletiyo Company  Ergili 2026
       </footer>
     </div>
   );

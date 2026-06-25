@@ -195,7 +195,7 @@ export default function LandingPage() {
 
               <div className="pt-6 border-t border-red-500">
                 <p className="text-red-500 text-sm">
-                  Dinletiyo Company Semih Ergili 2026
+                  Dinletiyo Company  Ergili 2026
                 </p>
               </div>
             </div>
@@ -313,7 +313,7 @@ export default function LandingPage() {
 
       <footer className="container py-8 mt-16 border-t border-border/40">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">Dinletiyo Company Semih Ergili 2026</p>
+          <p className="text-sm text-muted-foreground">Dinletiyo Company  Ergili 2026</p>
           <div className="flex gap-4">
             <Link href="/gizlilik" className="text-sm hover:underline">Gizlilik</Link>
             <Link href="/kosullar" className="text-sm hover:underline">Koşullar</Link>

@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   title: 'Dinletiyo - Türkiye\'nin En Büyük Müzik Platformu | Ücretsiz Müzik Dinle',
   description: 'Dinletiyo ile milyonlarca Türkçe ve yabancı şarkıyı ücretsiz dinleyin. Pop, rock, rap, arabesk ve daha fazlası. Arkadaşlarınızla playlist paylaşın, yeni müzikler keşfedin.',
   keywords: 'müzik dinle, ücretsiz müzik, Türkçe müzik, playlist, şarkı dinle, müzik platformu, online müzik, Türkiye müzik, pop müzik, rock müzik',
-  authors: [{ name: 'Semih Ergili', url: 'https://dinletiyo.com' }],
-  creator: 'Semih Ergili',
+  authors: [{ name: ' Ergili', url: 'https://dinletiyo.com' }],
+  creator: ' Ergili',
   publisher: 'Topluyo Inc',
   robots: 'index, follow',
   icons: {
@@ -88,7 +88,7 @@ export default function RootLayout({
               },
               author: {
                 '@type': 'Person',
-                name: 'Semih Ergili'
+                name: ' Ergili'
               },
               publisher: {
                 '@type': 'Organization',

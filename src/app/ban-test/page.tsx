@@ -50,7 +50,7 @@ export default function BanTestPage() {
             
             <div className="pt-6 border-t border-red-500">
               <p className="text-red-500 text-sm">
-                Dinletiyo Company Semih Ergili 2026
+                Dinletiyo Company  Ergili 2026
               </p>
             </div>
           </div>
